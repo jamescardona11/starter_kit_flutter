@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:http/retry.dart';
 
 import '../models/models.dart';
 import 'i_projectile_client.dart';
 
 class HttpClient extends IProjectileClient<http.Request> {
+  HttpClient(super.config);
+
   final http.Client _httpClient = http.Client();
 
   @override
@@ -33,9 +34,11 @@ class HttpClient extends IProjectileClient<http.Request> {
 
   @override
   http.Request transformProjectileRequest(ProjectileRequest request) {
+    final url = RequestUrl.fromRequest(config.baseUrl, request);
+
     final httpRequest = http.Request(
       request.method.value,
-      request.uri,
+      url.getUri(),
     );
 
     httpRequest.headers
@@ -46,6 +49,4 @@ class HttpClient extends IProjectileClient<http.Request> {
 
     return httpRequest;
   }
-
-  final String postsURL = "https://jsonplaceholder.typicode.com/posts";
 }

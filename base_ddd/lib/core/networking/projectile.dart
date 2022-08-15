@@ -1,28 +1,34 @@
+import 'package:base_ddd/core/networking/request_builder.dart';
+
 import 'models/models.dart';
 
 class Projectile {
-  DeliveryRequest request(ProjectileRequest request) {
-    return DeliveryRequest();
+  final BaseConfig? _config;
+  ProjectileRequest? _request;
+
+  Projectile([this._config]);
+
+  Projectile request(ProjectileRequest request) {
+    _request = request;
+    return this;
   }
 
-  Target target(String target) {
-    return Target(target);
+  void fire() {
+    _request = null;
   }
-
-  // late ProjectileRequest _request;
-
 }
 
 class DeliveryRequest {}
 
 void c() {
-  Projectile()
-      .target('projectileproject/src/master/projectile/src')
-      .way(Method.GET)
-      .headers({}).fire();
+  final projectile = Projectile();
 
-  Projectile().request(ProjectileRequest(
-    url: 'projectileproject/src/master/projectile/src',
-    method: Method.GET,
-  ));
+  projectile
+      .request(
+        RequestBuilder.target('_target')
+            .mode(Method.GET)
+            .defaultHeaders()
+            .query({}).urlParams({}).build(),
+      )
+      .fire();
 }
