@@ -1,7 +1,5 @@
-import 'package:base_ddd/core/networking/projectile_shot.dart';
-import 'package:base_ddd/core/networking/request_builder.dart';
-
-import 'models/models.dart';
+import 'request/request.dart';
+import 'projectile_shot.dart';
 
 class Projectile {
   final BaseConfig? _config;

@@ -1,4 +1,4 @@
-import 'models/models.dart';
+import 'request.dart';
 
 class RequestBuilder {
   late final String _target;

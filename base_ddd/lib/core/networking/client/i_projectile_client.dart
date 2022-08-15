@@ -1,4 +1,4 @@
-import '../models/models.dart';
+import '../request/request.dart';
 
 abstract class IProjectileClient<R extends Object?> {
   final IProjectileConfig config;

@@ -1,5 +1,5 @@
 export 'config.dart';
 export 'content_type.dart';
 export 'method.dart';
-export 'request.dart';
-export 'response.dart';
+export 'projectile_request.dart';
+export 'request_builder.dart';

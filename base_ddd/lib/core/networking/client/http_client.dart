@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../models/models.dart';
+import '../request/request.dart';
 import 'i_projectile_client.dart';
 
 class HttpClient extends IProjectileClient<http.Request> {
