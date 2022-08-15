@@ -1,7 +1,8 @@
 import 'failure.dart';
 import 'success.dart';
 
-typedef Completion<T> = void Function(T value);
+typedef Error<T> = void Function(T e);
+typedef Completion<T> = void Function(T s);
 
 /// A value that represents either a success or a failure, including an
 /// associated value in each case.
@@ -36,7 +37,7 @@ abstract class Result<F, S> {
   }
 
   /// Returns a new value of [Result] from closure
-  void result(Completion<S> success, Completion<F> failure) {
+  void fold(Error<F> failure, Completion<S> success) {
     if (isSuccess) {
       final right = this as Success<F, S>;
       success(right.value);
