@@ -2,18 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:base_ddd/core/networking/result/failure.dart';
-import 'package:base_ddd/core/networking/result/success.dart';
 import 'package:http/http.dart' as http;
 
 import '../request/request.dart';
 import '../response/response.dart';
-import '../result/result.dart';
+import '../result/export.dart';
 import 'i_projectile_client.dart';
 
-class HttpClient extends IProjectileClient<http.Request> {
-  HttpClient(super.config);
+class HttpClient
+    extends IProjectileClient<Result<IProjectileError, IProjectileResponse>> {
+  HttpClient([this.config = const BaseConfig()]);
 
+  final BaseConfig config;
   final http.Client _httpClient = http.Client();
 
   @override
@@ -26,23 +26,25 @@ class HttpClient extends IProjectileClient<http.Request> {
       final httpSendRequest =
           await _httpClient.send(httpRequest).timeout(config.timeout);
 
-      final httpResponse = await http.Response.fromStream(httpSendRequest);
-
-      final statusCode = httpResponse.statusCode;
-      final responseHeaders = httpResponse.headers;
-      var response = jsonDecode(httpResponse.body) as Map;
+      final response = await http.Response.fromStream(httpSendRequest);
+      final data = jsonDecode(response.body) as Map;
 
       final base = BaseResponse(
-        statusCode: statusCode,
-        headers: responseHeaders,
-        body: response,
-        originalData: httpResponse.body,
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: data,
+        originalData: response.body,
         originalRequest: request,
       );
 
+      // if (statusCode < 300)
       return Success(base.convert());
 
-      // Failure('value');
+      // return Failure(
+      //   FailureRequest(
+      //     base.convert() as ErrorResponse,
+      //   ),
+      // );
     } on TimeoutException catch (error, stackTrace) {
       return Failure(
         TimeoutError(
@@ -67,10 +69,11 @@ class HttpClient extends IProjectileClient<http.Request> {
           request: request,
         ),
       );
+    } finally {
+      _httpClient.close();
     }
   }
 
-  @override
   http.Request transformProjectileRequest(ProjectileRequest request) {
     final uri = request.getUri(config.baseUrl);
 
@@ -81,7 +84,7 @@ class HttpClient extends IProjectileClient<http.Request> {
 
     httpRequest.headers
       ..addAll(request.headers)
-      ..addAll({'Content-Type': request.contentType.value});
+      ..addAll({'content-type': request.contentType.value});
 
     httpRequest.bodyFields = request.data;
 

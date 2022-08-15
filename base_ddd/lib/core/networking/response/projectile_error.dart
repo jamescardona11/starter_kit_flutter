@@ -1,14 +1,15 @@
-import 'package:base_ddd/core/networking/request/request.dart';
+import '../request/request.dart';
+import 'projectile_response.dart';
 
 abstract class IProjectileError {
-  final String cause;
-  final StackTrace stackTrace;
-  final ProjectileRequest request;
+  final String? cause;
+  final StackTrace? stackTrace;
+  final ProjectileRequest? request;
 
   const IProjectileError({
-    required this.cause,
-    required this.stackTrace,
-    required this.request,
+    this.cause,
+    this.stackTrace,
+    this.request,
   });
 }
 
@@ -35,3 +36,12 @@ class UnknownError extends IProjectileError {
     required ProjectileRequest request,
   }) : super(cause: cause, stackTrace: stackTrace, request: request);
 }
+
+
+// class FailureRequest extends IProjectileError {
+//   final ErrorResponse base;
+
+//   const FailureRequest(
+//     this.base,
+//   );
+// }

@@ -23,6 +23,8 @@ dependencies:
 
   #networking
   http: ^0.13.5
+  dio: ^4.0.6
+
 
   #navigation
   # auto_route: ^4.2.1

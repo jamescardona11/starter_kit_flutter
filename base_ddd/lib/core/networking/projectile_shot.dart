@@ -1,4 +1,4 @@
-import 'package:base_ddd/core/networking/client/i_projectile_client.dart';
+import 'client/i_projectile_client.dart';
 
 class ConfigShot {
   final IProjectileClient? http;
