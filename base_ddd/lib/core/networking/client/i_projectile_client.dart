@@ -8,10 +8,4 @@ abstract class IProjectileClient<R extends Object?> {
   Future<void> sendRequest(ProjectileRequest request);
 
   R transformProjectileRequest(ProjectileRequest request);
-
-  // String transformToUrl(String requestUrl);
-
-  // Uri transformToUri(String requestUrl);
-
-  // addDynamicAddressParams(String requestUrl);
 }

@@ -34,11 +34,11 @@ class HttpClient extends IProjectileClient<http.Request> {
 
   @override
   http.Request transformProjectileRequest(ProjectileRequest request) {
-    final url = RequestUrl.fromRequest(config.baseUrl, request);
+    final uri = request.getUri(config.baseUrl);
 
     final httpRequest = http.Request(
       request.method.value,
-      url.getUri(),
+      uri,
     );
 
     httpRequest.headers
