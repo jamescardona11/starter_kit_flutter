@@ -21,6 +21,9 @@ dependencies:
   #state management
   provider: ^6.0.3
 
+  #networking
+  http: ^0.13.5
+
   #navigation
   # auto_route: ^4.2.1
 

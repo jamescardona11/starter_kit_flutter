@@ -22,6 +22,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // void a() {
+    //   final a = Projectile()
+    //       .method(Method.get)
+    //       .target('target')
+    //       .header('', 'value')
+    //       .header('key', 'value');
+    // }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('AppBar Text'),
