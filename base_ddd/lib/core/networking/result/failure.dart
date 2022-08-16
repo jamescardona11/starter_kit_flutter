@@ -10,10 +10,10 @@ class Failure<F, S> extends Result<F, S> {
   Failure(this.value);
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is Failure<F, S> && o.value == value;
+    return other is Failure<F, S> && other.value == value;
   }
 
   @override

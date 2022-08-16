@@ -7,8 +7,7 @@ import '../response/response.dart';
 import '../result/export.dart';
 import 'i_projectile_client.dart';
 
-class DioClient
-    extends IProjectileClient<Result<IProjectileError, IProjectileResponse>> {
+class DioClient extends IProjectileClient {
   final Dio _dioClient;
 
   DioClient(this._dioClient);

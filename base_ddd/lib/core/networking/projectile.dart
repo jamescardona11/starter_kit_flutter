@@ -1,34 +1,40 @@
+import 'client/i_projectile_client.dart';
 import 'request/request.dart';
 import 'projectile_shot.dart';
+import 'response/projectile_error.dart';
+import 'response/projectile_response.dart';
+import 'result/result.dart';
 
 class Projectile {
-  final BaseConfig? _config;
-  final ConfigShot? _configShot;
+  final Map<ShotType, IProjectileClient> _shot;
   ProjectileRequest? _request;
 
-  Projectile([this._config, this._configShot]);
+  Projectile([this._shot = const {}]);
 
   Projectile request(ProjectileRequest request) {
     _request = request;
     return this;
   }
 
-  void fire(ShotType shot) {
+  Future<Result<IProjectileError, IProjectileResponse>> fire(
+      [ShotType shot = ShotType.def]) {
+    _validRequestBeforeSending(shot);
+
+    final result = _shot[shot]!.sendRequest(_request!);
     _request = null;
+
+    return result;
   }
-}
 
-class DeliveryRequest {}
+  void _validRequestBeforeSending(ShotType shot) {
+    if (_request == null) {
+      throw Exception(
+          'Make sure that result [isSuccess] before accessing [success]');
+    }
 
-void c() {
-  final projectile = Projectile();
-
-  projectile
-      .request(
-        RequestBuilder.target('_target')
-            .mode(Method.GET)
-            .defaultHeaders()
-            .query({}).urlParams({}).build(),
-      )
-      .fire(ShotType.http);
+    if (!_shot.containsKey(shot)) {
+      throw Exception(
+          'Make sure that result [isSuccess] before accessing [success]');
+    }
+  }
 }

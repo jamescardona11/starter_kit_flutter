@@ -1,5 +1,4 @@
 import '../request/request.dart';
-import 'projectile_response.dart';
 
 abstract class IProjectileError {
   final String? cause;

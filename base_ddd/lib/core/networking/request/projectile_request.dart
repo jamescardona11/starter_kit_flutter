@@ -10,7 +10,7 @@ class ProjectileRequest {
   final Map<String, String> query;
   final Map<String, String> data;
 
-  final _moreThanTwoSlashesRegex = RegExp('\/{2,}');
+  final _moreThanTwoSlashesRegex = RegExp('/{2,}');
 
   ProjectileRequest({
     required this.target,

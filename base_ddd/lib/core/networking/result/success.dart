@@ -10,10 +10,10 @@ class Success<F, S> extends Result<F, S> {
   Success(this.value);
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is Success<F, S> && o.value == value;
+    return other is Success<F, S> && other.value == value;
   }
 
   @override

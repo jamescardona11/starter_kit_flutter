@@ -52,7 +52,7 @@ abstract class Result<F, S> {
   /// Maps a [Result<F, S>] to [Result<U, S>] by applying a function
   /// to a contained [Success] value, leaving an [Failure] value untouched.
   /// This function can be used to compose the results of two functions.
-  Result<F, U> map<F, U>(U Function(S) transform) {
+  Result<F, U> map<E, U>(U Function(S) transform) {
     if (isSuccess) {
       final right = this as Success<F, S>;
       return Success(transform(right.value));
@@ -68,7 +68,7 @@ abstract class Result<F, S> {
   /// This function can be used to pass through a successful result
   /// while applying transformation to [Failure].
   ///
-  Result<E, S> mapError<E, S>(E Function(F) transform) {
+  Result<E, S> mapError<E, C>(E Function(F) transform) {
     if (isSuccess) {
       final right = this as Success<F, S>;
       return Success(right.value);
@@ -89,7 +89,7 @@ abstract class Result<F, S> {
   /// `flatMap` with a transformation that returns an result type.
   ///
   ///  ```
-  Result<F, U> flatMap<F, U>(Result<F, U> Function(S) transform) {
+  Result<F, U> flatMap<E, U>(Result<F, U> Function(S) transform) {
     if (isSuccess) {
       final right = this as Success<F, S>;
       return transform(right.value);
@@ -105,7 +105,7 @@ abstract class Result<F, S> {
   /// This function can be used to pass through a successful result
   /// while unboxing [Failure] and applying transformation to it.
   ///
-  Result<E, S> flatMapError<E, S>(Result<E, S> Function(F) transform) {
+  Result<E, S> flatMapError<E, C>(Result<E, S> Function(F) transform) {
     if (isSuccess) {
       final right = this as Success<F, S>;
       return Success(right.value);
