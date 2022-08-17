@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'core/logger/logger.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {

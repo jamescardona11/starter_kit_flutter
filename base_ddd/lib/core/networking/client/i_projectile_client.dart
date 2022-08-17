@@ -6,7 +6,6 @@ import '../result/result.dart';
 abstract class IProjectileClient {
   IProjectileClient();
 
-  // Future<R> sendRequest(ProjectileRequest request);
   Future<Result<IProjectileError, IProjectileResponse>> sendRequest(
       ProjectileRequest request);
 }
