@@ -1,4 +1,4 @@
-import '../request/request.dart';
+import '../request_models/request_models.dart';
 
 abstract class IProjectileError {
   final String? cause;

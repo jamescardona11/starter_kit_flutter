@@ -1,3 +1,5 @@
+import 'content_type.dart';
+import 'method.dart';
 import 'request.dart';
 
 class RequestBuilder {

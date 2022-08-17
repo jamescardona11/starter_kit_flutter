@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import '../misc/misc.dart';
-import '../request/request.dart';
-import '../response/response.dart';
-import '../result/export.dart';
+import '../request_models/request_models.dart';
+import '../response_models/response_models.dart';
+import '../result_models/result_models.dart';
 import 'i_projectile_client.dart';
 
 class HttpClient extends IProjectileClient {

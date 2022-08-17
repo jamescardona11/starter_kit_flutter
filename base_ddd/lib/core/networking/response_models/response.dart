@@ -1,4 +1,4 @@
-import '../request/request.dart';
+import '../request_models/request.dart';
 
 abstract class IProjectileResponse {
   final int? statusCode;

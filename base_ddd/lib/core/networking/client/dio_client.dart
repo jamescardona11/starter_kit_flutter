@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'dart:async';
 import 'dart:io';
 
-import '../request/request.dart';
-import '../response/response.dart';
-import '../result/export.dart';
+import '../request_models/request_models.dart';
+import '../response_models/response_models.dart';
+import '../result_models/result_models.dart';
 import 'i_projectile_client.dart';
 
 class DioClient extends IProjectileClient {

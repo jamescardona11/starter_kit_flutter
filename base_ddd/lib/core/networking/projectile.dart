@@ -1,8 +1,7 @@
 import 'client/i_projectile_client.dart';
-import 'request/request.dart';
-import 'response/projectile_error.dart';
-import 'response/projectile_response.dart';
-import 'result/result.dart';
+import 'request_models/request_models.dart';
+import 'response_models/response_models.dart';
+import 'result_models/result.dart';
 
 class Projectile {
   final IProjectileClient? client;

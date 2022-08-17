@@ -1,7 +1,6 @@
-import '../request/request.dart';
-// import '../response/projectile_error.dart';
-import '../response/response.dart';
-import '../result/result.dart';
+import '../request_models/request_models.dart';
+import '../response_models/response_models.dart';
+import '../result_models/result_models.dart';
 
 abstract class IProjectileClient {
   IProjectileClient();
