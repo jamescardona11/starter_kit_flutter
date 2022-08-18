@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../misc/misc.dart';
 import '../request_models/request_models.dart';
 import '../response_models/response_models.dart';
 import '../result_models/result_models.dart';
@@ -20,7 +19,6 @@ class HttpClient extends IProjectileClient {
   Future<Result<IProjectileError, IProjectileResponse>> sendRequest(
       ProjectileRequest request) async {
     try {
-      // query into the URI
       final httpRequest = transformProjectileRequest(request);
 
       final httpSendRequest =

@@ -1,10 +1,11 @@
 import 'client/i_projectile_client.dart';
+import 'interceptors/interceptor_contract.dart';
 import 'request_models/request_models.dart';
-import 'response_models/response_models.dart';
-import 'result_models/result.dart';
 
-class Projectile {
+//Result<IProjectileError, IProjectileResponse>
+class Projectile<T> {
   final IProjectileClient? client;
+  final List<InterceptorContract> _interceptors = [];
   ProjectileRequest? _request;
 
   Projectile([this.client]);
@@ -14,10 +15,20 @@ class Projectile {
     return this;
   }
 
-  Future<Result<IProjectileError, IProjectileResponse>> fire() {
+  Projectile addCustomInterceptors(List<InterceptorContract> interceptors) {
+    _interceptors.addAll(interceptors);
+    return this;
+  }
+
+  Projectile addCustomInterceptor(InterceptorContract interceptor) {
+    _interceptors.add(interceptor);
+    return this;
+  }
+
+  Future<T> fire() {
     _validRequestBeforeSending();
 
-    final result = client!.sendRequest(_request!);
+    final result = client!.sendRequest(_request!, _interceptors);
     _request = null;
 
     return result;
