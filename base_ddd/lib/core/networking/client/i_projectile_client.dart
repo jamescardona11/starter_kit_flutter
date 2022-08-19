@@ -37,11 +37,14 @@ abstract class IProjectileClient
   @override
   Future<Result<ResponseError, ResponseSuccess>> sendRequest(
     ProjectileRequest request,
-    Completer<Result<ResponseError, ResponseSuccess>> _completer, [
+    Completer<Result<ResponseError, ResponseSuccess>> completer, [
     List<ProjectileInterceptor> interceptors = const [],
   ]) {
     listInterceptors = interceptors;
-    completer = _completer;
+    this.completer = completer;
+
+    request.setConfig = config;
+    request.addDefaultHeaders();
 
     return _sendRequest(request);
   }

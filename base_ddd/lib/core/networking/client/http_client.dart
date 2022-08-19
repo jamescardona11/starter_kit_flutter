@@ -79,19 +79,7 @@ class HttpClient extends IProjectileClient {
   http.Request _transformProjectileRequest(ProjectileRequest request) {
     final uri = request.getUri(config.baseUrl);
 
-    final method =
-        request.isMultipart ? Method.POST.value : request.method.value;
-
-    final httpRequest = http.Request(
-      method,
-      uri,
-    );
-
-    request.headers
-      ..addContentType(request.contentType.value)
-      ..addBaseConfig(config);
-
-    httpRequest
+    final httpRequest = http.Request(request.methodStr, uri)
       ..headers.addAll(request.headers.asMap)
       ..bodyFields = request.data;
 
@@ -99,12 +87,11 @@ class HttpClient extends IProjectileClient {
   }
 
   Future<http.MultipartRequest> _transformProjectileMultipartRequest(
-      ProjectileRequest request) async {
+    ProjectileRequest request,
+  ) async {
     final uri = request.getUri(config.baseUrl);
 
-    request.headers.addContentType(request.contentType.value);
-
-    final httpRequest = http.MultipartRequest(Method.POST.value, uri)
+    final httpRequest = http.MultipartRequest(request.methodStr, uri)
       ..headers.addAll(request.headers.asMap)
       ..fields.addAll(request.data)
       ..files.add(await createNativeMultipartObject(request.multipart!));

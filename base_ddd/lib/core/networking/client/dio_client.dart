@@ -19,16 +19,12 @@ class DioClient extends IProjectileClient {
   Future<ResponseSuccess> createRequest(ProjectileRequest request) async {
     final url = request.getUrl();
 
-    request.headers
-      ..addContentType(request.contentType.value)
-      ..addBaseConfig(config);
-
     final data = request.isMultipart ? _createFromMap(request) : request.data;
 
     final response = await _dioClient.request(
       url,
       options: Options(
-        method: request.method.value,
+        method: request.methodStr,
         headers: request.headers.asMap,
         contentType: request.contentType.value,
       ),

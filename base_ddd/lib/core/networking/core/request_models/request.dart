@@ -1,3 +1,5 @@
+import 'package:base_ddd/core/networking/core/misc_models/config.dart';
+
 import '../misc_models/headers.dart';
 import 'content_type.dart';
 import 'method.dart';
@@ -15,6 +17,8 @@ class ProjectileRequest {
   final Map<String, String> query;
   final Map<String, String> data;
 
+  BaseConfig? _config;
+
   final _moreThanTwoSlashesRegex = RegExp('/{2,}');
 
   ProjectileRequest({
@@ -29,6 +33,14 @@ class ProjectileRequest {
     this.query = const {},
     this.data = const {},
   });
+
+  set setConfig(BaseConfig config) => _config = config;
+
+  void addDefaultHeaders() {
+    headers
+      ..addContentType(contentType.value)
+      ..addBaseConfig(_config ?? const BaseConfig());
+  }
 
   String get methodStr => isMultipart ? Method.POST.value : method.value;
 
