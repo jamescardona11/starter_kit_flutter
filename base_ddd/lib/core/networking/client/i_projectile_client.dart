@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import '../interceptors/interceptors.dart';
 import '../request_models/request_models.dart';
@@ -8,76 +7,107 @@ import '../result_models/result_models.dart';
 
 abstract class IClient<T> {
   final completer = Completer<T>();
+  List<InterceptorContract> listInterceptors = const [];
 
-  Future<T> sendRequest(
+  Future<T> runRequest(
     ProjectileRequest request,
   );
 
   void finallyBlock();
 }
 
+abstract class IRequestState {
+  Future<ProjectileRequest> onRequest(ProjectileRequest request);
+
+  Future<void> onResponse(ProjectileResponse response);
+
+  Future<void> onError(ProjectileError projectileError);
+}
+
 abstract class IProjectileClient
-    extends IClient<Result<IProjectileError, IProjectileResponse>>
-    with RunInterceptor {
-  IProjectileClient();
+    extends IClient<Result<ProjectileError, ProjectileResponse>>
+    with RunInterceptor
+    implements IRequestState {
+  /// override this to implement request
+  /// don't catch exception if you want if catch by default by `runRequest`
+  Future<ProjectileResponse> createRequest(ProjectileRequest request);
 
   @override
-  Future<Result<IProjectileError, IProjectileResponse>> sendRequest(
+  Future<Result<ProjectileError, ProjectileResponse>> runRequest(
     ProjectileRequest request, [
     List<InterceptorContract> interceptors = const [],
   ]) async {
-    // run before request interceptors
+    listInterceptors = interceptors;
 
-    final response = await _catchRequest(request);
+    final requestData = await onRequest(request);
 
-    // run interceptor for error or response
-    response.fold((e) {}, (s) {});
-
-    // return final response
-    return response;
-  }
-
-  Future<Result<IProjectileError, IProjectileResponse>> runRequest(
-      ProjectileRequest request);
-
-  Future<Result<IProjectileError, IProjectileResponse>> _catchRequest(
-      ProjectileRequest request) {
     try {
-      completer.complete(runRequest(request));
-    } on TimeoutException catch (error, stackTrace) {
-      completer.complete(
-        Failure(
-          TimeoutError(
-            cause: error.message ?? 'timeout',
-            stackTrace: stackTrace,
-            request: request,
-          ),
-        ),
-      );
-    } on SocketException catch (error, stackTrace) {
-      completer.complete(
-        Failure(
-          NoInternetConnectionError(
-            cause: error.message,
-            stackTrace: stackTrace,
-            request: request,
-          ),
-        ),
-      );
-    } on Exception catch (error, stackTrace) {
-      completer.complete(
-        Failure(
-          UnknownError(
-            cause: error.toString(),
-            stackTrace: stackTrace,
-            request: request,
-          ),
-        ),
+      _responseFromCreate(requestData);
+    } catch (error, stackTrace) {
+      _onCatchError(
+        requestData,
+        error,
+        stackTrace,
       );
     } finally {
       finallyBlock();
     }
 
     return completer.future;
+  }
+
+  @override
+  Future<ProjectileRequest> onRequest(ProjectileRequest request) =>
+      runRequestInterceptors(listInterceptors, request);
+
+  @override
+  Future<void> onResponse(ProjectileResponse responseData) async {
+    final response =
+        await runResponseInterceptors(listInterceptors, responseData);
+    completer.complete(Success(response));
+  }
+
+  @override
+  Future<void> onError(ProjectileError error) async {
+    final errorData = await runErrorInterceptors(listInterceptors, error);
+    completer.complete(Failure(errorData));
+  }
+
+  Future<void> _responseFromCreate(
+    ProjectileRequest requestData,
+  ) async {
+    final responseRequest = await createRequest(requestData);
+
+    if (responseRequest.isSuccess) {
+      onResponse(responseRequest);
+    } else {
+      _onResponseError(requestData, responseRequest);
+    }
+  }
+
+  Future<void> _onResponseError(
+    ProjectileRequest request,
+    ProjectileResponse responseRequest,
+  ) async {
+    onError(
+      ProjectileError(
+        request: request,
+        error: responseRequest,
+      ),
+    );
+  }
+
+  Future<void> _onCatchError(
+    ProjectileRequest request,
+    Object error,
+    StackTrace stackTrace,
+  ) async {
+    onError(
+      ProjectileError(
+        request: request,
+        error: error,
+        stackTrace: stackTrace,
+      ),
+    );
   }
 }

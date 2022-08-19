@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
 import '../request_models/request_models.dart';
 import '../response_models/response_models.dart';
-import '../result_models/result_models.dart';
 import 'i_projectile_client.dart';
 
 class HttpClient extends IProjectileClient {
@@ -16,60 +14,29 @@ class HttpClient extends IProjectileClient {
   final http.Client _httpClient = http.Client();
 
   @override
-  Future<Result<IProjectileError, IProjectileResponse>> sendRequest(
-      ProjectileRequest request) async {
-    try {
-      final httpRequest = transformProjectileRequest(request);
+  Future<ProjectileResponse> createRequest(
+    ProjectileRequest request,
+  ) async {
+    final httpRequest = transformProjectileRequest(request);
 
-      final httpSendRequest =
-          await _httpClient.send(httpRequest).timeout(config.timeout);
+    final httpSendRequest =
+        await _httpClient.send(httpRequest).timeout(config.timeout);
 
-      final response = await http.Response.fromStream(httpSendRequest);
-      final data = jsonDecode(response.body) as Map;
+    final response = await http.Response.fromStream(httpSendRequest);
+    final data = jsonDecode(response.body) as Map;
 
-      final base = BaseResponse(
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: data,
-        originalData: response.body,
-        originalRequest: request,
-      );
+    return ProjectileResponse(
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: data,
+      originalData: response.body,
+      originalRequest: request,
+    );
+  }
 
-      // if (statusCode < 300)
-      return Success(base.convert());
-
-      // return Failure(
-      //   FailureRequest(
-      //     base.convert() as ErrorResponse,
-      //   ),
-      // );
-    } on TimeoutException catch (error, stackTrace) {
-      return Failure(
-        TimeoutError(
-          cause: error.message ?? 'timeout',
-          stackTrace: stackTrace,
-          request: request,
-        ),
-      );
-    } on SocketException catch (error, stackTrace) {
-      return Failure(
-        NoInternetConnectionError(
-          cause: error.message,
-          stackTrace: stackTrace,
-          request: request,
-        ),
-      );
-    } on Exception catch (error, stackTrace) {
-      return Failure(
-        UnknownError(
-          cause: error.toString(),
-          stackTrace: stackTrace,
-          request: request,
-        ),
-      );
-    } finally {
-      _httpClient.close();
-    }
+  @override
+  void finallyBlock() {
+    _httpClient.close();
   }
 
   http.Request transformProjectileRequest(ProjectileRequest request) {

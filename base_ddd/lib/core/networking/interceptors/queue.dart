@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'dart:collection';
 
-typedef Next<T> = Future<T> Function(T value);
+typedef Closure<T> = Future<T> Function(T value);
 
+//REF https://stackoverflow.com/questions/62878704/how-to-implement-an-async-task-queue-with-multiple-concurrent-workers-async-in
 abstract class IQueue<T> {
   Future<T> run(T initialData);
 
-  void add(Next<T> next);
+  void add(Closure<T> closure);
 
-  void addAll(List<Next<T>> nextList);
+  void addAll(List<Closure<T>> closures);
+
+  void clear();
 }
 
 class FutureQueue<T> implements IQueue<T> {
@@ -16,21 +19,19 @@ class FutureQueue<T> implements IQueue<T> {
   // final List<_QueueItem<T>> _nextCycle = [];
 
   @override
-  void add(Next<T> closure) {
+  void add(Closure<T> closure) {
     _nextCycle.add(_QueueItem<T>(closure));
   }
 
   @override
-  void addAll(List<Next<T>> closures) {
+  void addAll(Iterable<Closure<T>> closures) {
     _nextCycle.addAll(closures.map((e) => _QueueItem<T>(e)));
   }
 
-  Future<T> _process(T data) {
-    final item = _nextCycle.removeFirst();
-    final completer = item.completer;
-    item.execute(data);
-
-    return completer.future;
+  /// Verify in the future that queue its no running
+  @override
+  void clear() {
+    _nextCycle.clear();
   }
 
   @override
@@ -50,20 +51,28 @@ class FutureQueue<T> implements IQueue<T> {
 
     return processCompleter.future;
   }
+
+  Future<T> _process(T data) {
+    final item = _nextCycle.removeFirst();
+    final completer = item.completer;
+    item.execute(data);
+
+    return completer.future;
+  }
 }
 
 class _QueueItem<T> {
   _QueueItem(
-    this.next,
+    this.closure,
   );
 
-  final Next<T> next;
+  final Closure<T> closure;
   final Completer<T> completer = Completer<T>();
 
   Future<void> execute(T data) async {
     T result;
     try {
-      result = await next.call(data);
+      result = await closure.call(data);
       completer.complete(result);
       await Future.microtask(() {});
     } catch (e) {

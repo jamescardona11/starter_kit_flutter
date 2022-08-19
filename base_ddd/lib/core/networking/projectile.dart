@@ -15,7 +15,7 @@ class Projectile<T> {
     return this;
   }
 
-  Projectile addCustomInterceptors(List<InterceptorContract> interceptors) {
+  Projectile addCustomInterceptors(Iterable<InterceptorContract> interceptors) {
     _interceptors.addAll(interceptors);
     return this;
   }

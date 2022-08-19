@@ -13,7 +13,7 @@ class DioClient extends IProjectileClient {
   DioClient(this._dioClient);
 
   @override
-  Future<Result<IProjectileError, IProjectileResponse>> sendRequest(
+  Future<Result<IProjectileError, IProjectileResponse>> createRequest(
       ProjectileRequest request) async {
     try {
       final url = request.getString();
