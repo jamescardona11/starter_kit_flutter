@@ -51,6 +51,12 @@ class HttpClient extends IProjectileClient {
     );
   }
 
+  // if (!jsonResponse) {
+  //   body = await response.stream.toBytes();
+  // } else {
+  //   body = await response.stream.transform(utf8.decoder).join();
+  // }
+
   @override
   Future<http.MultipartFile> createNativeMultipartObject(
     MultipartFileWrapper multipartFileWrapper,

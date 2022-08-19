@@ -1,6 +1,8 @@
 import 'failure.dart';
 import 'success.dart';
 
+// inspired by https://github.com/epam-cross-platform-lab/dart_result_type
+
 typedef Error<T> = void Function(T e);
 typedef Completion<T> = void Function(T s);
 

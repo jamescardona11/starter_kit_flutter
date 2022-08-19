@@ -17,7 +17,7 @@ class ResponseSuccess {
     required this.headers,
     required this.data,
     required this.originalRequest,
-    this.statusCode = -1,
+    this.statusCode,
     // this.type = PResponseType.unknown,
     // this.originalData,
   });
@@ -26,7 +26,7 @@ class ResponseSuccess {
     required dynamic data,
     required Map<String, dynamic> headers,
     required ProjectileRequest originalRequest,
-    int? statusCode = -1,
+    int? statusCode,
     // this.originalData,
   }) =>
       ResponseSuccess(
@@ -42,14 +42,25 @@ class ResponseSuccess {
 
   String? get dataString => isPlain ? data as String : null;
 
-  bool get isSuccess =>
-      statusCode != null && statusCode! != -1 && statusCode! < 300;
-
   bool get isJson => originalRequest.responseType.isJson;
 
   bool get isPlain => originalRequest.responseType.isPlain;
 
   bool get isBytes => originalRequest.responseType.isBytes;
+
+  bool get isSuccess =>
+      statusCode != null &&
+      ![
+        400, // Bad Request
+        401, // Unauthorized
+        402, // Payment Required
+        403, // Forbidden
+        404, // Not Found
+        405, // Method Not Allowed,
+        413, // Request Entity Too Large
+        414, // Request URI Too Long,
+        415, // Unsupported Media Type
+      ].contains(statusCode);
 
   @override
   String toString() =>
