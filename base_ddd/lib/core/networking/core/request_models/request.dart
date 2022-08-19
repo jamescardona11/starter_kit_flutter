@@ -5,6 +5,7 @@ import 'multipart_file.dart';
 
 class ProjectileRequest {
   final String target;
+  final bool ignoreBaseUrl;
   final Method method;
   final ContentType contentType;
   final Headers headers;
@@ -20,6 +21,7 @@ class ProjectileRequest {
     required this.target,
     required this.method,
     this.isMultipart = false,
+    this.ignoreBaseUrl = false,
     this.multipart,
     this.contentType = ContentType.json,
     this.headers = const Headers.empty(),
@@ -31,8 +33,10 @@ class ProjectileRequest {
   String get methodStr => isMultipart ? Method.POST.value : method.value;
 
   Uri getUri([String baseUrl = '']) {
+    final bUrl = ignoreBaseUrl ? '' : baseUrl;
+
     final tempUrl =
-        (baseUrl + target).trim().replaceAll(_moreThanTwoSlashesRegex, '/');
+        (bUrl + target).trim().replaceAll(_moreThanTwoSlashesRegex, '/');
 
     return Uri.https(
       _addDynamicAddressParams(tempUrl),

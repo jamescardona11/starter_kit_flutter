@@ -9,6 +9,7 @@ class RequestBuilder {
   late final String _target;
   late final Method _method;
   late ContentType _contentType;
+  late bool _ignoreBaseUrl;
 
   final Headers _mHeaders = const Headers.empty();
   final Map<String, String> _mParams = const {};
@@ -19,7 +20,7 @@ class RequestBuilder {
 
   // ResponseListener mListener;
 
-  RequestBuilder.target(this._target);
+  RequestBuilder.target(this._target, [this._ignoreBaseUrl = false]);
 
   RequestBuilder mode(
     Method method, [
@@ -69,6 +70,7 @@ class RequestBuilder {
       target: _target,
       method: _method,
       contentType: _contentType,
+      ignoreBaseUrl: _ignoreBaseUrl,
       isMultipart: _multipart != null,
       multipart: _multipart,
       query: _mQuery,

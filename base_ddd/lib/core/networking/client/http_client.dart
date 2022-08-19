@@ -10,9 +10,8 @@ import '../core/response_models/response_models.dart';
 import 'i_projectile_client.dart';
 
 class HttpClient extends IProjectileClient {
-  HttpClient([this.config = const BaseConfig()]);
+  HttpClient([super.config]);
 
-  final BaseConfig config;
   final http.Client _httpClient = http.Client();
 
   @override
@@ -87,7 +86,10 @@ class HttpClient extends IProjectileClient {
       method,
       uri,
     );
-    request.headers.addContentType(request.contentType.value);
+
+    request.headers
+      ..addContentType(request.contentType.value)
+      ..addBaseConfig(config);
 
     httpRequest
       ..headers.addAll(request.headers.asMap)

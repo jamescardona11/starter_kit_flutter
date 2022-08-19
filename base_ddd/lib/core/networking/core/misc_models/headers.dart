@@ -1,3 +1,5 @@
+import 'package:base_ddd/core/networking/core/misc_models/config.dart';
+
 class Headers {
   const Headers.empty();
 
@@ -13,6 +15,10 @@ class Headers {
 
   void addContentType(String contentType) {
     _headers.addAll({'content-type': contentType});
+  }
+
+  void addBaseConfig(BaseConfig config) {
+    _headers.addAll(config.baseHeaders.asMap);
   }
 
   Map<String, String> get asMap {

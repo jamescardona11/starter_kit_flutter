@@ -10,12 +10,18 @@ import 'i_projectile_client.dart';
 class DioClient extends IProjectileClient {
   final Dio _dioClient;
 
-  DioClient(this._dioClient);
+  DioClient(
+    this._dioClient, [
+    super.config,
+  ]);
 
   @override
   Future<ResponseSuccess> createRequest(ProjectileRequest request) async {
     final url = request.getUrl();
-    request.headers.addContentType(request.contentType.value);
+
+    request.headers
+      ..addContentType(request.contentType.value)
+      ..addBaseConfig(config);
 
     final data = request.isMultipart ? _createFromMap(request) : request.data;
 
