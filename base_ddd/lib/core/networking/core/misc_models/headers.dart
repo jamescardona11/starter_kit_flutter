@@ -11,6 +11,10 @@ class Headers {
     _headers.addAll(headers);
   }
 
+  void addContentType(String contentType) {
+    _headers.addAll({'content-type': contentType});
+  }
+
   Map<String, String> get asMap {
     final Map<String, String> newMap = {};
     if (_headers.isEmpty) return newMap;

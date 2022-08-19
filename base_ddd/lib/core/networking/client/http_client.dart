@@ -19,7 +19,13 @@ class HttpClient extends IProjectileClient {
   Future<ResponseSuccess> createRequest(
     ProjectileRequest request,
   ) async {
-    final httpRequest = transformProjectileRequest(request);
+    final http.BaseRequest httpRequest;
+
+    if (!request.isMultipart) {
+      httpRequest = _transformProjectileRequest(request);
+    } else {
+      httpRequest = await _transformProjectileMultipartRequest(request);
+    }
 
     final httpSendRequest =
         await _httpClient.send(httpRequest).timeout(config.timeout);
@@ -37,12 +43,7 @@ class HttpClient extends IProjectileClient {
   }
 
   @override
-  void finallyBlock() {
-    _httpClient.close();
-  }
-
-  @override
-  Future<http.MultipartFile> configureNativeMultipartObject(
+  Future<http.MultipartFile> createNativeMultipartObject(
     MultipartFileWrapper multipartFileWrapper,
   ) async {
     final type = multipartFileWrapper.type;
@@ -71,19 +72,40 @@ class HttpClient extends IProjectileClient {
     }
   }
 
-  http.Request transformProjectileRequest(ProjectileRequest request) {
+  @override
+  void finallyBlock() {
+    _httpClient.close();
+  }
+
+  http.Request _transformProjectileRequest(ProjectileRequest request) {
     final uri = request.getUri(config.baseUrl);
 
+    final method =
+        request.isMultipart ? Method.POST.value : request.method.value;
+
     final httpRequest = http.Request(
-      request.method.value,
+      method,
       uri,
     );
+    request.headers.addContentType(request.contentType.value);
 
-    httpRequest.headers
-      ..addAll(request.headers.asMap)
-      ..addAll({'content-type': request.contentType.value});
+    httpRequest
+      ..headers.addAll(request.headers.asMap)
+      ..bodyFields = request.data;
 
-    httpRequest.bodyFields = request.data;
+    return httpRequest;
+  }
+
+  Future<http.MultipartRequest> _transformProjectileMultipartRequest(
+      ProjectileRequest request) async {
+    final uri = request.getUri(config.baseUrl);
+
+    request.headers.addContentType(request.contentType.value);
+
+    final httpRequest = http.MultipartRequest(Method.POST.value, uri)
+      ..headers.addAll(request.headers.asMap)
+      ..fields.addAll(request.data)
+      ..files.add(await createNativeMultipartObject(request.multipart!));
 
     return httpRequest;
   }

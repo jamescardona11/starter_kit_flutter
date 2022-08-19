@@ -1,8 +1,7 @@
-import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
-
 import '../misc_models/headers.dart';
 import 'content_type.dart';
 import 'method.dart';
+import 'multipart_file.dart';
 
 class ProjectileRequest {
   final String target;
@@ -29,6 +28,8 @@ class ProjectileRequest {
     this.data = const {},
   });
 
+  String get methodStr => isMultipart ? Method.POST.value : method.value;
+
   Uri getUri([String baseUrl = '']) {
     final tempUrl =
         (baseUrl + target).trim().replaceAll(_moreThanTwoSlashesRegex, '/');
@@ -40,7 +41,7 @@ class ProjectileRequest {
     );
   }
 
-  String getString([String baseUrl = '']) {
+  String getUrl([String baseUrl = '']) {
     return getUri(baseUrl).toString();
   }
 

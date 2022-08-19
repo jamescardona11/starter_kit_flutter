@@ -47,13 +47,18 @@ class Projectile {
   }
 
   void _validRequestBeforeSending() {
+    if (_client == null) {
+      throw Exception(
+          'Make sure that _client implementation of IProjectileClient is not null, check the client folder to see example for dio/http');
+    }
+
     if (_request == null) {
       throw Exception('Make sure that _request is not null');
     }
 
-    if (_client == null) {
+    if (_request!.isMultipart && _request!.multipart == null) {
       throw Exception(
-          'Make sure that _client implementation of IProjectileClient is not null, check the client folder to see example for dio/http');
+          'Make sure that multipart in_request with multipart flag = true, is not null');
     }
   }
 }

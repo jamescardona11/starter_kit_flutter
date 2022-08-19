@@ -16,7 +16,7 @@ abstract class IClient<T> {
     Completer<T> completer,
   );
 
-  Future<dynamic> configureNativeMultipartObject(
+  Future<dynamic> createNativeMultipartObject(
       MultipartFileWrapper multipartFileWrapper);
 
   void finallyBlock();

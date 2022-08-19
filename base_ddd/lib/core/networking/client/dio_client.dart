@@ -14,18 +14,19 @@ class DioClient extends IProjectileClient {
 
   @override
   Future<ResponseSuccess> createRequest(ProjectileRequest request) async {
-    final url = request.getString();
+    final url = request.getUrl();
+    request.headers.addContentType(request.contentType.value);
+
+    final data = request.isMultipart ? _createFromMap(request) : request.data;
 
     final response = await _dioClient.request(
       url,
       options: Options(
         method: request.method.value,
-        headers: (request.headers
-              ..addAll({'content-type': request.contentType.value}))
-            .asMap,
+        headers: request.headers.asMap,
         contentType: request.contentType.value,
       ),
-      data: request.data,
+      data: data,
     );
 
     return ResponseSuccess(
@@ -37,13 +38,18 @@ class DioClient extends IProjectileClient {
     );
   }
 
-  @override
-  void finallyBlock() {
-    // _dioClient.close();
+  Future<FormData> _createFromMap(ProjectileRequest request) async {
+    final multipart = await createNativeMultipartObject(request.multipart!);
+
+    return FormData.fromMap(
+      <String, dynamic>{}
+        ..addAll(request.data)
+        ..addAll({request.multipart!.field: multipart}),
+    );
   }
 
   @override
-  Future<MultipartFile> configureNativeMultipartObject(
+  Future<MultipartFile> createNativeMultipartObject(
     MultipartFileWrapper multipartFileWrapper,
   ) async {
     final type = multipartFileWrapper.type;
@@ -67,5 +73,10 @@ class DioClient extends IProjectileClient {
         contentType: multipartFileWrapper.contentType,
       );
     }
+  }
+
+  @override
+  void finallyBlock() {
+    // _dioClient.close();
   }
 }
