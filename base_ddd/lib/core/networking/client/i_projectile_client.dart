@@ -7,48 +7,45 @@ import '../result_models/result_models.dart';
 
 abstract class IClient<T> {
   final completer = Completer<T>();
-  List<InterceptorContract> listInterceptors = const [];
+  List<ProjectileInterceptor> listInterceptors = const [];
 
-  Future<T> runRequest(
+  Future<T> sendRequest(
     ProjectileRequest request,
   );
 
   void finallyBlock();
 }
 
-abstract class IRequestState {
-  Future<ProjectileRequest> onRequest(ProjectileRequest request);
-
-  Future<void> onResponse(ProjectileResponse response);
-
-  Future<void> onError(ProjectileError projectileError);
-}
-
 abstract class IProjectileClient
-    extends IClient<Result<ProjectileError, ProjectileResponse>>
-    with RunInterceptor
-    implements IRequestState {
+    extends IClient<Result<ResponseError, ResponseSuccess>>
+    with RunInterceptor {
   /// override this to implement request
   /// don't catch exception if you want if catch by default by `runRequest`
-  Future<ProjectileResponse> createRequest(ProjectileRequest request);
+  Future<ResponseSuccess> createRequest(ProjectileRequest request);
 
   @override
-  Future<Result<ProjectileError, ProjectileResponse>> runRequest(
+  Future<Result<ResponseError, ResponseSuccess>> sendRequest(
     ProjectileRequest request, [
-    List<InterceptorContract> interceptors = const [],
+    List<ProjectileInterceptor> interceptors = const [],
+  ]) =>
+      _sendRequest(request, interceptors);
+
+  /// Run request and everything relate to response and catch errors
+  Future<Result<ResponseError, ResponseSuccess>> _sendRequest(
+    ProjectileRequest request, [
+    List<ProjectileInterceptor> interceptors = const [],
   ]) async {
     listInterceptors = interceptors;
-
-    final requestData = await onRequest(request);
+    final requestData = await _beforeRequest(request);
 
     try {
-      _responseFromCreate(requestData);
+      _runFromCreate(requestData);
     } catch (error, stackTrace) {
-      _onCatchError(
-        requestData,
-        error,
-        stackTrace,
-      );
+      _responseError(ResponseError(
+        request: request,
+        error: error,
+        stackTrace: stackTrace,
+      ));
     } finally {
       finallyBlock();
     }
@@ -56,58 +53,34 @@ abstract class IProjectileClient
     return completer.future;
   }
 
-  @override
-  Future<ProjectileRequest> onRequest(ProjectileRequest request) =>
-      runRequestInterceptors(listInterceptors, request);
-
-  @override
-  Future<void> onResponse(ProjectileResponse responseData) async {
-    final response =
-        await runResponseInterceptors(listInterceptors, responseData);
-    completer.complete(Success(response));
-  }
-
-  @override
-  Future<void> onError(ProjectileError error) async {
-    final errorData = await runErrorInterceptors(listInterceptors, error);
-    completer.complete(Failure(errorData));
-  }
-
-  Future<void> _responseFromCreate(
+  /// Run `createRequest` and get response
+  Future<void> _runFromCreate(
     ProjectileRequest requestData,
   ) async {
     final responseRequest = await createRequest(requestData);
 
     if (responseRequest.isSuccess) {
-      onResponse(responseRequest);
+      _responseSuccess(responseRequest);
     } else {
-      _onResponseError(requestData, responseRequest);
+      _responseError(
+          ResponseError(request: requestData, error: responseRequest));
     }
   }
 
-  Future<void> _onResponseError(
-    ProjectileRequest request,
-    ProjectileResponse responseRequest,
-  ) async {
-    onError(
-      ProjectileError(
-        request: request,
-        error: responseRequest,
-      ),
-    );
+  /// Before start the request in `createRequest`
+  Future<ProjectileRequest> _beforeRequest(ProjectileRequest request) =>
+      runRequestInterceptors(listInterceptors, request);
+
+  /// Request success
+  Future<void> _responseSuccess(ResponseSuccess responseData) async {
+    final response =
+        await runResponseInterceptors(listInterceptors, responseData);
+    completer.complete(Success(response));
   }
 
-  Future<void> _onCatchError(
-    ProjectileRequest request,
-    Object error,
-    StackTrace stackTrace,
-  ) async {
-    onError(
-      ProjectileError(
-        request: request,
-        error: error,
-        stackTrace: stackTrace,
-      ),
-    );
+  /// Request error
+  Future<void> _responseError(ResponseError error) async {
+    final errorData = await runErrorInterceptors(listInterceptors, error);
+    completer.complete(Failure(errorData));
   }
 }

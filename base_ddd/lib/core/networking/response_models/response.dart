@@ -1,6 +1,6 @@
 import '../request_models/request.dart';
 
-class ProjectileResponse {
+class ResponseSuccess {
   final int? statusCode;
   final Map? body;
   final Map<String, dynamic> headers;
@@ -8,7 +8,7 @@ class ProjectileResponse {
   final ProjectileRequest? originalRequest;
   final Object? originalData;
 
-  ProjectileResponse({
+  ResponseSuccess({
     required this.headers,
     required this.body,
     this.statusCode = -1,

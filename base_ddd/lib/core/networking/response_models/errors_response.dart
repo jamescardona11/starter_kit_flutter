@@ -6,18 +6,18 @@ import 'response.dart';
 
 /// inspired on DIOError class
 
-class ProjectileError {
-  ProjectileError({
+class ResponseError {
+  ResponseError({
     required this.request,
     this.error,
     this.stackTrace,
   }) : type = ProjectileErrorType.fromError(error) {
-    response = type.isResponse ? (error as ProjectileResponse) : null;
+    response = type.isResponse ? (error as ResponseSuccess) : null;
   }
 
   /// Response info, it may be `null` if the request can't reach to
   /// the http server, for example, occurring a dns error, network is not available.
-  ProjectileResponse? response;
+  ResponseSuccess? response;
 
   /// Request info.
   final ProjectileRequest request;

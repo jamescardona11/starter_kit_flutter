@@ -1,34 +1,37 @@
 import 'client/i_projectile_client.dart';
 import 'interceptors/interceptor_contract.dart';
 import 'request_models/request_models.dart';
+import 'response_models/response_models.dart';
+import 'result_models/result.dart';
 
 //Result<IProjectileError, IProjectileResponse>
-class Projectile<T> {
-  final IProjectileClient? client;
-  final List<InterceptorContract> _interceptors = [];
+class Projectile {
+  final IProjectileClient? _client;
+  final List<ProjectileInterceptor> _interceptors = [];
   ProjectileRequest? _request;
 
-  Projectile([this.client]);
+  Projectile([this._client]);
 
   Projectile request(ProjectileRequest request) {
     _request = request;
     return this;
   }
 
-  Projectile addCustomInterceptors(Iterable<InterceptorContract> interceptors) {
+  Projectile addCustomInterceptors(
+    Iterable<ProjectileInterceptor> interceptors,
+  ) {
     _interceptors.addAll(interceptors);
     return this;
   }
 
-  Projectile addCustomInterceptor(InterceptorContract interceptor) {
-    _interceptors.add(interceptor);
-    return this;
+  Projectile addCustomInterceptor(ProjectileInterceptor interceptor) {
+    return addCustomInterceptors([interceptor]);
   }
 
-  Future<T> fire() {
+  Future<Result<ResponseError, ResponseSuccess>> fire() {
     _validRequestBeforeSending();
 
-    final result = client!.sendRequest(_request!, _interceptors);
+    final result = _client!.sendRequest(_request!, _interceptors);
     _request = null;
 
     return result;
@@ -39,9 +42,9 @@ class Projectile<T> {
       throw Exception('Make sure that _request is not null');
     }
 
-    if (client == null) {
+    if (_client == null) {
       throw Exception(
-          'Make sure that _shot map contains the implementation of IProjectileClient, check the client folder to see example for dio, http');
+          'Make sure that _client implementation of IProjectileClient is not null, check the client folder to see example for dio/http');
     }
   }
 }
