@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:dio/dio.dart' hide Headers;
 
-import '../misc_models/headers.dart';
-import '../request_models/request_models.dart';
-import '../response_models/response_models.dart';
+import '../core/misc_models/headers.dart';
+import '../core/request_models/request_models.dart';
+import '../core/response_models/response_models.dart';
 import 'i_projectile_client.dart';
 
 class DioClient extends IProjectileClient {

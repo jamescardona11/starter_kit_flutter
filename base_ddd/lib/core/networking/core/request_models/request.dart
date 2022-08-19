@@ -1,5 +1,6 @@
-import 'package:base_ddd/core/networking/misc_models/headers.dart';
+import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
 
+import '../misc_models/headers.dart';
 import 'content_type.dart';
 import 'method.dart';
 
@@ -8,6 +9,8 @@ class ProjectileRequest {
   final Method method;
   final ContentType contentType;
   final Headers headers;
+  final bool isMultipart;
+  final MultipartFileWrapper? multipart;
   final Map<String, String> urlParams;
   final Map<String, String> query;
   final Map<String, String> data;
@@ -17,6 +20,8 @@ class ProjectileRequest {
   ProjectileRequest({
     required this.target,
     required this.method,
+    this.isMultipart = false,
+    this.multipart,
     this.contentType = ContentType.json,
     this.headers = const Headers.empty(),
     this.urlParams = const {},

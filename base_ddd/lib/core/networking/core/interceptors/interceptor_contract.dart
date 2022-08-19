@@ -1,7 +1,6 @@
-import 'package:base_ddd/core/networking/response_models/response.dart';
-
 import '../request_models/request_models.dart' show ProjectileRequest;
 import '../response_models/errors_response.dart';
+import '../response_models/response.dart';
 import 'interceptors.dart';
 
 abstract class ProjectileInterceptor {

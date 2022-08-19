@@ -1,3 +1,5 @@
+import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
+
 import '../misc_models/headers.dart';
 import 'content_type.dart';
 import 'method.dart';
@@ -6,23 +8,30 @@ import 'request.dart';
 class RequestBuilder {
   late final String _target;
   late final Method _method;
-
-  ContentType? _contentType;
+  late ContentType _contentType;
 
   final Headers _mHeaders = const Headers.empty();
   final Map<String, String> _mParams = const {};
   final Map<String, String> _mQuery = const {};
   final Map<String, String> _mData = const {};
 
+  MultipartFileWrapper? _multipart;
+
   // ResponseListener mListener;
 
-  RequestBuilder.target(
-    this._target,
-  );
+  RequestBuilder.target(this._target);
 
-  RequestBuilder mode(Method method, [ContentType? contentType]) {
+  RequestBuilder mode(
+    Method method, [
+    ContentType contentType = ContentType.json,
+  ]) {
     _method = method;
     contentType = contentType;
+    return this;
+  }
+
+  RequestBuilder multipart(MultipartFileWrapper multipart) {
+    _multipart = multipart;
     return this;
   }
 
@@ -59,7 +68,9 @@ class RequestBuilder {
     return ProjectileRequest(
       target: _target,
       method: _method,
-      contentType: _contentType ?? ContentType.json,
+      contentType: _contentType,
+      isMultipart: _multipart != null,
+      multipart: _multipart,
       query: _mQuery,
       headers: _mHeaders,
       urlParams: _mParams,

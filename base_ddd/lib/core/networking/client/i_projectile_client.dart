@@ -1,16 +1,17 @@
 import 'dart:async';
 
-import '../interceptors/interceptors.dart';
-import '../request_models/request_models.dart';
-import '../response_models/response_models.dart';
-import '../result_models/result_models.dart';
+import '../core/interceptors/interceptors.dart';
+import '../core/request_models/request_models.dart';
+import '../core/response_models/response_models.dart';
+import '../core/result_models/result_models.dart';
 
 abstract class IClient<T> {
-  final completer = Completer<T>();
-  List<ProjectileInterceptor> listInterceptors = const [];
+  late final Completer<T> completer;
+  late final List<ProjectileInterceptor> listInterceptors;
 
   Future<T> sendRequest(
     ProjectileRequest request,
+    Completer<T> completer,
   );
 
   void finallyBlock();
@@ -25,20 +26,22 @@ abstract class IProjectileClient
 
   @override
   Future<Result<ResponseError, ResponseSuccess>> sendRequest(
-    ProjectileRequest request, [
+    ProjectileRequest request,
+    Completer<Result<ResponseError, ResponseSuccess>> _completer, [
     List<ProjectileInterceptor> interceptors = const [],
-  ]) =>
-      _sendRequest(request, interceptors);
+  ]) {
+    listInterceptors = interceptors;
+    completer = _completer;
+
+    return _sendRequest(request);
+  }
 
   /// Run request and everything relate to response and catch errors
   Future<Result<ResponseError, ResponseSuccess>> _sendRequest(
-    ProjectileRequest request, [
-    List<ProjectileInterceptor> interceptors = const [],
-  ]) async {
-    listInterceptors = interceptors;
-    final requestData = await _beforeRequest(request);
-
+    ProjectileRequest request,
+  ) async {
     try {
+      final requestData = await _beforeRequest(request);
       _runFromCreate(requestData);
     } catch (error, stackTrace) {
       _responseError(ResponseError(

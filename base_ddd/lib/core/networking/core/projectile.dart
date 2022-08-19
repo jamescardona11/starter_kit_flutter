@@ -1,8 +1,10 @@
-import 'client/i_projectile_client.dart';
-import 'interceptors/interceptor_contract.dart';
-import 'request_models/request_models.dart';
-import 'response_models/response_models.dart';
-import 'result_models/result.dart';
+import 'dart:async';
+
+import '../client/i_projectile_client.dart';
+import '../core/interceptors/interceptor_contract.dart';
+import '../core/request_models/request_models.dart';
+import '../core/response_models/response_models.dart';
+import '../core/result_models/result.dart';
 
 //Result<IProjectileError, IProjectileResponse>
 class Projectile {
@@ -31,10 +33,17 @@ class Projectile {
   Future<Result<ResponseError, ResponseSuccess>> fire() {
     _validRequestBeforeSending();
 
-    final result = _client!.sendRequest(_request!, _interceptors);
+    final completer = Completer<Result<ResponseError, ResponseSuccess>>();
+
+    _client!.sendRequest(
+      _request!,
+      completer,
+      _interceptors,
+    );
+
     _request = null;
 
-    return result;
+    return completer.future;
   }
 
   void _validRequestBeforeSending() {

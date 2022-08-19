@@ -3,10 +3,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../misc_models/config.dart';
-import '../misc_models/headers.dart';
-import '../request_models/request_models.dart';
-import '../response_models/response_models.dart';
+import '../core/misc_models/misc_models.dart';
+import '../core/request_models/request_models.dart';
+import '../core/response_models/response_models.dart';
 import 'i_projectile_client.dart';
 
 class HttpClient extends IProjectileClient {
