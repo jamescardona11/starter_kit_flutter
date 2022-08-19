@@ -50,4 +50,8 @@ class ResponseSuccess {
   bool get isPlain => originalRequest.responseType.isPlain;
 
   bool get isBytes => originalRequest.responseType.isBytes;
+
+  @override
+  String toString() =>
+      'ResponseSuccess(\nstatusCode: $statusCode, data: $data, headers: ${headers.toString()}\n)';
 }

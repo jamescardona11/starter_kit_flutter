@@ -11,10 +11,10 @@ class ProjectileRequest {
   final PResponseType responseType;
   final Headers headers;
   final bool isMultipart;
-  final MultipartFileWrapper? multipart;
   final Map<String, String> urlParams;
   final Map<String, String> query;
   final Map<String, String> data;
+  final MultipartFileWrapper? multipart;
 
   BaseConfig? _config;
 
@@ -70,4 +70,8 @@ class ProjectileRequest {
         final String value = currentParam.value;
         return previousUrl.replaceAll('{$key}', value);
       });
+
+  @override
+  String toString() =>
+      'ProjectileRequest(\ntarget: $target, ignoreBaseUrl: $ignoreBaseUrl, method: ${method.value},\n ContentType: ${contentType.value}, responseType: ${responseType.toString()}, headers: ${headers.toString()},\nurlParams: $urlParams, query: $query, data: $data,\nisMultipart: $isMultipart, multipart: ${multipart?.toString()}';
 }

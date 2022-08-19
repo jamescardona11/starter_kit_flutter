@@ -14,4 +14,8 @@ class BaseConfig {
     this.logsTag = 'ProjectileRequest',
     this.showGlobalLogs = false,
   });
+
+  @override
+  String toString() =>
+      'BaseConfig(\nbaseUrl: $baseUrl, baseHeaders: ${baseHeaders.toString()}, timeout: ${timeout.toString()}, logsTag: $logsTag, showGlobalLogs: $showGlobalLogs\n)';
 }

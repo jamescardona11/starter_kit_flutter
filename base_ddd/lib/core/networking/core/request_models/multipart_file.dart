@@ -67,6 +67,10 @@ class MultipartFileWrapper {
         contentType: contentType,
         valuePath: valuePath,
       );
+
+  @override
+  String toString() =>
+      'ProjectileRequest(\nfield: $field, contentType: $contentType, type: $type, valueString: $valueString, valueBytes: $valueBytes, valuePath: $valuePath, filename: $filename ';
 }
 
 enum MultipartFileType {

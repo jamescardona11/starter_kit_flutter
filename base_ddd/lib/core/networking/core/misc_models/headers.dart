@@ -50,4 +50,7 @@ class Headers {
 
     return newMap;
   }
+
+  @override
+  String toString() => 'Headers(\n${_headers.toString()}\n)';
 }
