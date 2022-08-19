@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
+
 import '../core/interceptors/interceptors.dart';
 import '../core/request_models/request_models.dart';
 import '../core/response_models/response_models.dart';
@@ -13,6 +15,9 @@ abstract class IClient<T> {
     ProjectileRequest request,
     Completer<T> completer,
   );
+
+  Future<dynamic> configureNativeMultipartObject(
+      MultipartFileWrapper multipartFileWrapper);
 
   void finallyBlock();
 }

@@ -7,57 +7,74 @@ import 'package:http_parser/http_parser.dart' show MediaType;
 /// This wrapper don't override any original behavior
 ///
 class MultipartFileWrapper {
-  MultipartFileWrapper({
+  MultipartFileWrapper._({
     required this.field,
     required this.contentType,
-    this.length = -1,
+    required this.type,
+    this.valueString = '',
+    this.valueBytes = const [],
     this.filename,
-    this.filePath = '',
+    this.valuePath = '',
   });
 
   /// key of json data
   final String field;
   final String? filename;
-  final String? filePath;
+  final String? valuePath;
+  final String? valueString;
   final MediaType? contentType;
-  final int? length;
+  final List<int>? valueBytes;
+  final MultipartFileType type;
 
   factory MultipartFileWrapper.fromBytes({
-    required List<int> value,
+    required List<int> valueBytes,
     required String field,
     String? filename,
     MediaType? contentType,
   }) =>
-      MultipartFileWrapper(
-        length: value.length,
+      MultipartFileWrapper._(
+        type: MultipartFileType.bytes,
+        valueBytes: valueBytes,
         filename: filename,
         contentType: contentType,
         field: field,
       );
 
   factory MultipartFileWrapper.fromString({
-    required String value,
+    required String valueString,
     required String field,
     String? filename,
     MediaType? contentType,
-    final Map<String, List<String>>? headers,
   }) =>
-      MultipartFileWrapper(
+      MultipartFileWrapper._(
+        type: MultipartFileType.string,
         field: field,
+        valueString: valueString,
         filename: filename,
         contentType: contentType,
       );
 
-  factory MultipartFileWrapper.fromFile({
-    required String filePath,
+  factory MultipartFileWrapper.fromFileOrPath({
+    required String valuePath,
     required String field,
     String? filename,
     MediaType? contentType,
   }) =>
-      MultipartFileWrapper(
+      MultipartFileWrapper._(
+        type: MultipartFileType.fileOrPath,
         field: field,
         filename: filename,
         contentType: contentType,
-        filePath: filePath,
+        valuePath: valuePath,
       );
+}
+
+enum MultipartFileType {
+  bytes,
+  string,
+  fileOrPath;
+
+  bool get isBytes => this == bytes;
+  bool get isString => this == string;
+  bool get isFileOrPath => this == fileOrPath;
 }

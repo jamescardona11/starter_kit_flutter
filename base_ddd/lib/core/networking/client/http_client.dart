@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/misc_models/misc_models.dart';
@@ -38,6 +39,36 @@ class HttpClient extends IProjectileClient {
   @override
   void finallyBlock() {
     _httpClient.close();
+  }
+
+  @override
+  Future<http.MultipartFile> configureNativeMultipartObject(
+    MultipartFileWrapper multipartFileWrapper,
+  ) async {
+    final type = multipartFileWrapper.type;
+
+    if (type.isBytes) {
+      return http.MultipartFile.fromBytes(
+        multipartFileWrapper.field,
+        multipartFileWrapper.valueBytes!,
+        filename: multipartFileWrapper.filename,
+        contentType: multipartFileWrapper.contentType,
+      );
+    } else if (type.isString) {
+      return http.MultipartFile.fromString(
+        multipartFileWrapper.field,
+        multipartFileWrapper.valueString!,
+        filename: multipartFileWrapper.filename,
+        contentType: multipartFileWrapper.contentType,
+      );
+    } else {
+      return http.MultipartFile.fromPath(
+        multipartFileWrapper.field,
+        multipartFileWrapper.valuePath!,
+        filename: multipartFileWrapper.filename,
+        contentType: multipartFileWrapper.contentType,
+      );
+    }
   }
 
   http.Request transformProjectileRequest(ProjectileRequest request) {
