@@ -1,15 +1,15 @@
-import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
-
 import '../misc_models/headers.dart';
-import 'content_type.dart';
+import 'helper_types.dart';
 import 'method.dart';
+import 'multipart_file.dart';
 import 'request.dart';
 
 class RequestBuilder {
   late final String _target;
   late final Method _method;
-  late ContentType _contentType;
-  late bool _ignoreBaseUrl;
+  late final bool _ignoreBaseUrl;
+  late final ContentType _contentType;
+  late final PResponseType _responseType;
 
   final Headers _mHeaders = const Headers.empty();
   final Map<String, String> _mParams = const {};
@@ -21,6 +21,13 @@ class RequestBuilder {
   // ResponseListener mListener;
 
   RequestBuilder.target(this._target, [this._ignoreBaseUrl = false]);
+
+  RequestBuilder extra({
+    PResponseType responseType = PResponseType.json,
+  }) {
+    _responseType = responseType;
+    return this;
+  }
 
   RequestBuilder mode(
     Method method, [
@@ -70,6 +77,7 @@ class RequestBuilder {
       target: _target,
       method: _method,
       contentType: _contentType,
+      responseType: _responseType,
       ignoreBaseUrl: _ignoreBaseUrl,
       isMultipart: _multipart != null,
       multipart: _multipart,

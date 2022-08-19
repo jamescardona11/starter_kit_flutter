@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
 import 'package:http/http.dart' as http;
 
-import '../core/misc_models/misc_models.dart';
 import '../core/request_models/request_models.dart';
 import '../core/response_models/response_models.dart';
-import 'i_projectile_client.dart';
+import '../core/client/i_projectile_client.dart';
 
 class HttpClient extends IProjectileClient {
   HttpClient([super.config]);
@@ -30,14 +28,26 @@ class HttpClient extends IProjectileClient {
         await _httpClient.send(httpRequest).timeout(config.timeout);
 
     final response = await http.Response.fromStream(httpSendRequest);
-    final data = jsonDecode(response.body) as Map;
 
-    return ResponseSuccess(
+    dynamic data;
+
+    if (request.responseType.isJson) {
+      /// json
+      data = jsonDecode(response.body);
+    } else if (request.responseType.isBytes) {
+      /// bytes
+      data = response.bodyBytes;
+    } else {
+      /// plain
+      data = response.body;
+    }
+
+    return ResponseSuccess.def(
       statusCode: response.statusCode,
-      headers: Headers.fromMap(response.headers),
-      body: data,
-      originalData: response.body,
+      headers: response.headers,
+      data: data,
       originalRequest: request,
+      // originalData: response.body,
     );
   }
 

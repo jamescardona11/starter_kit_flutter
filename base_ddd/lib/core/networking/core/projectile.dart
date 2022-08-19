@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../client/i_projectile_client.dart';
+import 'client/i_projectile_client.dart';
 import '../core/interceptors/interceptor_contract.dart';
 import '../core/request_models/request_models.dart';
 import '../core/response_models/response_models.dart';

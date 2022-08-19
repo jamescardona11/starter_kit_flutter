@@ -1,4 +1,4 @@
-import 'package:base_ddd/core/networking/core/misc_models/config.dart';
+import 'config.dart';
 
 class Headers {
   const Headers.empty();

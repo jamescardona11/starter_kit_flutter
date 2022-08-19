@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
 import 'package:dio/dio.dart' hide Headers;
 
-import '../core/misc_models/headers.dart';
 import '../core/request_models/request_models.dart';
 import '../core/response_models/response_models.dart';
-import 'i_projectile_client.dart';
+import '../core/client/i_projectile_client.dart';
 
 class DioClient extends IProjectileClient {
   final Dio _dioClient;
@@ -19,34 +17,21 @@ class DioClient extends IProjectileClient {
   Future<ResponseSuccess> createRequest(ProjectileRequest request) async {
     final url = request.getUrl();
 
-    final data = request.isMultipart ? _createFromMap(request) : request.data;
+    final data =
+        request.isMultipart ? await _createFromMap(request) : request.data;
 
     final response = await _dioClient.request(
       url,
-      options: Options(
-        method: request.methodStr,
-        headers: request.headers.asMap,
-        contentType: request.contentType.value,
-      ),
+      options: getOptions(request),
       data: data,
     );
 
-    return ResponseSuccess(
+    return ResponseSuccess.def(
       statusCode: response.statusCode,
-      headers: Headers.fromMap(response.headers.map),
-      body: response.data,
-      originalData: response.data,
+      headers: response.headers.map,
+      data: response.data,
+      // originalData: response.data,
       originalRequest: request,
-    );
-  }
-
-  Future<FormData> _createFromMap(ProjectileRequest request) async {
-    final multipart = await createNativeMultipartObject(request.multipart!);
-
-    return FormData.fromMap(
-      <String, dynamic>{}
-        ..addAll(request.data)
-        ..addAll({request.multipart!.field: multipart}),
     );
   }
 
@@ -80,5 +65,29 @@ class DioClient extends IProjectileClient {
   @override
   void finallyBlock() {
     // _dioClient.close();
+  }
+
+  Options getOptions(ProjectileRequest request) => Options(
+        method: request.methodStr,
+        headers: request.headers.asMap,
+        contentType: request.contentType.value,
+        responseType: _fromResponseType(request),
+      );
+
+  Future<FormData> _createFromMap(ProjectileRequest request) async {
+    final multipart = await createNativeMultipartObject(request.multipart!);
+
+    return FormData.fromMap(
+      <String, dynamic>{}
+        ..addAll(request.data)
+        ..addAll({request.multipart!.field: multipart}),
+    );
+  }
+
+  ResponseType _fromResponseType(ProjectileRequest request) {
+    if (request.responseType.isJson) return ResponseType.json;
+    if (request.responseType.isBytes) return ResponseType.bytes;
+
+    return ResponseType.plain;
   }
 }

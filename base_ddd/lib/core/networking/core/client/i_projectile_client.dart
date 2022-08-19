@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:base_ddd/core/networking/core/request_models/multipart_file.dart';
-
-import '../core/interceptors/interceptors.dart';
-import '../core/misc_models/config.dart';
-import '../core/request_models/request_models.dart';
-import '../core/response_models/response_models.dart';
-import '../core/result_models/result_models.dart';
+import '../interceptors/interceptors.dart';
+import '../misc_models/config.dart';
+import '../request_models/request_models.dart';
+import '../response_models/response_models.dart';
+import '../result_models/result_models.dart';
 
 abstract class IClient<T> {
   late final Completer<T> completer;

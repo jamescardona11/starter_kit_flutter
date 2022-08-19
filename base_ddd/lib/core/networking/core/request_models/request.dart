@@ -1,7 +1,5 @@
-import 'package:base_ddd/core/networking/core/misc_models/config.dart';
-
-import '../misc_models/headers.dart';
-import 'content_type.dart';
+import '../misc_models/misc_models.dart';
+import 'helper_types.dart';
 import 'method.dart';
 import 'multipart_file.dart';
 
@@ -10,6 +8,7 @@ class ProjectileRequest {
   final bool ignoreBaseUrl;
   final Method method;
   final ContentType contentType;
+  final PResponseType responseType;
   final Headers headers;
   final bool isMultipart;
   final MultipartFileWrapper? multipart;
@@ -28,6 +27,7 @@ class ProjectileRequest {
     this.ignoreBaseUrl = false,
     this.multipart,
     this.contentType = ContentType.json,
+    this.responseType = PResponseType.json,
     this.headers = const Headers.empty(),
     this.urlParams = const {},
     this.query = const {},
