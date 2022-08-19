@@ -3,7 +3,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../config.dart';
+import '../misc_models/config.dart';
+import '../misc_models/headers.dart';
 import '../request_models/request_models.dart';
 import '../response_models/response_models.dart';
 import 'i_projectile_client.dart';
@@ -28,7 +29,7 @@ class HttpClient extends IProjectileClient {
 
     return ResponseSuccess(
       statusCode: response.statusCode,
-      headers: response.headers,
+      headers: Headers.fromMap(response.headers),
       body: data,
       originalData: response.body,
       originalRequest: request,
@@ -49,7 +50,7 @@ class HttpClient extends IProjectileClient {
     );
 
     httpRequest.headers
-      ..addAll(request.headers)
+      ..addAll(request.headers.asMap)
       ..addAll({'content-type': request.contentType.value});
 
     httpRequest.bodyFields = request.data;

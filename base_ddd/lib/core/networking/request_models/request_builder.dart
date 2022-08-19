@@ -1,3 +1,4 @@
+import '../misc_models/headers.dart';
 import 'content_type.dart';
 import 'method.dart';
 import 'request.dart';
@@ -8,10 +9,10 @@ class RequestBuilder {
 
   ContentType? _contentType;
 
-  Map<String, String> _mHeaders = const {};
-  Map<String, String> _mParams = const {};
-  Map<String, String> _mQuery = const {};
-  Map<String, String> _mData = const {};
+  final Headers _mHeaders = const Headers.empty();
+  final Map<String, String> _mParams = const {};
+  final Map<String, String> _mQuery = const {};
+  final Map<String, String> _mData = const {};
 
   // ResponseListener mListener;
 
@@ -26,29 +27,31 @@ class RequestBuilder {
   }
 
   RequestBuilder headers(Map<String, String> headers) {
-    _mHeaders = headers;
+    _mHeaders.addAll(headers);
     return this;
   }
 
   RequestBuilder defaultHeaders() {
-    Map<String, String> headers = {};
+    Map<String, String> headers = {
+      'accept': 'application/json',
+    };
 
-    _mHeaders = headers;
+    _mHeaders.addAll(headers);
     return this;
   }
 
   RequestBuilder urlParams(Map<String, String> params) {
-    _mParams = params;
+    _mParams.addAll(params);
     return this;
   }
 
   RequestBuilder query(Map<String, String> query) {
-    _mQuery = query;
+    _mQuery.addAll(query);
     return this;
   }
 
   RequestBuilder data(Map<String, String> data) {
-    _mData = data;
+    _mData.addAll(data);
     return this;
   }
 
