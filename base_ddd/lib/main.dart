@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/logger/logger.dart';
+import 'app/login/bloc/login_bloc.dart';
+import 'app/login/login_page_bloc.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,33 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  /// default constructor
-  const HomePage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // void a() {
-    //   final a = Projectile()
-    //       .method(Method.get)
-    //       .target('target')
-    //       .header('', 'value')
-    //       .header('key', 'value');
-    // }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('AppBar Text'),
-      ),
-      body: Container(
-        child: Text('HomePage'),
+      home: BlocProvider(
+        create: (context) => LoginBloc(),
+        child: const LoginBlocPage(),
       ),
     );
   }
