@@ -2,13 +2,17 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:reusable_ui_flutter/custom_controller.dart';
 
+// todo
+// inner property to control the transform
+// assert inner = true and controller == null ??
+
 class NextTransformationButton extends StatefulWidget {
   const NextTransformationButton({
     Key? key,
+    this.controller,
     this.baseWidget,
     this.onNextPressed,
     this.onTransformPressed,
-    this.controller,
     this.labelTransform = 'Continue',
     this.icon = Icons.arrow_forward_ios_rounded,
     this.accentColor = Colors.white,

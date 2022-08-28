@@ -9,15 +9,14 @@ CircularIconButtonWidget(
 
 ```
 NextTransformationButton(
-  controller: controller,
   onNextPressed: () {
-    controller.run();
+    
   },
   onTransformPressed: () {},
   baseWidget: const Padding(
     padding: EdgeInsets.only(
-      top: kSpaceMax,
-      bottom: kSpaceSmall,
+      top: 10,
+      bottom: 10,
     ),
     child: Text('Transform Widget'),
   ),
