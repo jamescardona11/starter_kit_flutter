@@ -30,13 +30,13 @@ class LoginPage extends StatelessWidget {
                 child: Image.asset(logoImg),
               ),
               InputTextWidget(
-                hint: 'Ingresa tu email',
+                hint: 'Enter your email',
                 leadingIcon: Icons.email,
                 onChanged: (value) {},
               ),
               const SizedBox(height: 15),
               InputTextWidget.password(
-                hint: 'Ingresa tu contraseña',
+                hint: 'Enter your password',
                 leadingIcon: Icons.lock,
                 obscureText: true,
                 onChanged: (value) {},
@@ -46,12 +46,12 @@ class LoginPage extends StatelessWidget {
                 style: TextButton.styleFrom(
                   primary: kGrayLightColor,
                 ),
-                child: const Text('¿Olvido la contraseña?'),
+                child: const Text('¿Forgot password?'),
               ),
               const Spacer(),
               EleventhButton(
                 width: size.width,
-                label: 'Iniciar',
+                label: 'Login',
                 primaryColor: kPrimaryColor,
                 splashColor: kBlueLightColor,
                 accentColor: kWhiteColor,
