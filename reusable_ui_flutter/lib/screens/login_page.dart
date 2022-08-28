@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../config/config.dart';
 import '../widgets/custom_button_widget.dart';
-import '../widgets/input_text_widget.dart';
+import '../widgets/input/input_text_widget.dart';
 
 class LoginPage extends StatelessWidget {
   /// default constructor

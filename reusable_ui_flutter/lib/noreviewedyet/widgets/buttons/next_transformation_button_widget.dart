@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
-import 'package:reusable_ui_flutter/colors.dart';
-import 'package:reusable_ui_flutter/dimens.dart';
+import 'package:flutter/material.dart';
+import 'package:reusable_ui_flutter/config/dimens.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NextTransformationButtonWidget extends StatefulWidget {
@@ -57,7 +56,10 @@ class _NextTransformationButtonWidgetState
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: kSpaceMax, bottom: kSpaceSmall),
+          padding: const EdgeInsets.only(
+            top: kSpaceMax,
+            bottom: kSpaceSmall,
+          ),
           child: SmoothPageIndicator(
             controller: widget.pageController,
             count: widget.pagesAmount,

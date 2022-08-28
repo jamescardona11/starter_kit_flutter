@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/colors.dart';
 
 class CircularIconButtonWidget extends StatelessWidget {
   const CircularIconButtonWidget({
     Key? key,
     required this.onPressed,
     required this.icon,
-    this.iconColor = kBlueColor,
-    this.backgroundColor = kWhiteColor,
+    this.iconColor = Colors.blue,
+    this.backgroundColor = Colors.white,
     this.iconSize = 32,
   }) : super(key: key);
 
@@ -19,6 +18,7 @@ class CircularIconButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonSize = iconSize + 20;
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -26,8 +26,8 @@ class CircularIconButtonWidget extends StatelessWidget {
         primary: backgroundColor,
       ),
       child: SizedBox(
-        width: iconSize + 20,
-        height: iconSize + 20,
+        width: buttonSize,
+        height: buttonSize,
         child: Icon(
           icon,
           color: iconColor,
