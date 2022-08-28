@@ -11,7 +11,7 @@ class EleventhButton extends StatelessWidget {
     this.fill = true,
     this.primaryColor,
     this.splashColor,
-    this.textColor = Colors.black,
+    this.accentColor = Colors.black,
   }) : super(key: key);
 
   final double width;
@@ -21,7 +21,7 @@ class EleventhButton extends StatelessWidget {
   final String label;
   final Color? primaryColor;
   final Color? splashColor;
-  final Color? textColor;
+  final Color? accentColor;
   final VoidCallback onPressed;
 
   @override
@@ -45,7 +45,7 @@ class EleventhButton extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            color: fill ? textColor : primaryColor,
+            color: fill ? accentColor : primaryColor,
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),

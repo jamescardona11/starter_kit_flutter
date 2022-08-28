@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 
-class TopBackSkipView extends StatefulWidget {
-  const TopBackSkipView({
+class SkipTopBar extends StatefulWidget {
+  const SkipTopBar({
     Key? key,
     required this.onBackClick,
-    required this.onSkipClick,
+    this.center = const SizedBox(),
+    this.offset = const Offset(0, -2),
     this.showSkip = true,
+    this.onSkipClick,
+    this.skipStyle,
   }) : super(key: key);
 
   final VoidCallback onBackClick;
-  final VoidCallback onSkipClick;
+  final VoidCallback? onSkipClick;
+  final Offset offset;
+  final Widget center;
   final bool showSkip;
+  final TextStyle? skipStyle;
 
   @override
-  State<TopBackSkipView> createState() => _TopBackSkipViewState();
+  State<SkipTopBar> createState() => _SkipTopBarState();
 }
 
-class _TopBackSkipViewState extends State<TopBackSkipView>
+class _SkipTopBarState extends State<SkipTopBar>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<Offset> _animation;
@@ -27,7 +33,7 @@ class _TopBackSkipViewState extends State<TopBackSkipView>
 
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 1500),
     );
 
     initAnimations();
@@ -48,12 +54,15 @@ class _TopBackSkipViewState extends State<TopBackSkipView>
                 onPressed: widget.onBackClick,
                 icon: const Icon(Icons.arrow_back_ios_new_rounded),
               ),
+              widget.center,
               Visibility(
                 visible: widget.showSkip,
                 child: TextButton(
                   onPressed: widget.onSkipClick,
-                  child: Text('Omitir',
-                      style: Theme.of(context).textTheme.bodyText2),
+                  child: Text(
+                    'Skip',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
                 ),
               ),
             ],
@@ -64,9 +73,10 @@ class _TopBackSkipViewState extends State<TopBackSkipView>
   }
 
   void initAnimations() {
-    _animation =
-        Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
-            .animate(CurvedAnimation(
+    _animation = Tween<Offset>(
+      begin: widget.offset,
+      end: const Offset(0, 0),
+    ).animate(CurvedAnimation(
       parent: animationController,
       curve: const Interval(
         0.0,

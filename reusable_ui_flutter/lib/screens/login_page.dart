@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../config/config.dart';
-import '../widgets/eleventh_button_widget.dart';
+import '../widgets/buttons/eleventh_button_widget.dart';
 import '../widgets/input/input_text_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
                 label: 'Iniciar',
                 primaryColor: kPrimaryColor,
                 splashColor: kBlueLightColor,
-                textColor: kWhiteColor,
+                accentColor: kWhiteColor,
                 onPressed: () {},
               )
             ],
