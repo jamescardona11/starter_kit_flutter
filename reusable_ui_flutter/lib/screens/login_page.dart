@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../config/config.dart';
-import '../widgets/custom_button_widget.dart';
+import '../widgets/eleventh_button_widget.dart';
 import '../widgets/input/input_text_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
                 child: const Text('¿Olvido la contraseña?'),
               ),
               const Spacer(),
-              CustomButton(
+              EleventhButton(
                 width: size.width,
                 label: 'Iniciar',
                 primaryColor: kPrimaryColor,
