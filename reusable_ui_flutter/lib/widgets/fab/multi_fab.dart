@@ -81,7 +81,7 @@ class _MultiFabState extends State<MultiFab> {
                   widget.children.length,
                   (index) {
                     final itemsLength = widget.children.length;
-                    return _AnimatedElement(
+                    return _MultiFabItem(
                       begin: index * (1 / itemsLength),
                       end: (index + 1) * (1 / itemsLength),
                       animationDuration: widget.animationDuration,
@@ -113,8 +113,8 @@ class _MultiFabState extends State<MultiFab> {
   }
 }
 
-class _AnimatedElement extends StatefulWidget {
-  const _AnimatedElement({
+class _MultiFabItem extends StatefulWidget {
+  const _MultiFabItem({
     required this.animationDuration,
     required this.child,
     required this.begin,
@@ -127,10 +127,10 @@ class _AnimatedElement extends StatefulWidget {
   final Duration animationDuration;
 
   @override
-  _AnimatedElementState createState() => _AnimatedElementState();
+  _MultiFabItemState createState() => _MultiFabItemState();
 }
 
-class _AnimatedElementState extends State<_AnimatedElement>
+class _MultiFabItemState extends State<_MultiFabItem>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> opacityAnimation;
