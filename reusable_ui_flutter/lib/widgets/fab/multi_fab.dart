@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import 'common/fab_item.dart';
+
 class MultiFab extends StatefulWidget {
   const MultiFab({
     super.key,
@@ -16,7 +18,7 @@ class MultiFab extends StatefulWidget {
   final Widget unfoldedIcon;
   final Widget foldedIcon;
 
-  final List<MultiFabItem> children;
+  final List<ElevenFabItem> children;
 
   final ShapeBorder shape;
   final Duration animationDuration;
@@ -192,35 +194,5 @@ class _MultiFabItemState extends State<_MultiFabItem>
       parent: controller,
       curve: interval,
     ));
-  }
-}
-
-class MultiFabItem extends StatelessWidget {
-  const MultiFabItem({
-    super.key,
-    required this.onPressed,
-    this.shape = const CircleBorder(),
-    this.child = const Icon(
-      Icons.headphones,
-      color: Colors.white,
-      size: 10,
-    ),
-    this.color = Colors.blue,
-  });
-
-  final VoidCallback onPressed;
-  final ShapeBorder shape;
-  final Widget child;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      mini: true,
-      onPressed: onPressed,
-      shape: shape,
-      backgroundColor: color,
-      child: child,
-    );
   }
 }
