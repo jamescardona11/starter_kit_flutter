@@ -1,5 +1,5 @@
 ```
-KikBottomBar(
+bottomNavigationBar: KikBottomBar(
   items: [
     KikItem(
       textColor: Colors.orange,
@@ -25,5 +25,25 @@ KikBottomBar(
   onItemSelected: (index) {
     print(index);
   },
+)
+```
+
+
+```
+bottomNavigationBar: FloatingBottomBar(
+  items: [
+    ElevenBottomItem(
+      icon: Icons.home_rounded,
+    ),
+    ElevenBottomItem(
+      icon: Icons.favorite_rounded,
+    ),
+    ElevenBottomItem(
+      icon: Icons.settings_rounded,
+    ),
+    ElevenBottomItem(
+      icon: Icons.person_rounded,
+    ),
+  ],
 )
 ```

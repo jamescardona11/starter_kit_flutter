@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BottomLike extends StatelessWidget {
-  const BottomLike({
+class LikeBar extends StatelessWidget {
+  const LikeBar({
     Key? key,
     this.background = Colors.grey,
     this.accentColor = Colors.white,

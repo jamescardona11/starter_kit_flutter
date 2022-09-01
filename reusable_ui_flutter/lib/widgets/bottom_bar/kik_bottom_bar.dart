@@ -35,7 +35,7 @@ class _KikBottomBarState extends State<KikBottomBar> {
             var index = widget.items.indexOf(item);
             return InkWell(
               onTap: () {
-                setItem(index);
+                _index.value = index;
                 widget.onItemSelected?.call(index);
               },
               child: ValueListenableBuilder<int>(
@@ -51,10 +51,6 @@ class _KikBottomBarState extends State<KikBottomBar> {
         ),
       ),
     );
-  }
-
-  void setItem(int pos) {
-    _index.value = pos;
   }
 }
 
