@@ -19,7 +19,7 @@ BlurredContainer(
   height: 200,
   opacity: 0.1,
   blur: 8,
-  accentColor: Colors.blueGrey,
+  accentColor: Colors.pinkAccentGrey,
   boxDecoration: BoxDecoration(
     borderRadius: BorderRadius.circular(20),
   ),

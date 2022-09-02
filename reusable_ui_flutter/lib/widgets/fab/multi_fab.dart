@@ -11,7 +11,7 @@ class MultiFab extends StatefulWidget {
     this.unfoldedIcon = const Icon(Icons.clear),
     this.shape = const CircleBorder(),
     this.animationDuration = const Duration(milliseconds: 400),
-    this.color = Colors.blue,
+    this.color = Colors.pinkAccent,
     this.onTap,
   });
 

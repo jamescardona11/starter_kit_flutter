@@ -42,7 +42,7 @@ floatingActionButton: FloatingActionRow(
       ),
     ),
   ],
-  color: Colors.blueAccent,
+  color: Colors.pinkAccentAccent,
   elevation: 4,
   // heroTag: 'aswdw',
 ),

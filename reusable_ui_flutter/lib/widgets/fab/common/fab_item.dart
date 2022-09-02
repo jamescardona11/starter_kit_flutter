@@ -32,7 +32,7 @@ class ElevenFabItem extends StatelessWidget {
               color: Colors.white,
               size: 10,
             ),
-        color: color ?? Colors.blue,
+        color: color ?? Colors.pinkAccent,
         padding: padding ?? const EdgeInsets.all(0),
         multi: true,
       );
@@ -60,7 +60,7 @@ class ElevenFabItem extends StatelessWidget {
               color: Colors.white,
               size: 10,
             ),
-        color: color ?? Colors.blue,
+        color: color ?? Colors.pinkAccent,
         padding: padding ?? const EdgeInsets.all(0),
         multi: false,
       );

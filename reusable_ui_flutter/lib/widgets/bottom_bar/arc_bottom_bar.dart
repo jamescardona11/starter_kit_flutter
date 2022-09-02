@@ -13,12 +13,12 @@ class ArcBottomBar extends StatefulWidget {
   const ArcBottomBar({
     super.key,
     this.items = const [],
-    this.selectedIndex = 0,
+    this.initialIndex = 0,
     this.borderRadius = 0,
     this.onItemSelected,
     this.controller,
     this.background = Colors.white,
-    this.activeColor = Colors.blue,
+    this.activeColor = Colors.pinkAccent,
     this.inActiveColor = Colors.black,
     this.type = ArcBottomBarType.lightIcon,
   });
@@ -27,7 +27,7 @@ class ArcBottomBar extends StatefulWidget {
   final BottomBarController? controller;
   final ValueChanged<int>? onItemSelected;
   final ArcBottomBarType type;
-  final int selectedIndex;
+  final int initialIndex;
   final double borderRadius;
   final Color background;
   final Color activeColor;
@@ -42,7 +42,7 @@ class _ArcBottomBarState extends State<ArcBottomBar> {
 
   @override
   void initState() {
-    controller = widget.controller ?? BottomBarController(widget.selectedIndex);
+    controller = widget.controller ?? BottomBarController(widget.initialIndex);
     super.initState();
   }
 
@@ -63,6 +63,10 @@ class _ArcBottomBarState extends State<ArcBottomBar> {
                   height: controller.visible ? 80 : 0,
                   duration: const Duration(milliseconds: 100),
                   child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     onTap: () {
                       controller.changeIndex(index);
                       item.onTap?.call(index);
@@ -86,7 +90,12 @@ class _ArcBottomBarState extends State<ArcBottomBar> {
   }
 
   BoxDecoration decorationBottomBar() => BoxDecoration(
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border(
+          top: BorderSide(
+            width: 0.5,
+            color: Colors.grey.shade200,
+          ),
+        ),
         color: widget.background,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(widget.borderRadius),

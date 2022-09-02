@@ -29,7 +29,7 @@ class _CircularFABMenuWidgetState extends State<CircularFABMenuWidget>
           children: [
             _MenuItem(
               icon: Icons.add,
-              color: Colors.blue,
+              color: Colors.pinkAccent,
               animationDirection: AnimationDirection.top,
               controller: animationController,
             ),

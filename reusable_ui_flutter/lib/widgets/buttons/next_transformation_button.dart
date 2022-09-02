@@ -16,7 +16,7 @@ class NextTransformationButton extends StatefulWidget {
     this.labelTransform = 'Continue',
     this.icon = Icons.arrow_forward_ios_rounded,
     this.accentColor = Colors.white,
-    this.background = Colors.blue,
+    this.background = Colors.pinkAccent,
   }) : super(key: key);
 
   final Widget? baseWidget;

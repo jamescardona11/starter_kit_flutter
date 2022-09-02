@@ -5,7 +5,7 @@ class CircularIconButtonWidget extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.icon,
-    this.iconColor = Colors.blue,
+    this.iconColor = Colors.pinkAccent,
     this.backgroundColor = Colors.white,
     this.iconSize = 32,
   }) : super(key: key);

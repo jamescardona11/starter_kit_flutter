@@ -7,12 +7,12 @@ class FloatingBottomBar extends StatefulWidget {
   const FloatingBottomBar({
     Key? key,
     required this.items,
-    this.selectedIndex = 0,
+    this.initialIndex = 0,
     this.controller,
     this.duration = const Duration(milliseconds: 1500),
     this.background = Colors.white,
-    this.activeColor = Colors.blue,
-    this.inActiveColor = Colors.black38,
+    this.activeColor = Colors.pinkAccent,
+    this.inActiveColor = Colors.black,
     this.margin = 20,
     this.onItemSelected,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class FloatingBottomBar extends StatefulWidget {
   final List<ElevenBottomItem> items;
   final BottomBarController? controller;
   final ValueChanged<int>? onItemSelected;
-  final int selectedIndex;
+  final int initialIndex;
   final Duration duration;
   final Color background;
   final Color activeColor;
@@ -36,7 +36,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
 
   @override
   void initState() {
-    controller = widget.controller ?? BottomBarController(widget.selectedIndex);
+    controller = widget.controller ?? BottomBarController(widget.initialIndex);
     super.initState();
   }
 
@@ -66,13 +66,15 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
                 var index = widget.items.indexOf(item);
                 return Expanded(
                   child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     onTap: () {
                       controller.changeIndex(index);
                       item.onTap?.call(index);
                       widget.onItemSelected?.call(index);
                     },
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
                     child: AnimatedBuilder(
                       animation: controller,
                       builder: (_, child) {

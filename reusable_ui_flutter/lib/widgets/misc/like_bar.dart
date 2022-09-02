@@ -5,7 +5,7 @@ class LikeBar extends StatelessWidget {
     Key? key,
     this.background = Colors.grey,
     this.accentColor = Colors.white,
-    this.favoriteColor = Colors.blue,
+    this.favoriteColor = Colors.pinkAccent,
     this.icon = Icons.favorite,
     this.onPressedFavorite,
     this.onPressedLabel,
@@ -43,7 +43,7 @@ class LikeBar extends StatelessWidget {
             onTap: onPressedFavorite,
             child: Container(
               width: 100,
-              color: Colors.blue,
+              color: Colors.pinkAccent,
               child: Center(
                 child: Icon(
                   icon,
