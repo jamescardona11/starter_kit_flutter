@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'common/bottom_bar_controller.dart';
 import 'common/bottom_item.dart';
 
 class FloatingBottomBar extends StatefulWidget {
@@ -7,7 +8,9 @@ class FloatingBottomBar extends StatefulWidget {
     Key? key,
     required this.items,
     this.selectedIndex = 0,
+    this.controller,
     this.duration = const Duration(milliseconds: 1500),
+    this.background = Colors.white,
     this.activeColor = Colors.blue,
     this.inActiveColor = Colors.black38,
     this.margin = 20,
@@ -15,23 +18,25 @@ class FloatingBottomBar extends StatefulWidget {
   }) : super(key: key);
 
   final List<ElevenBottomItem> items;
+  final BottomBarController? controller;
+  final ValueChanged<int>? onItemSelected;
   final int selectedIndex;
   final Duration duration;
+  final Color background;
   final Color activeColor;
   final Color inActiveColor;
   final double margin;
-  final ValueChanged<int>? onItemSelected;
 
   @override
   State<FloatingBottomBar> createState() => _FloatingBottomBarState();
 }
 
 class _FloatingBottomBarState extends State<FloatingBottomBar> {
-  late final ValueNotifier<int> _index;
+  late final BottomBarController controller;
 
   @override
   void initState() {
-    _index = ValueNotifier<int>(widget.selectedIndex);
+    controller = widget.controller ?? BottomBarController(widget.selectedIndex);
     super.initState();
   }
 
@@ -59,47 +64,50 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: widget.items.map((item) {
                 var index = widget.items.indexOf(item);
-                return InkWell(
-                  onTap: () {
-                    _index.value = index;
-                    item.onTap?.call(index);
-                    widget.onItemSelected?.call(index);
-                  },
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: ValueListenableBuilder<int>(
-                    valueListenable: _index,
-                    builder: (_, currentIndex, __) {
-                      final item = widget.items[index];
-                      final isCurrent = index == currentIndex;
+                return Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      controller.changeIndex(index);
+                      item.onTap?.call(index);
+                      widget.onItemSelected?.call(index);
+                    },
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    child: AnimatedBuilder(
+                      animation: controller,
+                      builder: (_, child) {
+                        final item = widget.items[index];
+                        final isCurrent = index == controller.index;
 
-                      return Column(
-                        children: [
-                          AnimatedContainer(
-                            width: 50,
-                            height: isCurrent ? 6 : 0,
-                            duration: widget.duration,
-                            curve: Curves.fastLinearToSlowEaseIn,
-                            margin: EdgeInsets.only(bottom: isCurrent ? 0 : 12),
-                            decoration: BoxDecoration(
-                              color: item.activeColor ?? widget.activeColor,
-                              borderRadius: const BorderRadius.vertical(
-                                bottom: Radius.circular(10),
+                        return Column(
+                          children: [
+                            AnimatedContainer(
+                              width: 50,
+                              height: isCurrent ? 6 : 0,
+                              duration: widget.duration,
+                              curve: Curves.fastLinearToSlowEaseIn,
+                              margin:
+                                  EdgeInsets.only(bottom: isCurrent ? 0 : 12),
+                              decoration: BoxDecoration(
+                                color: item.activeColor ?? widget.activeColor,
+                                borderRadius: const BorderRadius.vertical(
+                                  bottom: Radius.circular(10),
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          Icon(
-                            item.icon,
-                            size: 30,
-                            color: isCurrent
-                                ? item.activeColor ?? widget.activeColor
-                                : item.inActiveColor ?? widget.inActiveColor,
-                          ),
-                          // SizedBox(height: size.width * .03),
-                        ],
-                      );
-                    },
+                            const SizedBox(height: 5),
+                            Icon(
+                              item.icon,
+                              size: 28,
+                              color: isCurrent
+                                  ? item.activeColor ?? widget.activeColor
+                                  : item.inActiveColor ?? widget.inActiveColor,
+                            ),
+                            // SizedBox(height: size.width * .03),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 );
               }).toList()),

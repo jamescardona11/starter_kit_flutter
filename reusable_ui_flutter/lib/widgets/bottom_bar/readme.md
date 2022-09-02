@@ -1,25 +1,25 @@
 ```
-bottomNavigationBar: KikBottomBar(
+bottomNavigationBar: ArcBottomBar(
   items: [
-    KikItem(
-      textColor: Colors.orange,
-      title: 'Home',
-      icon: Icon(Icons.home),
+    ElevenBottomItem(
+      activeColor: Colors.orange,
+      label: 'Home',
+      icon: Icons.home,
     ),
-    KikItem(
-      textColor: Colors.red,
-      title: 'Trending',
-      icon: Icon(Icons.trending_up),
+    ElevenBottomItem(
+      activeColor: Colors.red,
+      label: 'Trending',
+      icon: Icons.trending_up,
     ),
-    KikItem(
-      textColor: Colors.green,
-      title: 'Search',
-      icon: Icon(Icons.search),
+    ElevenBottomItem(
+      activeColor: Colors.green,
+      label: 'Search',
+      icon: Icons.search,
     ),
-    KikItem(
-      textColor: Colors.brown,
-      title: 'Settings',
-      icon: Icon(Icons.settings),
+    ElevenBottomItem(
+      activeColor: Colors.brown,
+      label: 'Settings',
+      icon: Icons.settings,
     ),
   ],
   onItemSelected: (index) {
