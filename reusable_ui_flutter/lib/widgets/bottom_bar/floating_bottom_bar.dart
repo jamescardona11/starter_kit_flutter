@@ -62,6 +62,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
                 return InkWell(
                   onTap: () {
                     _index.value = index;
+                    item.onTap?.call(index);
                     widget.onItemSelected?.call(index);
                   },
                   splashColor: Colors.transparent,
