@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// add click to slide
 class SliderDots extends StatefulWidget {
   const SliderDots({
     super.key,

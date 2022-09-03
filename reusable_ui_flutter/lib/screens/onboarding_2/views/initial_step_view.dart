@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:reusable_ui_flutter/widgets/buttons/eleventh_button_widget.dart';
 
 import '../const.dart';
@@ -27,9 +28,11 @@ class InitialStepView extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: Text(
               'Yuno',
-              style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: 33,
-                  ),
+              style: GoogleFonts.notoSans(
+                color: kBlackColor,
+                fontSize: 33,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const Padding(

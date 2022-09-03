@@ -86,6 +86,8 @@ class _StepsViewState extends State<StepsView> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 110),
                 child: NextTransformationButton(
+                  background: kPrimaryColor,
+                  accentColor: Colors.white,
                   onNextPressed: () {
                     if (page != pagesAmount - 1) {
                       pageController.animateToPage(
@@ -95,10 +97,12 @@ class _StepsViewState extends State<StepsView> {
                       );
                     }
                   },
-                  onTransformPressed: () {},
+                  onTransformPressed: () {
+                    // GO TO HOME
+                  },
                   forwardTransformation: page > delta,
                   reverseTransformation: page <= delta,
-                  baseWidget: Padding(
+                  topWidget: Padding(
                     padding: const EdgeInsets.only(
                       top: 10,
                       bottom: 10,
@@ -110,7 +114,34 @@ class _StepsViewState extends State<StepsView> {
                       dotsSize: 12,
                       dotsSpace: 5,
                       secondaryDotsSize: 15,
+                      primaryColor: kPrimaryColor,
                     ),
+                  ),
+                  bottomWidget: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '¿Ya tienes cuenta? ',
+                        style: GoogleFonts.monda(
+                          fontSize: 14,
+                          color: kBlackColor,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // LOGIN
+                        },
+                        child: Text(
+                          'Login',
+                          style: GoogleFonts.monda(
+                            fontSize: 14,
+                            color: kBlackColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );

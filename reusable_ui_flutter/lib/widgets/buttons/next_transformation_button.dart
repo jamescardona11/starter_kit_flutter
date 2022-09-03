@@ -10,7 +10,8 @@ class NextTransformationButton extends StatefulWidget {
   const NextTransformationButton({
     Key? key,
     this.controller,
-    this.baseWidget,
+    this.topWidget,
+    this.bottomWidget,
     this.onNextPressed,
     this.onTransformPressed,
     this.labelTransform = 'Continue',
@@ -21,7 +22,8 @@ class NextTransformationButton extends StatefulWidget {
     this.reverseTransformation = false,
   }) : super(key: key);
 
-  final Widget? baseWidget;
+  final Widget? topWidget;
+  final Widget? bottomWidget;
   final VoidCallback? onNextPressed;
   final VoidCallback? onTransformPressed;
   final CustomController? controller;
@@ -40,7 +42,8 @@ class NextTransformationButton extends StatefulWidget {
 class _NextTransformationButtonState extends State<NextTransformationButton>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  late Animation<double> _signUpMoveAnimation;
+  late Animation<double> transformButton;
+  late Animation<Offset> bottomWidgetMoveAnimation;
   late CustomController customController;
 
   @override
@@ -74,12 +77,12 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        widget.baseWidget ?? const SizedBox(),
+        widget.topWidget ?? const SizedBox(),
         AnimatedBuilder(
           animation: animationController,
           builder: (_, child) => PageTransitionSwitcher(
             duration: const Duration(milliseconds: 480),
-            reverse: _signUpMoveAnimation.value < 0.7,
+            reverse: transformButton.value < 0.7,
             transitionBuilder: (
               Widget child,
               Animation<double> animation,
@@ -94,16 +97,16 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
               );
             },
             child: SizedBox(
-              width: 58 + (200 * _signUpMoveAnimation.value),
+              width: 58 + (200 * transformButton.value),
               height: 58,
               child: OutlinedButton(
                 key: const ValueKey('next_button'),
                 onPressed: isNextButton
                     ? widget.onNextPressed
                     : widget.onTransformPressed,
-                style: getButtonStyle(_signUpMoveAnimation.value < 0.7),
+                style: getButtonStyle(transformButton.value < 0.7),
                 child: Visibility(
-                  visible: _signUpMoveAnimation.value < 0.7,
+                  visible: transformButton.value < 0.7,
                   replacement: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -129,11 +132,15 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
             ),
           ),
         ),
+        SlideTransition(
+          position: bottomWidgetMoveAnimation,
+          child: widget.bottomWidget ?? const SizedBox(),
+        ),
       ],
     );
   }
 
-  bool get isNextButton => _signUpMoveAnimation.value < 0.7;
+  bool get isNextButton => transformButton.value < 0.7;
 
   ButtonStyle getButtonStyle(bool showCircle) => OutlinedButton.styleFrom(
         shape: showCircle
@@ -152,8 +159,7 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
   }
 
   void initAnimations() {
-    _signUpMoveAnimation =
-        Tween<double>(begin: 0, end: 1.0).animate(CurvedAnimation(
+    transformButton = Tween<double>(begin: 0, end: 1.0).animate(CurvedAnimation(
       parent: animationController,
       curve: const Interval(
         0.0,
@@ -162,15 +168,18 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
       ),
     ));
 
-    // _loginTextMoveAnimation =
-    //     Tween<Offset>(begin: const Offset(0, 8), end: const Offset(0, 0))
-    //         .animate(CurvedAnimation(
-    //   parent: animationController,
-    //   curve: const Interval(
-    //     0.3,
-    //     0.6,
-    //     curve: Curves.fastOutSlowIn,
-    //   ),
-    // ));
+    bottomWidgetMoveAnimation =
+        Tween<Offset>(begin: const Offset(0, 4), end: const Offset(0, 0))
+            .animate(
+      CurvedAnimation(
+        parent: animationController
+          ..duration = const Duration(milliseconds: 800),
+        curve: const Interval(
+          0.2,
+          0.9,
+          curve: Curves.linear,
+        ),
+      ),
+    );
   }
 }
