@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:reusable_ui_flutter/widgets/widgets.dart'
+    show SliderDots, EleventhButton;
 
+import 'const.dart';
 import 'widgets/steps_view.dart';
-
-const kBlackColor = Color(0xff2E2C3C);
-const imgManagement = 'assets/management.png';
-const imgSavetime = 'assets/save_time.png';
-const imgStatistics = 'assets/statistics.png';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -15,28 +13,31 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
-  final PageController pageController = PageController();
+  late final PageController pageController;
   final currentPage = ValueNotifier<double>(0);
+
+  final totalSliders = 3;
+
+  @override
+  void initState() {
+    pageController = PageController()
+      ..addListener(() {
+        if (pageController.page! != currentPage.value) {
+          currentPage.value = pageController.page!;
+        }
+      });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final currentPage = useState<double>(0);
-    // final PageController pageController = usePageController();
-
-    // useEffect(() {
-    //   pageController.addListener(() {
-    //     if (pageController.page! != currentPage.value) {
-    //       currentPage.value = pageController.page!;
-    //     }
-    //   });
-    // });
-
     return Scaffold(
       backgroundColor: kBlackColor,
       body: Stack(
         children: [
           PageView(
             controller: pageController,
-            // physics: const BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             children: const [
               StepsView(
                 title: 'Management',
@@ -61,51 +62,48 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ],
           ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(bottom: 50),
-          //     child: Stack(
-          //       alignment: Alignment.center,
-          //       children: [
-          //         // Visibility(
-          //         //   visible: currentPage.value < 1.7,
-          //         //   child: SmoothPageIndicator(
-          //         //     controller: pageController,
-          //         //     count: 3,
-          //         //     effect: WormEffect(
-          //         //       dotColor: kGrayLightColor,
-          //         //       activeDotColor: kWhiteColor,
-          //         //       dotWidth: 14,
-          //         //       dotHeight: 14,
-          //         //     ),
-          //         //   ),
-          //         // ),
-          //         AnimatedOpacity(
-          //           opacity:
-          //               currentPage.value > 1.8 ? currentPage.value / 2 : 0,
-          //           duration: const Duration(milliseconds: 250),
-          //           child: SizedBox(
-          //             width: 140,
-          //             child: ElevatedButton.icon(
-          //               style: ButtonStyle(
-          //                 backgroundColor:
-          //                     MaterialStateProperty.all<Color>(kWhiteColor),
-          //               ),
-          //               icon: const Icon(Icons.done),
-          //               label: const Text(
-          //                 'Continue',
-          //               ),
-          //               onPressed: () {},
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
+          ValueListenableBuilder<double>(
+            valueListenable: currentPage,
+            builder: (_, page, child) => Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Visibility(
+                      visible: page < dotsVisibility,
+                      child: SliderDots(
+                        totalSlides: totalSliders,
+                        controller: pageController,
+                        accentColor: Colors.grey,
+                        dotsSize: 12,
+                        dotsSpace: 5,
+                        primaryColor: kBlueColor,
+                        secondaryDotsSize: 15,
+                      ),
+                    ),
+                    AnimatedOpacity(
+                      opacity: page > startOpacity ? page / 2 : 0,
+                      duration: const Duration(milliseconds: 250),
+                      child: EleventhButton(
+                        label: 'Continue',
+                        primaryColor: Colors.white,
+                        accentColor: kBlackColor,
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
+
+  double get dotsVisibility => totalSliders - 1 - 0.3;
+
+  double get startOpacity => totalSliders - 1 - 0.2;
 }

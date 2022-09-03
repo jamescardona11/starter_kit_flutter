@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:reusable_ui_flutter/widgets/widgets.dart'
+    show InputTextWidget, EleventhButton;
 
-import '../../config/config.dart';
-import '../../widgets/buttons/eleventh_button_widget.dart';
-import '../../widgets/input/input_text_widget.dart';
+import 'const.dart';
 
 class LoginPage extends StatelessWidget {
   /// default constructor
   const LoginPage({
     super.key,
   });
-
-  final String logoImg = 'assets/logo.png';
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +48,7 @@ class LoginPage extends StatelessWidget {
               TextButton(
                 onPressed: () {},
                 style: TextButton.styleFrom(
-                  primary: kGrayLightColor,
+                  primary: kGrayLightColor2,
                 ),
                 child: const Text('¿Forgot password?'),
               ),
@@ -59,7 +57,7 @@ class LoginPage extends StatelessWidget {
                 width: size.width,
                 label: 'Login',
                 primaryColor: kPrimaryColor,
-                splashColor: kBlueLightColor,
+                splashColor: kBlueColor,
                 accentColor: kWhiteColor,
                 onPressed: () {},
               )

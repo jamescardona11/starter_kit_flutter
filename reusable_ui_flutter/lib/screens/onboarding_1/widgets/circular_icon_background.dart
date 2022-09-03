@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/config/config.dart';
+import 'package:reusable_ui_flutter/config/responsive_extension.dart';
+
+import '../const.dart';
 
 class CircularIconBackground extends StatelessWidget {
   final String image;
@@ -43,7 +45,7 @@ class CircularIconBackground extends StatelessWidget {
               child: Center(
                 child: Icon(
                   icon,
-                  color: kGrayLightColor2,
+                  color: kGrayColor,
                   size: 35,
                 ),
               ),

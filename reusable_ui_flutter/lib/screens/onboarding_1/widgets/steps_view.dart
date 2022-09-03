@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/config/config.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:reusable_ui_flutter/config/responsive_extension.dart';
 
+import '../const.dart';
 import 'circular_icon_background.dart';
 
 class StepsView extends StatelessWidget {
@@ -35,19 +37,29 @@ class StepsView extends StatelessWidget {
             kSpaceBigVertical,
             Text(
               title,
-              style: textTheme.headline1!.copyWith(
+              style: GoogleFonts.notoSans(
                 fontSize: 28,
                 color: Colors.grey,
+                fontWeight: FontWeight.w800,
               ),
+              // style: TextStyle(
+              //   fontSize: 28,
+              //   color: Colors.grey,
+              // ),
             ),
             kSpaceBigVertical,
             Text(
               description,
               textAlign: TextAlign.center,
-              style: textTheme.headline2!.copyWith(
+              style: GoogleFonts.monda(
                 fontSize: 16,
                 color: Colors.grey.shade400,
+                fontWeight: FontWeight.w300,
               ),
+              // style: TextStyle(
+              //   fontSize: 16,
+              //   color: Colors.grey.shade400,
+              // ),
             ),
           ],
         ),
