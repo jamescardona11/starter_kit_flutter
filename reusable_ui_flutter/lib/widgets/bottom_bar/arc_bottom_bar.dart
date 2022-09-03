@@ -19,7 +19,7 @@ class ArcBottomBar extends StatefulWidget {
     this.controller,
     this.background = Colors.white,
     this.activeColor = Colors.pinkAccent,
-    this.inActiveColor = Colors.black,
+    this.inactiveColor = Colors.black,
     this.type = ArcBottomBarType.lightIcon,
   });
 
@@ -31,7 +31,7 @@ class ArcBottomBar extends StatefulWidget {
   final double borderRadius;
   final Color background;
   final Color activeColor;
-  final Color inActiveColor;
+  final Color inactiveColor;
 
   @override
   State<ArcBottomBar> createState() => _ArcBottomBarState();
@@ -51,15 +51,15 @@ class _ArcBottomBarState extends State<ArcBottomBar> {
     return Material(
       child: DecoratedBox(
         decoration: decorationBottomBar(),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: widget.items.map((item) {
-            final index = widget.items.indexOf(item);
-            return Expanded(
-              child: AnimatedBuilder(
-                animation: controller,
-                builder: (_, child) => AnimatedContainer(
+        child: AnimatedBuilder(
+          animation: controller,
+          builder: (_, child) => Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: widget.items.map((item) {
+              final index = widget.items.indexOf(item);
+              return Expanded(
+                child: AnimatedContainer(
                   height: controller.visible ? 80 : 0,
                   duration: const Duration(milliseconds: 100),
                   child: InkWell(
@@ -68,22 +68,24 @@ class _ArcBottomBarState extends State<ArcBottomBar> {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () {
-                      controller.changeIndex(index);
                       item.onTap?.call(index);
                       widget.onItemSelected?.call(index);
+
+                      if (index == controller.index) return;
+                      controller.changeIndex(index);
                     },
                     child: BottomBarItem(
                       item: item,
                       isSelected: index == controller.index,
                       type: widget.type,
                       activeColor: widget.activeColor,
-                      inActiveColor: widget.inActiveColor,
+                      inactiveColor: widget.inactiveColor,
                     ),
                   ),
                 ),
-              ),
-            );
-          }).toList(),
+              );
+            }).toList(),
+          ),
         ),
       ),
     );
@@ -115,7 +117,7 @@ class BottomBarItem extends StatelessWidget {
     Key? key,
     required this.item,
     required this.activeColor,
-    required this.inActiveColor,
+    required this.inactiveColor,
     required this.type,
     this.isSelected = false,
   }) : super(key: key);
@@ -123,7 +125,7 @@ class BottomBarItem extends StatelessWidget {
   final ElevenBottomItem item;
   final bool isSelected;
   final Color activeColor;
-  final Color inActiveColor;
+  final Color inactiveColor;
   final ArcBottomBarType type;
 
   @override
@@ -195,7 +197,7 @@ class BottomBarItem extends StatelessWidget {
 
   Color get iconColor => isSelected
       ? item.activeColor ?? activeColor
-      : item.inActiveColor ?? inActiveColor;
+      : item.inactiveColor ?? inactiveColor;
 
   Widget get defaultIcon => Icon(
         item.icon,

@@ -12,7 +12,7 @@ class FloatingBottomBar extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1500),
     this.background = Colors.white,
     this.activeColor = Colors.pinkAccent,
-    this.inActiveColor = Colors.black,
+    this.inactiveColor = Colors.black,
     this.margin = 20,
     this.onItemSelected,
   }) : super(key: key);
@@ -24,7 +24,7 @@ class FloatingBottomBar extends StatefulWidget {
   final Duration duration;
   final Color background;
   final Color activeColor;
-  final Color inActiveColor;
+  final Color inactiveColor;
   final double margin;
 
   @override
@@ -71,9 +71,11 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () {
-                      controller.changeIndex(index);
                       item.onTap?.call(index);
                       widget.onItemSelected?.call(index);
+
+                      if (index == controller.index) return;
+                      controller.changeIndex(index);
                     },
                     child: AnimatedBuilder(
                       animation: controller,
@@ -103,7 +105,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
                               size: 28,
                               color: isCurrent
                                   ? item.activeColor ?? widget.activeColor
-                                  : item.inActiveColor ?? widget.inActiveColor,
+                                  : item.inactiveColor ?? widget.inactiveColor,
                             ),
                             // SizedBox(height: size.width * .03),
                           ],

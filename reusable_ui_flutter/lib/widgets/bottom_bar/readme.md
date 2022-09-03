@@ -47,3 +47,27 @@ bottomNavigationBar: FloatingBottomBar(
   ],
 )
 ```
+
+
+```
+bottomNavigationBar: BeeBottomBar(
+  items: [
+    ElevenBottomItem(
+      label: 'Home',
+      icon: Icons.home,
+    ),
+    ElevenBottomItem(
+      label: 'Trending',
+      icon: Icons.trending_up,
+    ),
+    ElevenBottomItem(
+      label: 'Search',
+      icon: Icons.search,
+    ),
+    // ElevenBottomItem(
+    //   label: 'Settings',
+    //   icon: Icons.settings,
+    // ),
+  ],
+),
+```
