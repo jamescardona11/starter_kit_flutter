@@ -27,6 +27,7 @@ class IndexPage extends StatelessWidget {
     'Onboarding #1 (only UI)': const OnboardingPage(),
     'Onboarding #2 (only UI)': IntroPage(),
     'Basic Login (only UI)': const LoginPage(),
+    'AuthPage (only UI)': const AuthPage(),
   };
 
   @override

@@ -255,7 +255,6 @@ class _CustomStepViewState extends State<_CustomStepView>
           child: Text(
             widget.label,
             textAlign: TextAlign.center,
-            // style: textTheme.,
           ),
         ),
       ),

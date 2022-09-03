@@ -1,33 +1,65 @@
 /// [flutter]
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:provider/provider.dart';
 import 'package:reusable_ui_flutter/config/config.dart';
 
 import '../../widgets/buttons/eleventh_button_widget.dart';
 import '../../widgets/input/input_text_widget.dart';
 
-/// [local]
-import 'auth_ui_provider.dart';
-
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   const AuthPage({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  double loginSizeWidth = 1;
+  double loginSizeHeight = 1;
+  double opacity = 1;
+  bool isRegisterCardOpen = false;
+
+  @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
-        children: const [
-          _AuthBackgroundView(),
-          _AuthLoginCardView(),
-          _AuthRegisterCardView(),
+        children: [
+          const _AuthBackgroundView(),
+          _AuthLoginCardView(
+            onOpenRegisterCard: onOpenRegisterCard,
+            loginSizeHeight: loginSizeHeight,
+            loginSizeWidth: loginSizeWidth,
+            opacity: opacity,
+          ),
+          _AuthRegisterCardView(
+            isRegisterCardOpen: isRegisterCardOpen,
+            onCloseRegisterCard: onOpenRegisterCard,
+          ),
         ],
       ),
     );
+  }
+
+  void onOpenRegisterCard() {
+    loginSizeWidth = 0.88;
+    loginSizeHeight = 1.05;
+    opacity = 0.7;
+    isRegisterCardOpen = true;
+
+    setState(() {});
+  }
+
+  void onCloseRegisterCard() {
+    loginSizeWidth = 1;
+    loginSizeHeight = 1;
+    opacity = 1;
+
+    isRegisterCardOpen = false;
+
+    setState(() {});
   }
 }
 
@@ -79,13 +111,22 @@ class _AuthBackgroundView extends StatelessWidget {
 class _AuthLoginCardView extends StatelessWidget {
   const _AuthLoginCardView({
     Key? key,
+    required this.onOpenRegisterCard,
+    required this.loginSizeWidth,
+    required this.loginSizeHeight,
+    required this.opacity,
   }) : super(key: key);
+
+  final VoidCallback onOpenRegisterCard;
+
+  final double loginSizeWidth;
+  final double loginSizeHeight;
+  final double opacity;
 
   @override
   Widget build(BuildContext context) {
-    final authUIProvider = context.watch<AuthUIProvider>();
-    final width = authUIProvider.loginSize.width * context.widthPx;
-    final height = authUIProvider.loginSize.height * context.heightPct(70);
+    final width = loginSizeWidth * context.widthPx;
+    final height = loginSizeHeight * context.heightPct(70);
 
     return KeyboardVisibilityBuilder(
       builder: (_, isKeyboardVisible) => AnimatedContainer(
@@ -95,7 +136,7 @@ class _AuthLoginCardView extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         curve: Curves.fastLinearToSlowEaseIn,
         decoration: BoxDecoration(
-          color: kCreamColor.withOpacity(authUIProvider.opacity),
+          color: kCreamColor.withOpacity(opacity),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -106,7 +147,7 @@ class _AuthLoginCardView extends StatelessWidget {
           children: [
             if (isKeyboardVisible) kSpaceMediumVertical,
             Text(
-              'Login para continuar',
+              'Login to continue',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline1!.copyWith(
                     color: kBlueColor,
@@ -115,12 +156,12 @@ class _AuthLoginCardView extends StatelessWidget {
             kSpaceMediumVertical,
             kSpaceLittleVertical,
             const InputTextWidget(
-              hint: 'Ingresa tu email',
+              hint: 'Input your email',
               leadingIcon: Icons.email,
             ),
             kSpaceMediumVertical,
             const InputTextWidget(
-              hint: 'Ingresa tu contraseña',
+              hint: 'Input your password',
               leadingIcon: Icons.lock,
               obscureText: true,
             ),
@@ -131,10 +172,8 @@ class _AuthLoginCardView extends StatelessWidget {
             ),
             kSpaceMediumVertical,
             EleventhButton(
-              onPressed: () {
-                context.read<AuthUIProvider>().onOpenRegisterCard();
-              },
-              label: 'Crear nueva cuenta',
+              onPressed: onOpenRegisterCard,
+              label: 'Create a new account',
               fill: false,
             ),
           ],
@@ -147,13 +186,15 @@ class _AuthLoginCardView extends StatelessWidget {
 class _AuthRegisterCardView extends StatelessWidget {
   const _AuthRegisterCardView({
     Key? key,
+    required this.isRegisterCardOpen,
+    required this.onCloseRegisterCard,
   }) : super(key: key);
+
+  final bool isRegisterCardOpen;
+  final VoidCallback onCloseRegisterCard;
 
   @override
   Widget build(BuildContext context) {
-    final isRegisterCardOpen =
-        context.watch<AuthUIProvider>().isRegisterCardOpen;
-
     return KeyboardVisibilityBuilder(
       builder: (_, isKeyboardVisible) => AnimatedContainer(
         width: context.widthPx,
@@ -174,7 +215,7 @@ class _AuthRegisterCardView extends StatelessWidget {
           children: [
             if (isKeyboardVisible) kSpaceMediumVertical,
             Text(
-              'Crear nueva cuenta',
+              'Create a new account',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline1!.copyWith(
                     color: kBlueColor,
@@ -183,27 +224,27 @@ class _AuthRegisterCardView extends StatelessWidget {
             kSpaceMediumVertical,
             kSpaceLittleVertical,
             const InputTextWidget(
-              hint: 'Ingresa tu email',
+              hint: 'Input your email',
               leadingIcon: Icons.email,
             ),
             kSpaceMediumVertical,
             const InputTextWidget(
-              hint: 'Ingresa tu contraseña',
+              hint: 'Input your password',
               leadingIcon: Icons.lock,
               obscureText: true,
             ),
             const Spacer(),
             EleventhButton(
               onPressed: () {},
-              label: 'Crear nueva cuenta',
+              label: 'Create a new account',
             ),
             kSpaceMediumVertical,
             EleventhButton(
               onPressed: () {
                 FocusManager.instance.primaryFocus?.unfocus();
-                context.read<AuthUIProvider>().onCloseRegisterCard();
+                onCloseRegisterCard();
               },
-              label: 'Volver al Login',
+              label: 'Return to Login',
               fill: false,
             ),
           ],

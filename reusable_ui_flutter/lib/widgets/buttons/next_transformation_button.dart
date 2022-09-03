@@ -112,10 +112,10 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
                     children: [
                       Text(
                         widget.labelTransform,
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                              fontSize: 20,
-                              color: widget.accentColor,
-                            ),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: widget.accentColor,
+                        ),
                       ),
                       Icon(
                         widget.icon,

@@ -59,9 +59,11 @@ class _SkipTopBarState extends State<SkipTopBar>
                 visible: widget.showSkip,
                 child: TextButton(
                   onPressed: widget.onSkipClick,
-                  child: Text(
+                  child: const Text(
                     'Skip',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),

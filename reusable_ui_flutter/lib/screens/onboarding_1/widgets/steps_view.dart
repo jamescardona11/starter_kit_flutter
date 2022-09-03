@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reusable_ui_flutter/config/responsive_extension.dart';
 
 import '../const.dart';
 import 'circular_icon_background.dart';
@@ -21,8 +20,6 @@ class StepsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = context.textTheme;
-
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kSpaceMedium + 5),
