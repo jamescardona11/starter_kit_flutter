@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
     super.key,
   });
 
-  final String logoImg = AssetsManager.imgLogo;
+  final String logoImg = 'assets/';
 
   @override
   Widget build(BuildContext context) {

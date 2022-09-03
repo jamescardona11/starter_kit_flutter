@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/assets.dart';
-import 'package:reusable_ui_flutter/dimens.dart';
-import 'package:reusable_ui_flutter/responsive_extension.dart';
+import 'package:reusable_ui_flutter/config/assets.dart';
+import 'package:reusable_ui_flutter/config/config.dart';
 
-import '../widgets/next_transformation_button_widget.dart';
+import '../../../../../widgets/buttons/next_transformation_button.dart';
 import '../widgets/top_back_skip_view.dart';
 
 class StepsView extends StatefulWidget {
@@ -82,10 +81,10 @@ class _StepsViewState extends State<StepsView> {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 110),
-            child: NextTransformationButtonWidget(
-              pageController: pageController,
-              pagesAmount: pagesAmount,
-            ),
+            child: NextTransformationButton(
+                // pageController: pageController,
+                // pagesAmount: pagesAmount,
+                ),
           ),
         ),
         ValueListenableBuilder<bool>(

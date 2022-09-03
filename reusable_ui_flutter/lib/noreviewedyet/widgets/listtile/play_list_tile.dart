@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/colors.dart';
+
+import '../../../config/colors.dart';
 
 class ItemCourseCount extends StatelessWidget {
   const ItemCourseCount({

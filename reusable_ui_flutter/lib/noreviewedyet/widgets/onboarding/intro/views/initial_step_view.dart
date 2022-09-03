@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/assets.dart';
-import 'package:reusable_ui_flutter/dimens.dart';
+import 'package:reusable_ui_flutter/widgets/buttons/eleventh_button_widget.dart';
 
-import '../../../buttons/yuno_button_widget.dart';
+import '../../../../../config/assets.dart';
+import '../../../../../config/dimens.dart';
 
 class InitialStepView extends StatelessWidget {
   const InitialStepView({
@@ -41,7 +41,7 @@ class InitialStepView extends StatelessWidget {
             ),
           ),
           kSpaceBigVertical,
-          YunoButton(
+          EleventhButton(
             onPressed: onStartPressed,
             label: 'Empecemos',
           ),

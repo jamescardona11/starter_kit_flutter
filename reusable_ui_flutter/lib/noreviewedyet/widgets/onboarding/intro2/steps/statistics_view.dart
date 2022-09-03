@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/assets.dart';
-import 'package:reusable_ui_flutter/dimens.dart';
-import 'package:reusable_ui_flutter/responsive_extension.dart';
-import 'package:reusable_ui_flutter/noreviewedyet/widgets/circular_icon_background.dart';
+import 'package:reusable_ui_flutter/config/config.dart';
+
+import 'circular_icon_background.dart';
 
 class StatisticsView extends StatelessWidget {
   @override

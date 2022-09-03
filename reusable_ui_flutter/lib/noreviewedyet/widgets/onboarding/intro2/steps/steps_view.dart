@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/colors.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:reusable_ui_flutter/config/colors.dart';
 
 import 'management_view.dart';
 import 'savetime_view.dart';
@@ -45,19 +44,19 @@ class _StepsViewState extends State<StepsView> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Visibility(
-                  visible: currentPage.value < 1.7,
-                  child: SmoothPageIndicator(
-                    controller: pageController,
-                    count: 3,
-                    effect: WormEffect(
-                      dotColor: kGrayLightColor,
-                      activeDotColor: kWhiteColor,
-                      dotWidth: 14,
-                      dotHeight: 14,
-                    ),
-                  ),
-                ),
+                // Visibility(
+                //   visible: currentPage.value < 1.7,
+                //   child: SmoothPageIndicator(
+                //     controller: pageController,
+                //     count: 3,
+                //     effect: WormEffect(
+                //       dotColor: kGrayLightColor,
+                //       activeDotColor: kWhiteColor,
+                //       dotWidth: 14,
+                //       dotHeight: 14,
+                //     ),
+                //   ),
+                // ),
                 AnimatedOpacity(
                   opacity: currentPage.value > 1.8 ? currentPage.value / 2 : 0,
                   duration: const Duration(milliseconds: 250),

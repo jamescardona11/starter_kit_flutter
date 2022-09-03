@@ -1,15 +1,13 @@
 /// [flutter]
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:reusable_ui_flutter/colors.dart';
-import 'package:reusable_ui_flutter/dimens.dart';
-import 'package:reusable_ui_flutter/responsive_extension.dart';
 import 'package:provider/provider.dart';
+import 'package:reusable_ui_flutter/config/config.dart';
 
-import '../widgets/buttons/yuno_button_widget.dart';
+import '../../widgets/buttons/eleventh_button_widget.dart';
+import '../../widgets/input/input_text_widget.dart';
 
 /// [local]
-import '../widgets/input_text_field_widget.dart';
 import 'auth_ui_provider.dart';
 
 class AuthPage extends StatelessWidget {
@@ -118,21 +116,21 @@ class _AuthLoginCardView extends StatelessWidget {
             kSpaceLittleVertical,
             const InputTextWidget(
               hint: 'Ingresa tu email',
-              icon: Icons.email,
+              leadingIcon: Icons.email,
             ),
             kSpaceMediumVertical,
             const InputTextWidget(
               hint: 'Ingresa tu contraseña',
-              icon: Icons.lock,
+              leadingIcon: Icons.lock,
               obscureText: true,
             ),
             const Spacer(),
-            YunoButton(
+            EleventhButton(
               onPressed: () {},
               label: 'Login',
             ),
             kSpaceMediumVertical,
-            YunoButton(
+            EleventhButton(
               onPressed: () {
                 context.read<AuthUIProvider>().onOpenRegisterCard();
               },
@@ -186,21 +184,21 @@ class _AuthRegisterCardView extends StatelessWidget {
             kSpaceLittleVertical,
             const InputTextWidget(
               hint: 'Ingresa tu email',
-              icon: Icons.email,
+              leadingIcon: Icons.email,
             ),
             kSpaceMediumVertical,
             const InputTextWidget(
               hint: 'Ingresa tu contraseña',
-              icon: Icons.lock,
+              leadingIcon: Icons.lock,
               obscureText: true,
             ),
             const Spacer(),
-            YunoButton(
+            EleventhButton(
               onPressed: () {},
               label: 'Crear nueva cuenta',
             ),
             kSpaceMediumVertical,
-            YunoButton(
+            EleventhButton(
               onPressed: () {
                 FocusManager.instance.primaryFocus?.unfocus();
                 context.read<AuthUIProvider>().onCloseRegisterCard();
