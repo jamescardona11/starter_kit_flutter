@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/config/config.dart';
 
-import 'steps/management_view.dart';
-import 'steps/savetime_view.dart';
-import 'steps/statistics_view.dart';
+import 'widgets/steps_view.dart';
 
 const kBlackColor = Color(0xff2E2C3C);
+const imgManagement = 'assets/management.png';
+const imgSavetime = 'assets/save_time.png';
+const imgStatistics = 'assets/statistics.png';
 
-class IntroPage extends StatefulWidget {
-  const IntroPage({Key? key}) : super(key: key);
+class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({Key? key}) : super(key: key);
 
   @override
-  State<IntroPage> createState() => _IntroPageState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _IntroPageState extends State<IntroPage> {
+class _OnboardingPageState extends State<OnboardingPage> {
   final PageController pageController = PageController();
   final currentPage = ValueNotifier<double>(0);
   @override
@@ -42,11 +42,23 @@ class _IntroPageState extends State<IntroPage> {
                 title: 'Management',
                 description:
                     'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-                imageAssets: AssetsManager.imgManagement,
+                imageAssets: imgManagement,
                 iconData: Icons.manage_accounts,
               ),
-              SaveTimeView(),
-              StatisticsView(),
+              StepsView(
+                title: 'Save time',
+                description:
+                    'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+                imageAssets: imgSavetime,
+                iconData: Icons.access_time_filled_rounded,
+              ),
+              StepsView(
+                title: 'Statistics',
+                description:
+                    'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+                imageAssets: imgStatistics,
+                iconData: Icons.star_outlined,
+              ),
             ],
           ),
           // Align(

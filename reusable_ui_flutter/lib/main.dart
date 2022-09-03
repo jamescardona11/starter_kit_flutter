@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'screens/intro_number_1/intro_page.dart';
 import 'screens/login_page/login_page.dart';
+import 'screens/onboarding_1/onboarding_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -25,7 +25,7 @@ class IndexPage extends StatelessWidget {
   });
 
   final Map<String, Widget> screens = {
-    'Onboarding #1 (only UI)': IntroPage(),
+    'Onboarding #1 (only UI)': const OnboardingPage(),
     'Basic Login (only UI)': const LoginPage(),
   };
 

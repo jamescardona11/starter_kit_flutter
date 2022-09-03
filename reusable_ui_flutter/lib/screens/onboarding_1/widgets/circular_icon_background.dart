@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:reusable_ui_flutter/config/config.dart';
 
 class CircularIconBackground extends StatelessWidget {
@@ -27,7 +26,7 @@ class CircularIconBackground extends StatelessWidget {
               radius: context.widthPx / 3.2,
               backgroundColor: Colors.black12.withOpacity(0.1),
               child: Center(
-                child: SvgPicture.asset(
+                child: Image.asset(
                   image,
                   width: 120,
                   color: kGrayLightColor2,
