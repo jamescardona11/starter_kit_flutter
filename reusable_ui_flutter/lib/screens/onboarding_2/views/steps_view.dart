@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/config/assets.dart';
-import 'package:reusable_ui_flutter/config/config.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:reusable_ui_flutter/widgets/widgets.dart'
+    show SkipTopBar, NextTransformationButton, SliderDots;
 
-import '../../../../../widgets/buttons/next_transformation_button.dart';
-import '../widgets/top_back_skip_view.dart';
+import '../const.dart';
 
 class StepsView extends StatefulWidget {
   const StepsView({
@@ -52,26 +52,26 @@ class _StepsViewState extends State<StepsView> {
               title: 'Aprender',
               label:
                   'Usa nuestra herramienta para aprender y adquirir conocimientos del mundo cripto.',
-              imagePath: AssetsManager.learningImg,
+              imagePath: learningImg,
               leftToRight: false,
             ),
             _CustomStepView(
               title: 'Invertir',
               label:
                   'Aprende a invertir o usa nuestras herramientas para que accedas al mundo de las finanzas decentralizadas.',
-              imagePath: AssetsManager.investImg,
+              imagePath: investImg,
             ),
             _CustomStepView(
               title: 'Relájate',
               label:
                   'Sigue todos los movimientos de tu cartera, recibe alertas y notificaciones.\nHacemos el trabajo duro por ti.',
-              imagePath: AssetsManager.meditateImg,
+              imagePath: meditateImg,
             ),
             _CustomStepView(
               title: 'Bienvenido!',
               label:
                   'Empezar este viaje con nosotros es un honor. Vamos a dar lo mejor para cumplir tus expectativas.',
-              imagePath: AssetsManager.welcomeImg,
+              imagePath: welcomeImg,
               positionWidgets: [2, 0, 1],
               intervals: [1, 2, 0],
             ),
@@ -82,14 +82,28 @@ class _StepsViewState extends State<StepsView> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 110),
             child: NextTransformationButton(
-                // pageController: pageController,
-                // pagesAmount: pagesAmount,
+              onNextPressed: () {},
+              onTransformPressed: () {},
+              baseWidget: Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                  bottom: 10,
                 ),
+                child: SliderDots(
+                  totalSlides: pagesAmount,
+                  controller: pageController,
+                  accentColor: Colors.grey,
+                  dotsSize: 12,
+                  dotsSpace: 5,
+                  secondaryDotsSize: 15,
+                ),
+              ),
+            ),
           ),
         ),
         ValueListenableBuilder<bool>(
           valueListenable: showSkip,
-          builder: (_, value, __) => TopBackSkipView(
+          builder: (_, value, __) => SkipTopBar(
             showSkip: value,
             onBackClick: () {
               final page = (pageController.page ?? 0) - 1;
@@ -168,14 +182,16 @@ class _CustomStepViewState extends State<_CustomStepView>
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = context.textTheme;
-
     final widgets = [
       SlideTransition(
         position: titleAnimation,
         child: Text(
           widget.title,
-          style: textTheme.headline1,
+          style: GoogleFonts.notoSans(
+            fontSize: 26,
+            color: kBlackColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       SlideTransition(

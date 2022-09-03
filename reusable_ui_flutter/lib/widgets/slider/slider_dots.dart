@@ -59,7 +59,6 @@ class _SliderDotsState extends State<SliderDots> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 70,
       child: ValueListenableBuilder<int>(
         valueListenable: currentPageIndex,
         builder: (_, value, __) => Row(

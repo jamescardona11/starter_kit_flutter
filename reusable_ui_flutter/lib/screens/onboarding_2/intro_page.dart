@@ -1,8 +1,8 @@
 /// [flutter]
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/noreviewedyet/widgets/onboarding/intro/views/steps_view.dart';
 
 import 'views/initial_step_view.dart';
+import 'views/steps_view.dart';
 
 class IntroPage extends StatelessWidget {
   IntroPage({Key? key}) : super(key: key);
