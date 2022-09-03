@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../config/config.dart';
-import '../widgets/buttons/eleventh_button_widget.dart';
-import '../widgets/input/input_text_widget.dart';
+import '../../config/config.dart';
+import '../../widgets/buttons/eleventh_button_widget.dart';
+import '../../widgets/input/input_text_widget.dart';
 
 class LoginPage extends StatelessWidget {
   /// default constructor
@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
     super.key,
   });
 
-  final String logoImg = 'assets/';
+  final String logoImg = 'assets/logo.png';
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,13 @@ class LoginPage extends StatelessWidget {
                   vertical: 80.0,
                   horizontal: 60,
                 ),
-                child: Image.asset(logoImg),
+                child: Center(
+                  child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(logoImg),
+                  ),
+                ),
               ),
               InputTextWidget(
                 hint: 'Enter your email',

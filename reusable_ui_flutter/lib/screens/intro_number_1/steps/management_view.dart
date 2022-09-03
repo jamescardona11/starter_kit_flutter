@@ -3,7 +3,20 @@ import 'package:reusable_ui_flutter/config/config.dart';
 
 import 'circular_icon_background.dart';
 
-class SaveTimeView extends StatelessWidget {
+class StepsView extends StatelessWidget {
+  const StepsView({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.imageAssets,
+    required this.iconData,
+  }) : super(key: key);
+
+  final String title;
+  final String description;
+  final String imageAssets;
+  final IconData iconData;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
@@ -14,21 +27,25 @@ class SaveTimeView extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 50),
-            const CircularIconBackground(
-              image: AssetsManager.imgSavetime,
-              icon: Icons.access_time_filled_rounded,
+            CircularIconBackground(
+              image: imageAssets,
+              icon: iconData,
             ),
             kSpaceBigVertical,
             kSpaceBigVertical,
             Text(
-              'Save time',
-              style: textTheme.headline1,
+              title,
+              style: textTheme.headline1!.copyWith(
+                fontSize: 28,
+                color: Colors.grey,
+              ),
             ),
             kSpaceBigVertical,
             Text(
-              'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+              description,
               textAlign: TextAlign.center,
               style: textTheme.headline2!.copyWith(
+                fontSize: 16,
                 color: Colors.grey.shade400,
               ),
             ),

@@ -4,6 +4,8 @@ import 'package:reusable_ui_flutter/config/config.dart';
 import 'circular_icon_background.dart';
 
 class StatisticsView extends StatelessWidget {
+  const StatisticsView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
@@ -24,13 +26,17 @@ class StatisticsView extends StatelessWidget {
                 kSpaceBigVertical,
                 Text(
                   'Statistics',
-                  style: textTheme.headline1,
+                  style: textTheme.headline1!.copyWith(
+                    fontSize: 28,
+                    color: Colors.grey,
+                  ),
                 ),
                 kSpaceBigVertical,
                 Text(
                   'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
                   textAlign: TextAlign.center,
                   style: textTheme.headline2!.copyWith(
+                    fontSize: 16,
                     color: Colors.grey.shade400,
                   ),
                 ),
