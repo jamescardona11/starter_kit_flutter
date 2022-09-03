@@ -21,13 +21,12 @@ class _StepsViewState extends State<StepsView> {
   final pageController = PageController();
   final pagesAmount = 4;
 
+  final currentPage = ValueNotifier<double>(0.0);
   final showSkip = ValueNotifier<bool>(true);
 
   @override
   void initState() {
     super.initState();
-
-    final delta = pagesAmount - 1.5;
 
     pageController.addListener(() {
       final page = pageController.page ?? 0;
@@ -37,6 +36,8 @@ class _StepsViewState extends State<StepsView> {
       } else if (page <= delta) {
         showSkip.value = true;
       }
+
+      currentPage.value = page;
     });
   }
 
@@ -79,26 +80,41 @@ class _StepsViewState extends State<StepsView> {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 110),
-            child: NextTransformationButton(
-              onNextPressed: () {},
-              onTransformPressed: () {},
-              baseWidget: Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  bottom: 10,
+          child: ValueListenableBuilder<double>(
+            valueListenable: currentPage,
+            builder: (_, page, __) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 110),
+                child: NextTransformationButton(
+                  onNextPressed: () {
+                    if (page != pagesAmount - 1) {
+                      pageController.animateToPage(
+                        page.floor() + 1,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  },
+                  onTransformPressed: () {},
+                  forwardTransformation: page > delta,
+                  reverseTransformation: page <= delta,
+                  baseWidget: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                      bottom: 10,
+                    ),
+                    child: SliderDots(
+                      totalSlides: pagesAmount,
+                      controller: pageController,
+                      accentColor: Colors.grey,
+                      dotsSize: 12,
+                      dotsSpace: 5,
+                      secondaryDotsSize: 15,
+                    ),
+                  ),
                 ),
-                child: SliderDots(
-                  totalSlides: pagesAmount,
-                  controller: pageController,
-                  accentColor: Colors.grey,
-                  dotsSize: 12,
-                  dotsSpace: 5,
-                  secondaryDotsSize: 15,
-                ),
-              ),
-            ),
+              );
+            },
           ),
         ),
         ValueListenableBuilder<bool>(
@@ -129,6 +145,8 @@ class _StepsViewState extends State<StepsView> {
       ],
     );
   }
+
+  double get delta => pagesAmount - 1.5;
 
   @override
   void dispose() {

@@ -17,6 +17,8 @@ class NextTransformationButton extends StatefulWidget {
     this.icon = Icons.arrow_forward_ios_rounded,
     this.accentColor = Colors.white,
     this.background = Colors.pinkAccent,
+    this.forwardTransformation = false,
+    this.reverseTransformation = false,
   }) : super(key: key);
 
   final Widget? baseWidget;
@@ -27,6 +29,8 @@ class NextTransformationButton extends StatefulWidget {
   final Color accentColor;
   final Color background;
   final String labelTransform;
+  final bool forwardTransformation;
+  final bool reverseTransformation;
 
   @override
   State<NextTransformationButton> createState() =>
@@ -37,6 +41,7 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> _signUpMoveAnimation;
+  late CustomController customController;
 
   @override
   void initState() {
@@ -50,7 +55,17 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
 
     initAnimations();
 
-    widget.controller?.setAnimationController(animationController);
+    customController = widget.controller ?? CustomController();
+    customController.setAnimationController(animationController);
+  }
+
+  @override
+  void didUpdateWidget(covariant NextTransformationButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.forwardTransformation != oldWidget.forwardTransformation ||
+        widget.reverseTransformation != oldWidget.reverseTransformation) {
+      customController.run();
+    }
   }
 
   @override

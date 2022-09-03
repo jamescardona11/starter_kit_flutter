@@ -67,7 +67,6 @@ class _SliderDotsState extends State<SliderDots> {
             widget.totalSlides,
             (index) {
               bool changeIndex = value >= index - 0.5 && value < index + 0.5;
-
               return _Dot(
                 changeIndex: changeIndex,
                 accentColor: widget.accentColor,
