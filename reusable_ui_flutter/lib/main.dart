@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: HomeBasicPage(),
+      home: WelcomePageLogin2(),
     );
   }
 }
@@ -41,7 +41,7 @@ class IndexPage extends StatelessWidget {
   final Map<String, Widget> screens = {
     'Onboarding #1 (only UI)': const OnboardingPage(),
     'Onboarding #2 (only UI)': IntroPage(),
-    'Basic Login (only UI)': const LoginPage(),
+    'Basic Login (only UI)': const LoginPageV1(),
     'AuthPage (only UI)': const AuthPage(),
   };
 
@@ -84,11 +84,12 @@ class ScreenPage extends StatelessWidget {
   });
 
   final Map<String, Widget> screens = {
-    'Onboarding #1 (only UI)': const OnboardingPage(),
-    'Onboarding #2 (only UI)': IntroPage(),
-    'Basic Login (only UI)': const LoginPage(),
+    'Onboarding V1 (only UI)': const OnboardingPage(),
+    'Onboarding V2 (only UI)': IntroPage(),
+    'Basic Login V1 (only UI)': const LoginPageV1(),
+    'Basic Login V2 (only UI)': const WelcomePageLogin2(),
     'AuthPage (only UI)': const AuthPage(),
-    'Home Basic #1 (only UI)': const HomeBasicPage(),
+    'Home Basic V1 (only UI)': const HomeBasicPage(),
   };
 
   @override

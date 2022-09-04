@@ -13,6 +13,8 @@ class EleventhButton extends StatelessWidget {
     this.splashColor,
     this.textStyle,
     this.accentColor = Colors.black,
+    this.icon,
+    this.iconRight = true,
   }) : super(key: key);
 
   final double width;
@@ -24,6 +26,8 @@ class EleventhButton extends StatelessWidget {
   final Color? splashColor;
   final Color? accentColor;
   final TextStyle? textStyle;
+  final IconData? icon;
+  final bool iconRight;
   final VoidCallback onPressed;
 
   @override
@@ -44,16 +48,28 @@ class EleventhButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          label,
-          style: textStyle?.copyWith(
-                color: fill ? accentColor : primaryColor,
-              ) ??
-              TextStyle(
-                color: fill ? accentColor : primaryColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+        child: Row(
+          mainAxisAlignment: icon != null
+              ? MainAxisAlignment.spaceBetween
+              : MainAxisAlignment.center,
+          children: [
+            Text(
+              label,
+              style: textStyle?.copyWith(
+                    color: fill ? accentColor : primaryColor,
+                  ) ??
+                  TextStyle(
+                    color: fill ? accentColor : primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+            ),
+            if (icon != null)
+              Icon(
+                icon,
+                color: accentColor,
               ),
+          ],
         ),
       ),
     );

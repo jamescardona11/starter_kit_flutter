@@ -46,7 +46,6 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void onOpenRegisterCard() {
-    print('msg');
     loginSizeWidth = 0.88;
     loginSizeHeight = 1.05;
     opacity = 0.7;

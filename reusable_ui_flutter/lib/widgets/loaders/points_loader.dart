@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class PointsLoader extends StatefulWidget {
-  final List<_LoadingPointConfig> loadingPoints;
+  final List<LoadingPointConfig> loadingPoints;
 
   const PointsLoader._(this.loadingPoints);
 
@@ -33,72 +33,70 @@ class PointsLoader extends StatefulWidget {
     Colors.purple
   ];
 
-  static List<_LoadingPointConfig> _triangleConfig(List<Color> colors) {
-    return List<_LoadingPointConfig>.of(
+  static List<LoadingPointConfig> _triangleConfig(List<Color> colors) {
+    return List<LoadingPointConfig>.of(
       [
-        _LoadingPointConfig(color: colors[0], xMultiplier: -1, yMultiplier: -1),
-        _LoadingPointConfig(color: colors[1], xMultiplier: 0),
-        _LoadingPointConfig(color: colors[2], yMultiplier: -1),
+        LoadingPointConfig(color: colors[0], xMultiplier: -1, yMultiplier: -1),
+        LoadingPointConfig(color: colors[1], xMultiplier: 0),
+        LoadingPointConfig(color: colors[2], yMultiplier: -1),
       ],
     );
   }
 
-  static List<_LoadingPointConfig> _squareConfig(List<Color> colors) {
-    return List<_LoadingPointConfig>.of(
+  static List<LoadingPointConfig> _squareConfig(List<Color> colors) {
+    return List<LoadingPointConfig>.of(
       [
-        _LoadingPointConfig(color: colors[0], xMultiplier: -1),
-        _LoadingPointConfig(color: colors[1]),
-        _LoadingPointConfig(color: colors[2], yMultiplier: -1),
-        _LoadingPointConfig(color: colors[3], xMultiplier: -1, yMultiplier: -1),
+        LoadingPointConfig(color: colors[0], xMultiplier: -1),
+        LoadingPointConfig(color: colors[1]),
+        LoadingPointConfig(color: colors[2], yMultiplier: -1),
+        LoadingPointConfig(color: colors[3], xMultiplier: -1, yMultiplier: -1),
       ],
     );
   }
 
-  static List<_LoadingPointConfig> _pentagonConfig(List<Color> colors) {
+  static List<LoadingPointConfig> _pentagonConfig(List<Color> colors) {
     const xU = 0.9510;
     const yU = 0.3090;
     const xD = 0.5877;
     const yD = -0.8090;
-    return List<_LoadingPointConfig>.of(
+    return List<LoadingPointConfig>.of(
       [
-        _LoadingPointConfig(
-            color: colors[0], xMultiplier: -xU, yMultiplier: yU),
-        _LoadingPointConfig(color: colors[1], xMultiplier: 0),
-        _LoadingPointConfig(color: colors[2], xMultiplier: xU, yMultiplier: yU),
-        _LoadingPointConfig(color: colors[3], xMultiplier: xD, yMultiplier: yD),
-        _LoadingPointConfig(
-            color: colors[4], xMultiplier: -xD, yMultiplier: yD),
+        LoadingPointConfig(color: colors[0], xMultiplier: -xU, yMultiplier: yU),
+        LoadingPointConfig(color: colors[1], xMultiplier: 0),
+        LoadingPointConfig(color: colors[2], xMultiplier: xU, yMultiplier: yU),
+        LoadingPointConfig(color: colors[3], xMultiplier: xD, yMultiplier: yD),
+        LoadingPointConfig(color: colors[4], xMultiplier: -xD, yMultiplier: yD),
       ],
     );
   }
 
-  static List<_LoadingPointConfig> _hexagonConfig(List<Color> colors) {
+  static List<LoadingPointConfig> _hexagonConfig(List<Color> colors) {
     const x = 0.5;
     const y = 0.866;
-    return List<_LoadingPointConfig>.of(
+    return List<LoadingPointConfig>.of(
       [
-        _LoadingPointConfig(color: colors[0], xMultiplier: -1, yMultiplier: 0),
-        _LoadingPointConfig(color: colors[1], xMultiplier: -x, yMultiplier: y),
-        _LoadingPointConfig(color: colors[2], xMultiplier: x, yMultiplier: y),
-        _LoadingPointConfig(color: colors[3], yMultiplier: 0),
-        _LoadingPointConfig(color: colors[4], xMultiplier: x, yMultiplier: -y),
-        _LoadingPointConfig(color: colors[5], xMultiplier: -x, yMultiplier: -y),
+        LoadingPointConfig(color: colors[0], xMultiplier: -1, yMultiplier: 0),
+        LoadingPointConfig(color: colors[1], xMultiplier: -x, yMultiplier: y),
+        LoadingPointConfig(color: colors[2], xMultiplier: x, yMultiplier: y),
+        LoadingPointConfig(color: colors[3], yMultiplier: 0),
+        LoadingPointConfig(color: colors[4], xMultiplier: x, yMultiplier: -y),
+        LoadingPointConfig(color: colors[5], xMultiplier: -x, yMultiplier: -y),
       ],
     );
   }
 
-  static List<_LoadingPointConfig> _circleConfig(List<Color> colors) {
+  static List<LoadingPointConfig> _circleConfig(List<Color> colors) {
     const s = 0.7071;
-    return List<_LoadingPointConfig>.of(
+    return List<LoadingPointConfig>.of(
       [
-        _LoadingPointConfig(color: colors[0], xMultiplier: -1, yMultiplier: 0),
-        _LoadingPointConfig(color: colors[1], xMultiplier: -s, yMultiplier: s),
-        _LoadingPointConfig(color: colors[2], xMultiplier: 0),
-        _LoadingPointConfig(color: colors[3], xMultiplier: s, yMultiplier: s),
-        _LoadingPointConfig(color: colors[4], yMultiplier: 0),
-        _LoadingPointConfig(color: colors[5], xMultiplier: s, yMultiplier: -s),
-        _LoadingPointConfig(color: colors[6], xMultiplier: 0, yMultiplier: -1),
-        _LoadingPointConfig(color: colors[7], xMultiplier: -s, yMultiplier: -s),
+        LoadingPointConfig(color: colors[0], xMultiplier: -1, yMultiplier: 0),
+        LoadingPointConfig(color: colors[1], xMultiplier: -s, yMultiplier: s),
+        LoadingPointConfig(color: colors[2], xMultiplier: 0),
+        LoadingPointConfig(color: colors[3], xMultiplier: s, yMultiplier: s),
+        LoadingPointConfig(color: colors[4], yMultiplier: 0),
+        LoadingPointConfig(color: colors[5], xMultiplier: s, yMultiplier: -s),
+        LoadingPointConfig(color: colors[6], xMultiplier: 0, yMultiplier: -1),
+        LoadingPointConfig(color: colors[7], xMultiplier: -s, yMultiplier: -s),
       ],
     );
   }
@@ -189,7 +187,7 @@ class _PointsLoaderState extends State<PointsLoader>
   }
 
   List<_LoadingPointTransition> loadingPointConfigsToTransitions(
-      List<_LoadingPointConfig> pointConfig, double containerSize) {
+      List<LoadingPointConfig> pointConfig, double containerSize) {
     final loadingPoints = <_LoadingPointTransition>[];
     for (final pointConfig in widget.loadingPoints) {
       loadingPoints.add(
@@ -216,12 +214,12 @@ class _PointsLoaderState extends State<PointsLoader>
   }
 }
 
-class _LoadingPointConfig {
+class LoadingPointConfig {
   final Color color;
   final double xMultiplier;
   final double yMultiplier;
 
-  const _LoadingPointConfig({
+  const LoadingPointConfig({
     this.color = Colors.white,
     this.xMultiplier = 1,
     this.yMultiplier = 1,

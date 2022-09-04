@@ -12,10 +12,10 @@ class HomeBasicPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
-          const _HeaderWidget(),
-          const Expanded(child: Center(child: Text('CONTENT'))),
-          const _BottomBar()
+        children: const [
+          _HeaderWidget(),
+          Expanded(child: Center(child: Text('CONTENT'))),
+          _BottomBar()
         ],
       ),
     );
