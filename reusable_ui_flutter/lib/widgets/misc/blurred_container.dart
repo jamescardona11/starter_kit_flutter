@@ -7,6 +7,7 @@ class BlurredContainer extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
+    this.paddingChild = 0.0,
     this.opacity = 0.0,
     this.blur = 5,
     this.child = const SizedBox(),
@@ -18,30 +19,34 @@ class BlurredContainer extends StatelessWidget {
   final double height;
   final double opacity;
   final double blur;
+  final double paddingChild;
   final Widget child;
   final Color accentColor;
   final BoxDecoration? boxDecoration;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Center(child: child),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-            child: Container(
-              width: width,
-              height: height,
-              decoration: boxDecoration?.copyWith(
-                color: accentColor.withOpacity(opacity),
+    return ClipRect(
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(paddingChild),
+              child: Center(child: child),
+            ),
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+              child: Container(
+                decoration: boxDecoration?.copyWith(
+                  color: accentColor.withOpacity(opacity),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

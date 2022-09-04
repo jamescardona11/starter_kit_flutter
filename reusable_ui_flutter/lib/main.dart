@@ -167,7 +167,9 @@ class _WidgetsPageState extends State<WidgetsPage>
         //   currentPage.value = pageController.page!;
         // }
       });
+  }
 
+  void initScreens() {
     screens = {
       'Bee BottomBar': beeBottomBar(),
       'Arc BottomBar': arcBottomBar(),
@@ -194,6 +196,7 @@ class _WidgetsPageState extends State<WidgetsPage>
 
   @override
   Widget build(BuildContext context) {
+    initScreens();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reusable Widgets'),
@@ -393,18 +396,22 @@ class _WidgetsPageState extends State<WidgetsPage>
         body: PointsLoader.triangle(),
       );
   Widget blurredContainer() => Scaffold(
-        body: Center(
-          child: BlurredContainer(
-            width: 200,
-            height: 200,
-            opacity: 0.1,
-            blur: 8,
-            accentColor: Colors.pinkAccent,
-            boxDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+        body: Column(
+          children: [
+            Center(
+              child: BlurredContainer(
+                width: 100,
+                height: 100,
+                opacity: 0.1,
+                blur: 8,
+                accentColor: Colors.pinkAccent,
+                boxDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const FlutterLogo(size: 100),
+              ),
             ),
-            child: const FlutterLogo(size: 100),
-          ),
+          ],
         ),
       );
   Widget bouncedWrapper() => Scaffold(
