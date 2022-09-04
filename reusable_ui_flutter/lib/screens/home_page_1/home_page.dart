@@ -186,7 +186,7 @@ class _SearchBox extends StatelessWidget {
         leadingIcon: Icons.search,
         borderColor: Colors.white,
         background: const Color(0xFFF5F5F7),
-        rounded: 40,
+        borderRadius: 40,
         boxShadow: BoxShadow(
           color: Colors.grey.shade500,
           blurRadius: 15,

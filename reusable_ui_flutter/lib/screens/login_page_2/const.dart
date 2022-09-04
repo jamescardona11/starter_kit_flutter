@@ -9,6 +9,7 @@ const background2 = 'assets/galaxy2.jpeg';
 const kBackgroundColor = Color(0xFF202020);
 const kPrimaryColor = Colors.amber;
 const kGrayColor = Colors.black38;
+final kGrayLightColor = Colors.grey.shade400;
 
 
 

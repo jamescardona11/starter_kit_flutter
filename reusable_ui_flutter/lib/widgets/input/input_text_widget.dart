@@ -5,7 +5,7 @@ class InputTextWidget extends StatelessWidget {
     super.key,
     this.width,
     this.height,
-    this.rounded = 15,
+    this.borderRadius = 15,
     this.hint,
     this.leadingIcon,
     this.trailing,
@@ -18,16 +18,14 @@ class InputTextWidget extends StatelessWidget {
     this.maxLines = 1,
     this.isValid,
     this.onChanged,
-    this.onSuffixTap,
     this.boxShadow,
-  })  : suffixColor = Colors.transparent,
-        suffixEnableColor = Colors.transparent;
+  });
 
   InputTextWidget.password({
     super.key,
     this.width,
     this.height,
-    this.rounded = 15,
+    this.borderRadius = 15,
     this.hint,
     this.leadingIcon,
     this.iconColor = Colors.grey,
@@ -40,11 +38,8 @@ class InputTextWidget extends StatelessWidget {
     this.obscureText = true,
     this.isValid,
     this.onChanged,
-    this.onSuffixTap,
     this.boxShadow,
-  })  : suffixColor = suffixIconColor,
-        suffixEnableColor = suffixEnableIconColor,
-        maxLines = 1,
+  })  : maxLines = 1,
         trailing = _TrailingVisibilityWidget(
           color: suffixIconColor,
           enableColor: suffixEnableIconColor,
@@ -52,7 +47,7 @@ class InputTextWidget extends StatelessWidget {
 
   final double? width;
   final double? height;
-  final double rounded;
+  final double borderRadius;
   final int maxLines;
   final String? hint;
   final IconData? leadingIcon;
@@ -64,11 +59,8 @@ class InputTextWidget extends StatelessWidget {
   final Color borderColor;
   final bool? isValid;
   final bool obscureText;
-  final Color suffixColor;
-  final Color? suffixEnableColor;
   final BoxShadow? boxShadow;
   final ValueChanged<String>? onChanged;
-  final VoidCallback? onSuffixTap;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +78,7 @@ class InputTextWidget extends StatelessWidget {
           color: borderColor.withOpacity(0.5),
           width: 1.5,
         ),
-        borderRadius: BorderRadius.circular(rounded),
+        borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: boxShadow != null ? [boxShadow!] : null,
       ),
       child: TextField(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/widgets/widgets.dart';
+import 'package:reusable_ui_flutter/widgets/widgets.dart'
+    show OutlineTextInput, EleventhButton;
 
 import 'const.dart';
 
@@ -32,77 +33,32 @@ class LoginPageV2 extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(25),
-              child: ListView(
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    child: Container(
-                      color: const Color(0xfff5f5f5),
-                      child: TextFormField(
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                        decoration: InputDecoration(
-                          labelText: 'Username',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black26,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            color: kGrayColor,
-                          ),
-                          labelStyle: const TextStyle(
-                            fontSize: 15,
-                            color: kGrayColor,
-                          ),
-                        ),
-                      ),
-                    ),
+                  const SizedBox(height: 20),
+                  OutlineTextInput(
+                    label: 'Username',
+                    leadingIcon: Icons.person_outline,
+                    iconColor: kGrayColor,
+                    cursorColor: kGrayLightColor,
                   ),
-                  Container(
-                    color: const Color(0xfff5f5f5),
-                    child: TextFormField(
-                      obscureText: true,
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Colors.black26,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        labelText: 'Password',
-                        prefixIcon: const Icon(
-                          Icons.lock_outline,
-                          color: kGrayColor,
-                        ),
-                        labelStyle: const TextStyle(
-                          fontSize: 15,
-                          color: kGrayColor,
-                        ),
-                      ),
-                    ),
+                  const SizedBox(height: 20),
+                  OutlineTextInput(
+                    label: 'Password',
+                    leadingIcon: Icons.lock_outline,
+                    iconColor: kGrayColor,
+                    cursorColor: kGrayLightColor,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: EleventhButton(
-                      label: 'SIGN IN',
-                      primaryColor: kPrimaryColor,
-                      accentColor: Colors.white,
-                      onPressed: () {},
+                  SizedBox(
+                    width: size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: EleventhButton(
+                        label: 'SIGN IN',
+                        primaryColor: kPrimaryColor,
+                        accentColor: Colors.white,
+                        onPressed: () {},
+                      ),
                     ),
                   ),
                   const Padding(
