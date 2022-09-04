@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: HomeBasicPage(),
     );
   }
 }
@@ -88,6 +88,7 @@ class ScreenPage extends StatelessWidget {
     'Onboarding #2 (only UI)': IntroPage(),
     'Basic Login (only UI)': const LoginPage(),
     'AuthPage (only UI)': const AuthPage(),
+    'Home Basic #1 (only UI)': const HomeBasicPage(),
   };
 
   @override
