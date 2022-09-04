@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable_ui_flutter/widgets/widgets.dart'
-    show InputTextWidget, EleventhButton;
+    show InputTextWidget, ArcBottomBar, ArcBottomBarType, BottomElevenItem;
 
 class HomeBasicPage extends StatelessWidget {
   /// default constructor
@@ -14,74 +14,30 @@ class HomeBasicPage extends StatelessWidget {
       body: Column(
         children: const [
           _HeaderWidget(),
-          Expanded(child: Center(child: Text('CONTENT'))),
-          _BottomBar()
-        ],
-      ),
-    );
-  }
-}
-
-class _BottomBar extends StatelessWidget {
-  const _BottomBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(40),
-          topLeft: Radius.circular(40),
-        ),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 4),
-            blurRadius: 15,
-            color: Colors.grey.shade400,
+          Expanded(
+            child: Center(
+              child: Text('CONTENT'),
+            ),
           ),
         ],
       ),
-      child: SizedBox(
-        width: size.width,
-        height: 100,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            children: [
-              Container(
-                width: 80,
-                height: 50,
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: const Icon(
-                  Icons.book,
-                  color: Colors.black54,
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: EleventhButton(
-                  label: 'Select',
-                  textStyle: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  radius: 40,
-                  primaryColor: Colors.amber,
-                  accentColor: Colors.white,
-                  onPressed: () {},
-                ),
-              )
-            ],
+      bottomNavigationBar: ArcBottomBar(
+        activeColor: Colors.amber,
+        type: ArcBottomBarType.changeToText,
+        items: [
+          BottomElevenItem(
+            label: 'Home',
+            icon: Icons.home,
           ),
-        ),
+          BottomElevenItem(
+            label: 'Search',
+            icon: Icons.search,
+          ),
+          BottomElevenItem(
+            label: 'Settings',
+            icon: Icons.settings,
+          ),
+        ],
       ),
     );
   }

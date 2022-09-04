@@ -3,14 +3,14 @@ InputTextWidget(
   hint: 'Enter your email',
   leadingIcon: Icons.email,
   onChanged: (value) {},
-),
+)
 ```
 
 ```
- OutlineTextInput(
+OutlineTextInput(
   label: 'Username',
   leadingIcon: Icons.person_outline,
-  iconColor: kGrayColor,
-  cursorColor: kGrayLightColor,
-),
+  iconColor: Colors.black,
+  cursorColor: Colors.black38,
+)
 ```

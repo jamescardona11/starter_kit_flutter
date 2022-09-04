@@ -1,15 +1,15 @@
 ```
 floatingActionButton: MultiFab(
-  children: [
-    ElevenFabItem.multi(
+  items: [
+    FabElevenItem.multi(
       onPressed: () {},
       icon: Icon(Icons.home, color: Colors.white),
     ),
-    ElevenFabItem.multi(
+    FabElevenItem.multi(
       onPressed: () {},
       icon: Icon(Icons.favorite, color: Colors.white),
     ),
-    ElevenFabItem.multi(
+    FabElevenItem.multi(
       onPressed: () {},
       icon: Icon(Icons.person, color: Colors.white),
     ),
@@ -18,23 +18,23 @@ floatingActionButton: MultiFab(
 ```
 
 ```
-floatingActionButton: FloatingActionRow(
+floatingActionButton: RowFab(
   items: [
-    ElevenFabItem.row(
+    FabElevenItem.row(
       onPressed: () {},
       icon: const Icon(
         Icons.home,
         color: Colors.white,
       ),
     ),
-    ElevenFabItem.row(
+    FabElevenItem.row(
       onPressed: () {},
       icon: const Icon(
         Icons.favorite,
         color: Colors.white,
       ),
     ),
-    ElevenFabItem.row(
+    FabElevenItem.row(
       onPressed: () {},
       icon: const Icon(
         Icons.person,

@@ -5,7 +5,7 @@ BounceWrapper(
     width: 100,
     height: 40,
     color: Colors.amber,
-    child: Center(
+    child: const Center(
       child: Text('Widget'),
     ),
   ),
@@ -19,10 +19,10 @@ BlurredContainer(
   height: 200,
   opacity: 0.1,
   blur: 8,
-  accentColor: Colors.pinkAccentGrey,
+  accentColor: Colors.pinkAccent,
   boxDecoration: BoxDecoration(
     borderRadius: BorderRadius.circular(20),
   ),
-  child: FlutterLogo(size: 100),
+  child: const FlutterLogo(size: 100),
 )
 ```

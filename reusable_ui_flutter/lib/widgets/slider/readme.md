@@ -5,7 +5,7 @@ SliderDots(
   accentColor: Colors.grey,
   dotsSize: 12,
   dotsSpace: 5,
-  primaryColor: Colors.red,
+  primaryColor: Colors.pinkAccent,
   secondaryDotsSize: 15,
 )
 ```

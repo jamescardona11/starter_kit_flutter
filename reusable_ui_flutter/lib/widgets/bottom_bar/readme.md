@@ -1,22 +1,22 @@
 ```
 bottomNavigationBar: ArcBottomBar(
   items: [
-    ElevenBottomItem(
+    BottomElevenItem(
       activeColor: Colors.orange,
       label: 'Home',
       icon: Icons.home,
     ),
-    ElevenBottomItem(
+    BottomElevenItem(
       activeColor: Colors.red,
       label: 'Trending',
       icon: Icons.trending_up,
     ),
-    ElevenBottomItem(
+    BottomElevenItem(
       activeColor: Colors.green,
       label: 'Search',
       icon: Icons.search,
     ),
-    ElevenBottomItem(
+    BottomElevenItem(
       activeColor: Colors.brown,
       label: 'Settings',
       icon: Icons.settings,
@@ -32,16 +32,16 @@ bottomNavigationBar: ArcBottomBar(
 ```
 bottomNavigationBar: FloatingBottomBar(
   items: [
-    ElevenBottomItem(
+    BottomElevenItem(
       icon: Icons.home_rounded,
     ),
-    ElevenBottomItem(
+    BottomElevenItem(
       icon: Icons.favorite_rounded,
     ),
-    ElevenBottomItem(
+    BottomElevenItem(
       icon: Icons.settings_rounded,
     ),
-    ElevenBottomItem(
+    BottomElevenItem(
       icon: Icons.person_rounded,
     ),
   ],
@@ -52,19 +52,19 @@ bottomNavigationBar: FloatingBottomBar(
 ```
 bottomNavigationBar: BeeBottomBar(
   items: [
-    ElevenBottomItem(
+    BottomElevenItem(
       label: 'Home',
       icon: Icons.home,
     ),
-    ElevenBottomItem(
+    BottomElevenItem(
       label: 'Trending',
       icon: Icons.trending_up,
     ),
-    ElevenBottomItem(
+    BottomElevenItem(
       label: 'Search',
       icon: Icons.search,
     ),
-    // ElevenBottomItem(
+    // BottomElevenItem(
     //   label: 'Settings',
     //   icon: Icons.settings,
     // ),

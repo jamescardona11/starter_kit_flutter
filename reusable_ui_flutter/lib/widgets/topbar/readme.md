@@ -7,7 +7,7 @@ SkipTopBar(
 ```
 
 ```
-AppBar(
+appBar: AppBar(
   actions: [
     FloatingOptions(
       elements: [

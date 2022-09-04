@@ -8,7 +8,7 @@ import 'common/fab_item.dart';
 class MultiFab extends StatefulWidget {
   const MultiFab({
     super.key,
-    required this.children,
+    required this.items,
     this.foldedIcon = const Icon(Icons.apps),
     this.unfoldedIcon = const Icon(Icons.clear),
     this.shape = const CircleBorder(),
@@ -20,7 +20,7 @@ class MultiFab extends StatefulWidget {
   final Widget unfoldedIcon;
   final Widget foldedIcon;
 
-  final List<FabElevenItem> children;
+  final List<FabElevenItem> items;
 
   final ShapeBorder shape;
   final Duration animationDuration;
@@ -74,7 +74,7 @@ class _MultiFabState extends State<MultiFab> {
   OverlayEntry _overlayEntryBuilder() => OverlayEntry(
         builder: (context) {
           return Positioned(
-            top: buttonPosition.dy - (widget.children.length * 50),
+            top: buttonPosition.dy - (widget.items.length * 50),
             left: buttonPosition.dx,
             width: buttonSize.width,
             child: Material(
@@ -82,14 +82,14 @@ class _MultiFabState extends State<MultiFab> {
               child: Column(
                 verticalDirection: VerticalDirection.up,
                 children: List.generate(
-                  widget.children.length,
+                  widget.items.length,
                   (index) {
-                    final itemsLength = widget.children.length;
+                    final itemsLength = widget.items.length;
                     return _MultiFabItem(
                       begin: index * (1 / itemsLength),
                       end: (index + 1) * (1 / itemsLength),
                       animationDuration: widget.animationDuration,
-                      child: widget.children[index],
+                      child: widget.items[index],
                     );
                   },
                 ),

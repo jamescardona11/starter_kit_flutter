@@ -26,7 +26,7 @@ class FloatingOptions extends StatelessWidget {
               ),
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
-              tiles: [],
+              tiles: elements,
             ),
           ),
         )

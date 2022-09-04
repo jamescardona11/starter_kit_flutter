@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CircularIconButtonWidget extends StatelessWidget {
-  const CircularIconButtonWidget({
+class CircularIconButton extends StatelessWidget {
+  const CircularIconButton({
     Key? key,
     required this.onPressed,
     required this.icon,

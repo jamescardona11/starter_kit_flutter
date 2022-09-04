@@ -117,12 +117,12 @@ class _BeeBottomBarState extends State<BeeBottomBar> {
   }
 
   BoxDecoration decorationBottomBar() => BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            width: 0.5,
-            color: Colors.grey.shade200,
-          ),
-        ),
+        // border: Border(
+        //   top: BorderSide(
+        //     width: 0.5,
+        //     color: Colors.grey.shade200,
+        //   ),
+        // ),
         color: widget.background,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(widget.borderRadius),
