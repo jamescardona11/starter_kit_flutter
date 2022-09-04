@@ -17,7 +17,7 @@ class FloatingBottomBar extends StatefulWidget {
     this.onItemSelected,
   }) : super(key: key);
 
-  final List<ElevenBottomItem> items;
+  final List<BottomElevenItem> items;
   final BottomBarController? controller;
   final ValueChanged<int>? onItemSelected;
   final int initialIndex;

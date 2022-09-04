@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ElevenBottomItem {
-  ElevenBottomItem({
+class BottomElevenItem {
+  BottomElevenItem({
     required this.icon,
     this.label = '',
     this.activeColor,
@@ -21,7 +21,7 @@ class ElevenBottomItem {
   }
 
   @override
-  bool operator ==(covariant ElevenBottomItem other) {
+  bool operator ==(covariant BottomElevenItem other) {
     if (identical(this, other)) return true;
 
     return other.icon == icon &&

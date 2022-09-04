@@ -20,7 +20,7 @@ class MultiFab extends StatefulWidget {
   final Widget unfoldedIcon;
   final Widget foldedIcon;
 
-  final List<ElevenFabItem> children;
+  final List<FabElevenItem> children;
 
   final ShapeBorder shape;
   final Duration animationDuration;

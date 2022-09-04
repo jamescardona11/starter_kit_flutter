@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/widgets/widgets.dart';
+import 'package:reusable_ui_flutter/widgets/widgets.dart' show EleventhButton;
 
 import 'const.dart';
 import 'login_page.dart';

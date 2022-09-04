@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reusable_ui_flutter/widgets/fab/common/fab_item.dart';
 
 class RowFab extends StatelessWidget {
-  final List<ElevenFabItem> items;
+  final List<FabElevenItem> items;
 
   final Axis axis;
   final double elevation;

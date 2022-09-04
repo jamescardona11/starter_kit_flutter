@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 // todo mejorar parecido al [ElevenBottomItem]
 
-class ElevenFabItem extends StatelessWidget {
-  const ElevenFabItem._({
+class FabElevenItem extends StatelessWidget {
+  const FabElevenItem._({
     super.key,
     required this.onPressed,
     required this.multi,
@@ -14,7 +14,7 @@ class ElevenFabItem extends StatelessWidget {
     this.size,
   });
 
-  factory ElevenFabItem.multi({
+  factory FabElevenItem.multi({
     Key? key,
     required VoidCallback onPressed,
     ShapeBorder? shape,
@@ -22,7 +22,7 @@ class ElevenFabItem extends StatelessWidget {
     Color? color,
     EdgeInsets? padding,
   }) =>
-      ElevenFabItem._(
+      FabElevenItem._(
         key: key,
         onPressed: onPressed,
         shape: shape ?? const CircleBorder(),
@@ -37,7 +37,7 @@ class ElevenFabItem extends StatelessWidget {
         multi: true,
       );
 
-  factory ElevenFabItem.row({
+  factory FabElevenItem.row({
     Key? key,
     required VoidCallback onPressed,
     double? size,
@@ -46,7 +46,7 @@ class ElevenFabItem extends StatelessWidget {
     Color? color,
     EdgeInsets? padding,
   }) =>
-      ElevenFabItem._(
+      FabElevenItem._(
         key: key,
         size: size,
         onPressed: onPressed,

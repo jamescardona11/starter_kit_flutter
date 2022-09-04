@@ -23,7 +23,7 @@ class BeeBottomBar extends StatefulWidget {
     this.duration = const Duration(milliseconds: 300),
   }) : super(key: key);
 
-  final List<ElevenBottomItem> items;
+  final List<BottomElevenItem> items;
   final BottomBarController? controller;
   final ValueChanged<int>? onItemSelected;
   final Duration duration;
@@ -165,7 +165,7 @@ class _BottomBarItem extends StatefulWidget {
 
   final Color activeColor;
   final Color inactiveColor;
-  final ElevenBottomItem item;
+  final BottomElevenItem item;
   final Duration duration;
 
   @override

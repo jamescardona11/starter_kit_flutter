@@ -23,7 +23,7 @@ class ArcBottomBar extends StatefulWidget {
     this.type = ArcBottomBarType.lightIcon,
   });
 
-  final List<ElevenBottomItem> items;
+  final List<BottomElevenItem> items;
   final BottomBarController? controller;
   final ValueChanged<int>? onItemSelected;
   final ArcBottomBarType type;
@@ -122,7 +122,7 @@ class BottomBarItem extends StatelessWidget {
     this.isSelected = false,
   }) : super(key: key);
 
-  final ElevenBottomItem item;
+  final BottomElevenItem item;
   final bool isSelected;
   final Color activeColor;
   final Color inactiveColor;
