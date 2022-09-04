@@ -19,6 +19,7 @@ class InputTextWidget extends StatelessWidget {
     this.isValid,
     this.onChanged,
     this.onSuffixTap,
+    this.boxShadow,
   })  : suffixColor = Colors.transparent,
         suffixEnableColor = Colors.transparent;
 
@@ -40,6 +41,7 @@ class InputTextWidget extends StatelessWidget {
     this.isValid,
     this.onChanged,
     this.onSuffixTap,
+    this.boxShadow,
   })  : suffixColor = suffixIconColor,
         suffixEnableColor = suffixEnableIconColor,
         maxLines = 1,
@@ -64,6 +66,7 @@ class InputTextWidget extends StatelessWidget {
   final bool obscureText;
   final Color suffixColor;
   final Color? suffixEnableColor;
+  final BoxShadow? boxShadow;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onSuffixTap;
 
@@ -84,6 +87,7 @@ class InputTextWidget extends StatelessWidget {
           width: 1.5,
         ),
         borderRadius: BorderRadius.circular(rounded),
+        boxShadow: boxShadow != null ? [boxShadow!] : null,
       ),
       child: TextField(
         onChanged: onChanged,
