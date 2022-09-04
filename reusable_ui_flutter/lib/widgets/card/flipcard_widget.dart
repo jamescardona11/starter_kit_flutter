@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
 
 class FlipCardWidget extends StatefulWidget {
   final BackgroundConfig background;
@@ -11,16 +12,16 @@ class FlipCardWidget extends StatefulWidget {
 
   const FlipCardWidget({
     Key? key,
+    required this.height,
+    required this.width,
+    required this.controllerFlipCard,
     required this.background,
     required this.frontFaceWidget,
     required this.backFaceWidget,
-    required this.width,
-    required this.height,
-    required this.controllerFlipCard,
   }) : super(key: key);
 
   @override
-  _FlipCardWidgetState createState() => _FlipCardWidgetState();
+  State<FlipCardWidget> createState() => _FlipCardWidgetState();
 }
 
 class _FlipCardWidgetState extends State<FlipCardWidget> {
@@ -36,16 +37,12 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('building `CounterWidget`');
     return SizedBox(
       width: widget.width,
       height: widget.height,
       child: AnimatedBuilder(
           animation: widget.controllerFlipCard,
           builder: (context, child) {
-            //print('animationRotating ${animationFlip.status}');
-            //print('animationRotating ${animationFlip.value}');
-
             return Stack(
               children: [
                 Transform(
@@ -140,7 +137,7 @@ class _BackgroundCard extends StatelessWidget {
           BlendMode.srcOver,
         ),
       ),
-      boxShadow: (backgroundConfig.shadow) ? [_boxShadow] : [],
+      boxShadow: backgroundConfig.shadow ? [_boxShadow] : [],
     );
   }
 
@@ -148,7 +145,7 @@ class _BackgroundCard extends StatelessWidget {
     return BoxDecoration(
       borderRadius: backgroundConfig.borderRadius,
       color: backgroundConfig.backgroundColor,
-      boxShadow: (backgroundConfig.shadow) ? [_boxShadow] : [],
+      boxShadow: backgroundConfig.shadow ? [_boxShadow] : [],
     );
   }
 }

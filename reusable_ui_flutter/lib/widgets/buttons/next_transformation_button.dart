@@ -1,6 +1,5 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:reusable_ui_flutter/custom_controller.dart';
 
 // todo
 // inner property to control the transform
@@ -9,7 +8,6 @@ import 'package:reusable_ui_flutter/custom_controller.dart';
 class NextTransformationButton extends StatefulWidget {
   const NextTransformationButton({
     Key? key,
-    this.controller,
     this.topWidget,
     this.bottomWidget,
     this.onNextPressed,
@@ -26,7 +24,7 @@ class NextTransformationButton extends StatefulWidget {
   final Widget? bottomWidget;
   final VoidCallback? onNextPressed;
   final VoidCallback? onTransformPressed;
-  final CustomController? controller;
+
   final IconData icon;
   final Color accentColor;
   final Color background;
@@ -44,7 +42,6 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
   late AnimationController animationController;
   late Animation<double> transformButton;
   late Animation<Offset> bottomWidgetMoveAnimation;
-  late CustomController customController;
 
   @override
   void initState() {
@@ -53,13 +50,10 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 480),
-      value: widget.controller?.initialValue ?? 0.0,
+      value: 0.0,
     );
 
     initAnimations();
-
-    customController = widget.controller ?? CustomController();
-    customController.setAnimationController(animationController);
   }
 
   @override
@@ -67,7 +61,11 @@ class _NextTransformationButtonState extends State<NextTransformationButton>
     super.didUpdateWidget(oldWidget);
     if (widget.forwardTransformation != oldWidget.forwardTransformation ||
         widget.reverseTransformation != oldWidget.reverseTransformation) {
-      customController.run();
+      if (animationController.status == AnimationStatus.completed) {
+        animationController.reverse();
+      } else if (animationController.status == AnimationStatus.dismissed) {
+        animationController.forward();
+      }
     }
   }
 

@@ -1,10 +1,12 @@
 /// [flutter]
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:reusable_ui_flutter/config/config.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:reusable_ui_flutter/config/responsive_extension.dart';
+import 'package:reusable_ui_flutter/widgets/widgets.dart'
+    show EleventhButton, InputTextWidget;
 
-import '../../widgets/buttons/eleventh_button_widget.dart';
-import '../../widgets/input/input_text_widget.dart';
+import 'const.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({
@@ -29,14 +31,14 @@ class _AuthPageState extends State<AuthPage> {
         children: [
           const _AuthBackgroundView(),
           _AuthLoginCardView(
-            onOpenRegisterCard: onOpenRegisterCard,
+            onRegisterPressed: onOpenRegisterCard,
             loginSizeHeight: loginSizeHeight,
             loginSizeWidth: loginSizeWidth,
             opacity: opacity,
           ),
           _AuthRegisterCardView(
             isRegisterCardOpen: isRegisterCardOpen,
-            onCloseRegisterCard: onOpenRegisterCard,
+            onBackLogin: onCloseRegisterCard,
           ),
         ],
       ),
@@ -44,6 +46,7 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void onOpenRegisterCard() {
+    print('msg');
     loginSizeWidth = 0.88;
     loginSizeHeight = 1.05;
     opacity = 0.7;
@@ -84,18 +87,21 @@ class _AuthBackgroundView extends StatelessWidget {
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    text: 'Únete gratis.\n',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(color: kWhiteColor, fontSize: 28),
+                    text: 'Join us free.\n',
+                    style: GoogleFonts.notoSans(
+                      color: kWhiteColor,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
                     children: [
                       TextSpan(
-                          text: 'Sumergete en el espacio cripto, DEFI y NFTs',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(color: kWhiteColor))
+                        text: 'Dive into the crypto space, DEFI and NFTs',
+                        style: GoogleFonts.notoSans(
+                          fontSize: 20,
+                          color: kWhiteColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -111,13 +117,13 @@ class _AuthBackgroundView extends StatelessWidget {
 class _AuthLoginCardView extends StatelessWidget {
   const _AuthLoginCardView({
     Key? key,
-    required this.onOpenRegisterCard,
+    required this.onRegisterPressed,
     required this.loginSizeWidth,
     required this.loginSizeHeight,
     required this.opacity,
   }) : super(key: key);
 
-  final VoidCallback onOpenRegisterCard;
+  final VoidCallback onRegisterPressed;
 
   final double loginSizeWidth;
   final double loginSizeHeight;
@@ -149,9 +155,10 @@ class _AuthLoginCardView extends StatelessWidget {
             Text(
               'Login to continue',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
-                    color: kBlueColor,
-                  ),
+              style: GoogleFonts.notoSans(
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             kSpaceMediumVertical,
             kSpaceLittleVertical,
@@ -167,14 +174,17 @@ class _AuthLoginCardView extends StatelessWidget {
             ),
             const Spacer(),
             EleventhButton(
-              onPressed: () {},
               label: 'Login',
+              primaryColor: kPrimaryColor,
+              accentColor: kCreamColor,
+              onPressed: () {},
             ),
             kSpaceMediumVertical,
             EleventhButton(
-              onPressed: onOpenRegisterCard,
               label: 'Create a new account',
-              fill: false,
+              primaryColor: kPrimaryColor,
+              accentColor: kCreamColor,
+              onPressed: onRegisterPressed,
             ),
           ],
         ),
@@ -187,11 +197,11 @@ class _AuthRegisterCardView extends StatelessWidget {
   const _AuthRegisterCardView({
     Key? key,
     required this.isRegisterCardOpen,
-    required this.onCloseRegisterCard,
+    required this.onBackLogin,
   }) : super(key: key);
 
   final bool isRegisterCardOpen;
-  final VoidCallback onCloseRegisterCard;
+  final VoidCallback onBackLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -217,9 +227,10 @@ class _AuthRegisterCardView extends StatelessWidget {
             Text(
               'Create a new account',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
-                    color: kBlueColor,
-                  ),
+              style: GoogleFonts.notoSans(
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             kSpaceMediumVertical,
             kSpaceLittleVertical,
@@ -235,17 +246,20 @@ class _AuthRegisterCardView extends StatelessWidget {
             ),
             const Spacer(),
             EleventhButton(
-              onPressed: () {},
               label: 'Create a new account',
+              primaryColor: kPrimaryColor,
+              accentColor: kCreamColor,
+              onPressed: () {},
             ),
             kSpaceMediumVertical,
             EleventhButton(
+              label: 'Return to Login',
+              primaryColor: kPrimaryColor,
+              accentColor: kCreamColor,
               onPressed: () {
                 FocusManager.instance.primaryFocus?.unfocus();
-                onCloseRegisterCard();
+                onBackLogin();
               },
-              label: 'Return to Login',
-              fill: false,
             ),
           ],
         ),

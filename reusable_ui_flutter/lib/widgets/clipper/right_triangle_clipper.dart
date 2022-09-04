@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class RightTriangleClipperWidget extends StatelessWidget {
+class RightTriangleClipper extends StatelessWidget {
   /// default constructor
-  const RightTriangleClipperWidget({
+  const RightTriangleClipper({
     Key? key,
   }) : super(key: key);
 
@@ -12,9 +12,9 @@ class RightTriangleClipperWidget extends StatelessWidget {
       clipper: _DifficultyClipper(),
       child: Container(
         constraints: const BoxConstraints(minWidth: 80),
-        color: Colors.red,
+        color: Colors.amber,
         padding: const EdgeInsets.all(5),
-        child: const Text('Básico'),
+        child: const Text('Basic'),
       ),
     );
   }

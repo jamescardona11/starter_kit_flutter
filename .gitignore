@@ -47,4 +47,4 @@ app.*.map.json
 **/web/**
 
 **/pubspec.lock
-
+possible.txt
