@@ -34,129 +34,55 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  DojoBuilder<ExampleDojoRoom, StateToTest>(
+                  DojoBuilder<ExampleDojoRoom>(
                     builder: (context, state) {
-                      print('BUILDER READ');
                       return Text('HomePage ${state.count}');
                     },
-                  ),
-                  Builder(
-                    builder: (context) {
-                      print('BUILDER NormalWith S');
-                      final count = Dojo.select<StateToTest, int>(
-                          context, (state) => state.count);
-                      return Text('HomePage ${count} as');
-                    },
-                  ),
-                  DojoSelect<ExampleDojoRoom, StateToTest, int>(
-                    builder: (context, state) {
-                      print('BUILDER Select');
-                      return Text('Select ${state}');
-                    },
-                    selector: (state) => state.count,
-                  ),
+                  )
                 ],
               ),
             ),
           );
         },
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            /// The action is executed in the [ApplicationContext].
-            onPressed: () {
-              // final dojo = Dojo.read<ExampleDojoRoom, StateToTest>(context);
-              // dojo.increment();
-              Dojo.dispatch<ExampleDojoRoom, StateToTest>(
-                context,
-                ActionTest1(),
-              );
-            },
-            tooltip: 'Increment',
-            child: Icon(Icons.add),
-          ),
-          SizedBox(width: 5),
-          FloatingActionButton(
-            /// The action is executed in the [ApplicationContext].
-            onPressed: () {
-              final dojo = Dojo.read<ExampleDojoRoom, StateToTest>(context);
-              dojo.flag();
-            },
-            tooltip: 'Flag',
-            child: Icon(Icons.flag),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        /// The action is executed in the [ApplicationContext].
+        onPressed: () {
+          final dojo = Dojo.read<ExampleDojoRoom>(context);
+          dojo.increment();
+        },
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
       ),
     );
   }
 }
 
-class ActionTest extends Action {}
-
-class ActionTest1 extends ActionTest {}
-
-class ActionTest2 extends ActionTest {}
-
 class StateToTest {
   final int count;
-  final bool flag;
 
   StateToTest({
     this.count = 0,
-    this.flag = false,
   });
 
   StateToTest copyWith({
     int? count,
-    bool? flag,
   }) {
     return StateToTest(
       count: count ?? this.count,
-      flag: flag ?? this.flag,
     );
   }
-
-  @override
-  bool operator ==(covariant StateToTest other) {
-    if (identical(this, other)) return true;
-
-    return other.count == count && other.flag == flag;
-  }
-
-  @override
-  int get hashCode => count.hashCode ^ flag.hashCode;
 }
 
 class ExampleDojoRoom extends DojoRoom<StateToTest> {
   ExampleDojoRoom(super.initialState);
 
   void increment() {
-    print('INCREMENT');
     dispatch(
       state.copyWith(
         count: state.count + 1,
       ),
     );
-  }
-
-  void flag() {
-    print('Flag');
-    dispatch(
-      state.copyWith(
-        flag: !state.flag,
-      ),
-    );
-  }
-
-  @override
-  Future<void> onDojoAction(Action action) async {
-    if (action is ActionTest1) {
-      increment();
-    } else {
-      flag();
-    }
   }
 }
 
@@ -164,59 +90,42 @@ class ExampleDojoRoom extends DojoRoom<StateToTest> {
 
 typedef DBuilder<DState> = Widget Function(BuildContext context, DState state);
 
-class DojoBuilder<DRoom extends DojoRoom<DState>, DState>
-    extends StatelessWidget {
+class DojoBuilder<DRoom extends DojoRoom> extends StatelessWidget {
   /// default constructor
   const DojoBuilder({
     Key? key,
     required this.builder,
+    this.child,
   }) : super(key: key);
 
-  final DBuilder<DState> builder;
+  final DBuilder builder;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
-    final dojo = Dojo.read<DRoom, DState>(context);
-    return builder.call(context, dojo.state);
-  }
-}
+    return Builder(builder: (context) {
+      final gym = Dojo.read<DRoom>(context);
 
-typedef SBuilder<SelectedState> = Widget Function(
-  BuildContext context,
-  SelectedState data,
-);
-
-class DojoSelect<DRoom extends DojoRoom<DState>, DState, SelectedState>
-    extends StatelessWidget {
-  /// default constructor
-  const DojoSelect({
-    Key? key,
-    required this.builder,
-    required this.selector,
-  }) : super(key: key);
-
-  final SBuilder<SelectedState> builder;
-  final Selector<DState, SelectedState> selector;
-
-  @override
-  Widget build(BuildContext context) {
-    final dojo = Dojo.read<DRoom, DState>(context);
-    return builder.call(context, selector(dojo.state));
+      return builder.call(context, gym.state);
+    });
   }
 }
 
 //event
 abstract class Action<DState> {
-  const Action();
+  const Action(this.newState);
+
+  final DState newState;
 }
 
 class GenericStateChangeAction<DState> extends Action<DState> {
-  final DState newState;
-  const GenericStateChangeAction(this.newState);
+  const GenericStateChangeAction(super.newState);
 }
 
+typedef Dispatch = Future<void> Function(Action event);
+
 /// inherited widget
-class DojoGym<DRoom extends DojoRoom<DState>, DState> extends InheritedWidget {
+class DojoGym<DRoom extends DojoRoom> extends InheritedWidget {
   const DojoGym({
     super.key,
     required super.child,
@@ -225,13 +134,11 @@ class DojoGym<DRoom extends DojoRoom<DState>, DState> extends InheritedWidget {
 
   final DRoom dojoRoom;
 
-  static DojoRoom of<DRoom extends DojoRoom<DState>, DState>(
-      BuildContext context) {
-    final gym =
-        context.dependOnInheritedWidgetOfExactType<DojoGym<DRoom, DState>>();
+  static DojoRoom of<DRoom extends DojoRoom>(BuildContext context) {
+    final gym = context.dependOnInheritedWidgetOfExactType<DojoGym<DRoom>>();
 
     if (gym == null) {
-      //todo THROW
+      //THROW
     }
 
     return gym!.dojoRoom;
@@ -267,6 +174,9 @@ class DojoSelector<DState> extends InheritedModel<Selector> {
   }
 }
 
+// provider
+typedef ProviderState<DTState> = DTState Function(BuildContext context);
+
 class DojoProvider<DRoom extends DojoRoom<DState>, DState>
     extends StatefulWidget {
   const DojoProvider({
@@ -286,37 +196,35 @@ class DojoProvider<DRoom extends DojoRoom<DState>, DState>
 class _DojoProviderState<DRoom extends DojoRoom<DState>, DState>
     extends State<DojoProvider<DRoom, DState>> {
   late DState _lastState;
-  late DRoom _dojo;
 
   @override
   void initState() {
-    _dojo = widget.dojo;
-    _lastState = _dojo.state;
-    _dojo.addListener(_onStateUpdate);
+    _lastState = widget.dojo.state;
+    widget.dojo.addListener(_onStateUpdate);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return DojoGym<DRoom, DState>(
-      dojoRoom: _dojo,
+    return DojoGym<DRoom>(
+      dojoRoom: widget.dojo,
       child: DojoSelector<DState>(
-        state: _dojo.state,
+        state: widget.dojo.state,
         child: widget.child,
       ),
     );
   }
 
   void _onStateUpdate() {
-    if (_lastState != _dojo.state) {
-      _lastState = _dojo.state;
+    if (_lastState != widget.dojo.state) {
+      _lastState = widget.dojo.state;
       setState(() {});
     }
   }
 
   @override
   void dispose() {
-    _dojo.removeListener(_onStateUpdate);
+    widget.dojo.removeListener(_onStateUpdate);
     super.dispose();
   }
 }
@@ -348,7 +256,6 @@ class _DojoProviderState<DRoom extends DojoRoom<DState>, DState>
 /// emitir nuevos estados
 abstract class DojoRoom<DState> extends ChangeNotifier {
   DState _state;
-  // DState _lastState;
 
   DojoRoom(DState initialState) : _state = initialState;
 
@@ -356,7 +263,7 @@ abstract class DojoRoom<DState> extends ChangeNotifier {
     _dispatchAction(GenericStateChangeAction(newState));
   }
 
-  void _dispatchAction(GenericStateChangeAction event) {
+  void _dispatchAction(Action event) {
     state = event.newState;
   }
 
@@ -367,8 +274,6 @@ abstract class DojoRoom<DState> extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  Future<void> onDojoAction(Action action) async {}
 
   DState get state => _state;
 }
@@ -389,15 +294,17 @@ class Dojo {
     return selector(provider!.state);
   }
 
-  static R read<R extends DojoRoom<DState>, DState>(BuildContext context) {
-    return DojoGym.of<R, DState>(context) as R;
+  static DRoom read<DRoom extends DojoRoom>(BuildContext context) {
+    return DojoGym.of<DRoom>(context) as DRoom;
   }
 
-  static Future<void> dispatch<R extends DojoRoom<DState>, DState>(
-      BuildContext context, Action action) {
-    print('msg');
-    return DojoGym.of<R, DState>(context).onDojoAction(action);
-  }
+  // Future<void> dispatch<DState>(BuildContext context, Event event) =>
+  //     Dispatcher.of<DState>(this)(event);
 
   // static listen<DRoom extends DojoRoom>() {}
+}
+
+/// eventos
+abstract class DojoEvents<DAction extends Action> {
+  Stream<void> onDojoEvent(DAction event);
 }

@@ -23,3 +23,7 @@ Karakuri
 
 Firenase
 https://github.com/FilledStacks/stacked/blob/master/packages/stacked_firebase_auth/lib/src/firebase_authentication_service.dart
+
+
+ARCH
+https://github.com/imamabdulazis/FlutterCleanArchitecture
