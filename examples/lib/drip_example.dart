@@ -9,8 +9,9 @@ class DripExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DripProvider(
-      create: DripCounter(),
+    print('------BUILD => Examples');
+    return DripProvider<DripCounter>(
+      create: (_) => DripCounter(),
       child: _DripExample(),
     );
   }
@@ -19,11 +20,12 @@ class DripExample extends StatelessWidget {
 class _DripExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print('------BUILD _Example');
     return Scaffold(
       body: Center(
         child: DripBuilder<DripCounter, int>(
           streamListener: false,
-          builder: (context, state) => Text('Counter: $state'),
+          builder: (context, state) => Text('Counters: $state'),
         ),
       ),
       bottomNavigationBar: Padding(
@@ -61,5 +63,6 @@ class DripCounter extends Drip<int> {
 
   void clear() {
     print('Clear');
+    dispatch(0);
   }
 }

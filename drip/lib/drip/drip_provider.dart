@@ -1,37 +1,39 @@
 import 'package:flutter/widgets.dart';
 
 import 'base_drip.dart';
+import 'typedef.dart';
 
-class DripProvider<D extends Drip<DState>, DState> extends StatefulWidget {
+typedef DCreate<D extends Drip> = D Function(BuildContext context);
+
+class DripProvider<D extends Drip> extends StatefulWidget {
   const DripProvider({
     Key? key,
     required this.create,
     required this.child,
   }) : super(key: key);
 
-  final D create;
+  final DCreate<D> create;
   final Widget child;
 
   @override
-  State<DripProvider<D, DState>> createState() =>
-      _DripProviderState<D, DState>();
+  State<DripProvider<D>> createState() => _DripProviderState<D>();
 
   static D of<D extends Drip>(BuildContext context, {bool listen = false}) {
     if (D == dynamic) {
       throw ProviderError();
     }
 
-    final scope = listen
+    final provider = listen
         ? context.dependOnInheritedWidgetOfExactType<_DripProviderIW<D>>()
         : (context
             .getElementForInheritedWidgetOfExactType<_DripProviderIW<D>>()
             ?.widget as _DripProviderIW<D>?);
 
-    if (scope == null) {
+    if (provider == null) {
       throw ProviderError(D);
     }
 
-    return scope.drip;
+    return provider.drip;
   }
 
   static D read<D extends Drip>(BuildContext context) {
@@ -39,14 +41,28 @@ class DripProvider<D extends Drip<DState>, DState> extends StatefulWidget {
   }
 }
 
-class _DripProviderState<D extends Drip<DState>, DState>
-    extends State<DripProvider<D, DState>> {
+class _DripProviderState<D extends Drip> extends State<DripProvider<D>> {
+  late D drip;
+
+  @override
+  void initState() {
+    super.initState();
+    drip = widget.create(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('DRIP: build of DripProvider');
     return _DripProviderIW(
-      drip: widget.create,
+      drip: drip,
       child: widget.child,
     );
+  }
+
+  @override
+  void dispose() {
+    drip.close();
+    super.dispose();
   }
 }
 
@@ -60,8 +76,29 @@ class _DripProviderIW<D extends Drip> extends InheritedWidget {
   final D drip;
 
   @override
-  bool updateShouldNotify(covariant _DripProviderIW<D> oldWidget) {
-    return oldWidget.drip != drip;
+  bool updateShouldNotify(covariant _DripProviderIW<D> oldWidget) => false;
+}
+
+class _DripSelector<DState> extends InheritedModel<Selector> {
+  const _DripSelector({
+    super.key,
+    required this.state,
+    required super.child,
+  });
+
+  final DState state;
+
+  @override
+  bool updateShouldNotify(covariant _DripSelector<DState> oldWidget) {
+    return state != oldWidget.state;
+  }
+
+  @override
+  bool updateShouldNotifyDependent(
+      covariant _DripSelector<DState> oldWidget, Set<Selector> dependencies) {
+    return dependencies.any(
+      (selector) => selector(oldWidget.state) != selector(state),
+    );
   }
 }
 

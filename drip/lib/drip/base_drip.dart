@@ -22,5 +22,8 @@ abstract class Drip<DState> extends ChangeNotifier {
     }
   }
 
+  @mustCallSuper
+  void close() {}
+
   DState get state => _state;
 }
