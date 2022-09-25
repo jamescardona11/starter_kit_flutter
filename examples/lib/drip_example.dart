@@ -1,4 +1,5 @@
 import 'package:drip/drip.dart';
+import 'package:drip/drip/drip_events.dart';
 import 'package:flutter/material.dart';
 
 class DripExample extends StatelessWidget {
@@ -24,7 +25,6 @@ class _DripExample extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: DripBuilder<DripCounter, int>(
-          streamListener: false,
           builder: (context, state) => Text('Counters: $state'),
         ),
       ),
@@ -58,11 +58,21 @@ class DripCounter extends Drip<int> {
 
   void increment() {
     print('Increment');
-    dispatch(state + 1);
+    emit(state + 1);
+    // dispatch(IncrementCount());
   }
 
   void clear() {
     print('Clear');
-    dispatch(0);
+    emit(0);
+  }
+
+  @override
+  Stream<int> mapEventToState(event) async* {
+    if (event is IncrementCount) {
+      print('DRIP: MapEventToState');
+    }
   }
 }
+
+class IncrementCount extends DripEvent {}

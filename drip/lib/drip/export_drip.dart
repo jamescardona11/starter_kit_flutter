@@ -1,4 +1,4 @@
 export 'base_drip.dart';
+export 'drip_events.dart';
 export 'drip_provider.dart';
-export 'i_action.dart';
 export 'typedef.dart';
