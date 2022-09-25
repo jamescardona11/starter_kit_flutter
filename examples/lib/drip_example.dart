@@ -25,6 +25,7 @@ class _DripExample extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: DripBuilder<DripCounter, int>(
+          streamListener: false,
           builder: (context, state) => Text('Counters: $state'),
         ),
       ),

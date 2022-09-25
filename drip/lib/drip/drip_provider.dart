@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'base_drip.dart';
 import 'typedef.dart';
 
-typedef DCreate<D extends Drip> = D Function(BuildContext context);
-
 class DripProvider<D extends Drip> extends StatefulWidget {
   const DripProvider({
     Key? key,
@@ -38,6 +36,14 @@ class DripProvider<D extends Drip> extends StatefulWidget {
 
   static D read<D extends Drip>(BuildContext context) {
     return DripProvider.of<D>(context);
+  }
+
+  DripProvider<D> copyWith(Widget child) {
+    return DripProvider<D>(
+      key: key,
+      create: create,
+      child: child,
+    );
   }
 }
 
