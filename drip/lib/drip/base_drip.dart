@@ -1,11 +1,16 @@
 import 'package:flutter/widgets.dart';
 
+import 'i_action.dart';
+
 abstract class Drip<DState> extends ChangeNotifier {
   Drip(DState initialState) : _state = initialState;
 
   DState _state;
 
-  void dispatch(Action action) {}
+  void dispatch(DState newState) {
+    GenericStateChangeAction(newState);
+    state = newState;
+  }
 
   void notify() {}
 

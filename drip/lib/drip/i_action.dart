@@ -1,9 +1,9 @@
-abstract class Action<DState> {
-  const Action(this.newState);
+abstract class IAction<DState> {
+  const IAction(this.newState);
 
   final DState newState;
 }
 
-class GenericStateChangeAction<DState> extends Action<DState> {
+class GenericStateChangeAction<DState> extends IAction<DState> {
   const GenericStateChangeAction(super.newState);
 }

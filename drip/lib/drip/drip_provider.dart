@@ -18,7 +18,7 @@ class DripProvider<D extends Drip<DState>, DState> extends StatefulWidget {
 
   static D of<D extends Drip>(BuildContext context, {bool listen = false}) {
     if (D == dynamic) {
-      // throw ProviderError();
+      throw ProviderError();
     }
 
     final scope = listen
@@ -28,13 +28,15 @@ class DripProvider<D extends Drip<DState>, DState> extends StatefulWidget {
             ?.widget as _DripProviderIW<D>?);
 
     if (scope == null) {
-      // throw ProviderError(T);
+      throw ProviderError(D);
     }
 
-    return scope!.drip;
+    return scope.drip;
   }
 
-  // static R read<R extends DripNotifier>(BuildContext context) {}
+  static D read<D extends Drip>(BuildContext context) {
+    return DripProvider.of<D>(context);
+  }
 }
 
 class _DripProviderState<D extends Drip<DState>, DState>
