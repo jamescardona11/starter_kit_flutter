@@ -7,10 +7,12 @@ class DripBuilder<D extends Drip<DState>, DState> extends StatefulWidget {
     super.key,
     this.streamListener = true,
     required this.builder,
+    this.drip,
   });
 
   final bool streamListener;
   final DBuilder<DState> builder;
+  final D? drip;
 
   @override
   State<DripBuilder<D, DState>> createState() => _DripBuilderState<D, DState>();
@@ -19,18 +21,29 @@ class DripBuilder<D extends Drip<DState>, DState> extends StatefulWidget {
 class _DripBuilderState<D extends Drip<DState>, DState>
     extends State<DripBuilder<D, DState>> {
   late D _drip;
+  late DState _previousState;
 
   @override
   void initState() {
     super.initState();
-    _drip = DripProvider.of<D>(context);
+    _drip = widget.drip ?? DripProvider.of<D>(context);
+    _previousState = _drip.initialState;
+  }
+
+  @override
+  void didUpdateWidget(DripBuilder<D, DState> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.drip != widget.drip) {
+      _drip = widget.drip ?? DripProvider.of<D>(context);
+      _previousState = _drip.state;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return widget.streamListener
         ? StreamBuilder<DState>(
-            initialData: _drip.initialState,
+            initialData: _previousState,
             stream: _drip.stateStream,
             builder: (_, snapshot) {
               return widget.builder(context, snapshot.requireData);

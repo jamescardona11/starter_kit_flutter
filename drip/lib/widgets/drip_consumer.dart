@@ -1,7 +1,7 @@
 import 'package:drip/drip.dart';
 import 'package:flutter/material.dart';
 
-class DripConsumer<D extends Drip<DState>, DState> extends StatelessWidget {
+class DripConsumer<D extends Drip<DState>, DState> extends StatefulWidget {
   /// default constructor
   const DripConsumer({
     super.key,
@@ -15,11 +15,28 @@ class DripConsumer<D extends Drip<DState>, DState> extends StatelessWidget {
   final bool streamListener;
 
   @override
+  State<DripConsumer<D, DState>> createState() =>
+      _DripConsumerState<D, DState>();
+}
+
+class _DripConsumerState<D extends Drip<DState>, DState>
+    extends State<DripConsumer<D, DState>> {
+  late D _drip;
+
+  @override
+  void initState() {
+    _drip = DripProvider.of<D>(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DripListener<D, DState>(
-      listener: listener,
+      drip: _drip,
+      listener: widget.listener,
       child: DripBuilder<D, DState>(
-        builder: builder,
+        drip: _drip,
+        builder: widget.builder,
       ),
     );
   }

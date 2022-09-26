@@ -19,7 +19,8 @@ abstract class Drip<DState> extends ChangeNotifier {
     _bindStateController();
 
     // I have the initialState in the DripBuilder
-    // _stateController.add(_initialState);
+    // Add
+    _stateController.add(_initialState);
   }
 
   void emit(DState newState) {
