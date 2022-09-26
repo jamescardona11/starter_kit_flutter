@@ -1,34 +1,43 @@
-import 'package:drip/drip/export_drip.dart';
+import 'package:drip/drip.dart';
 import 'package:flutter/material.dart';
 
 class DripSelect<D extends Drip<DState>, DState, SelectedState>
-    extends StatelessWidget {
+    extends StatefulWidget {
   /// default constructor
   const DripSelect({
     super.key,
     required this.builder,
     required this.selector,
-    this.streamListener = true,
   });
 
-  final bool streamListener;
   final SBuilder<SelectedState> builder;
   final Selector<DState, SelectedState> selector;
 
   @override
+  State<DripSelect<D, DState, SelectedState>> createState() =>
+      _DripSelectState<D, DState, SelectedState>();
+}
+
+class _DripSelectState<D extends Drip<DState>, DState, SelectedState>
+    extends State<DripSelect<D, DState, SelectedState>> {
+  late D _drip;
+  late SelectedState _state;
+
+  @override
+  void initState() {
+    super.initState();
+    _drip = DripProvider.of<D>(context);
+    _state = widget.selector(_drip.state);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final drip = DripProvider.of<D>(context);
-    return streamListener
-        ? StreamBuilder<DState>(
-            initialData: drip.initialState,
-            stream: drip.stateStream,
-            builder: (_, snapshot) {
-              return builder(context, selector(snapshot.requireData));
-            },
-          )
-        : AnimatedBuilder(
-            animation: drip,
-            builder: (_, __) => builder(context, selector(drip.state)),
-          );
+    return DripListener<D, DState>(
+      listener: (context, state) {
+        final selectedState = widget.selector(state);
+        if (_state != selectedState) setState(() => _state = selectedState);
+      },
+      child: widget.builder(context, _state),
+    );
   }
 }

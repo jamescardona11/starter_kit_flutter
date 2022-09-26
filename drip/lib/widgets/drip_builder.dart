@@ -1,7 +1,7 @@
 import 'package:drip/drip/export_drip.dart';
 import 'package:flutter/material.dart';
 
-class DripBuilder<D extends Drip<DState>, DState> extends StatelessWidget {
+class DripBuilder<D extends Drip<DState>, DState> extends StatefulWidget {
   /// default constructor
   const DripBuilder({
     super.key,
@@ -13,19 +13,32 @@ class DripBuilder<D extends Drip<DState>, DState> extends StatelessWidget {
   final DBuilder<DState> builder;
 
   @override
+  State<DripBuilder<D, DState>> createState() => _DripBuilderState<D, DState>();
+}
+
+class _DripBuilderState<D extends Drip<DState>, DState>
+    extends State<DripBuilder<D, DState>> {
+  late D _drip;
+
+  @override
+  void initState() {
+    super.initState();
+    _drip = DripProvider.of<D>(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final drip = DripProvider.of<D>(context);
-    return streamListener
+    return widget.streamListener
         ? StreamBuilder<DState>(
-            initialData: drip.initialState,
-            stream: drip.stateStream,
+            initialData: _drip.initialState,
+            stream: _drip.stateStream,
             builder: (_, snapshot) {
-              return builder(context, snapshot.requireData);
+              return widget.builder(context, snapshot.requireData);
             },
           )
         : AnimatedBuilder(
-            animation: drip,
-            builder: (_, __) => builder(context, drip.state),
+            animation: _drip,
+            builder: (_, __) => widget.builder(context, _drip.state),
           );
   }
 }

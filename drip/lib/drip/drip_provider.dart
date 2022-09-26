@@ -40,6 +40,14 @@ class DripProvider<D extends Drip> extends StatefulWidget {
     return DripProvider.of<D>(context, listen: true);
   }
 
+  // Stream<DState> listen<DState>(
+  //     BuildContext context, DState Function(D drip) selector) {
+  //   return DripProvider.of<D>(context)
+  //       .stateStream
+  //       .map((state) => selector(state))
+  //       .distinct();
+  // }
+
   static void dispatch<D extends Drip>(
     BuildContext context,
     DripEvent event,
