@@ -1,7 +1,5 @@
+import 'package:drip/drip.dart';
 import 'package:flutter/widgets.dart';
-
-import 'base_drip.dart';
-import 'typedef.dart';
 
 class DripProvider<D extends Drip> extends StatefulWidget {
   const DripProvider({
@@ -38,6 +36,17 @@ class DripProvider<D extends Drip> extends StatefulWidget {
     return DripProvider.of<D>(context);
   }
 
+  static D watch<D extends Drip>(BuildContext context) {
+    return DripProvider.of<D>(context, listen: true);
+  }
+
+  static void dispatch<D extends Drip>(
+    BuildContext context,
+    DripEvent event,
+  ) {
+    return of<D>(context).dispatch(event);
+  }
+
   DripProvider<D> copyWith(Widget child) {
     return DripProvider<D>(
       key: key,
@@ -49,63 +58,35 @@ class DripProvider<D extends Drip> extends StatefulWidget {
 
 class _DripProviderState<D extends Drip> extends State<DripProvider<D>> {
   late D drip;
+  late dynamic lastState;
 
   @override
   void initState() {
     super.initState();
     drip = widget.create(context);
+    lastState = drip.initialState;
   }
 
   @override
   Widget build(BuildContext context) {
-    print('DRIP: build of DripProvider');
     return _DripProviderIW(
       drip: drip,
       child: widget.child,
     );
   }
-
-  @override
-  void dispose() {
-    drip.close();
-    super.dispose();
-  }
 }
 
-class _DripProviderIW<D extends Drip> extends InheritedWidget {
+class _DripProviderIW<D extends Drip> extends InheritedNotifier {
   const _DripProviderIW({
     super.key,
     required super.child,
-    required this.drip,
-  });
+    required D drip,
+  }) : super(notifier: drip);
 
-  final D drip;
+  D get drip => notifier as D;
 
   @override
   bool updateShouldNotify(covariant _DripProviderIW<D> oldWidget) => false;
-}
-
-class _DripSelector<DState> extends InheritedModel<Selector> {
-  const _DripSelector({
-    super.key,
-    required this.state,
-    required super.child,
-  });
-
-  final DState state;
-
-  @override
-  bool updateShouldNotify(covariant _DripSelector<DState> oldWidget) {
-    return state != oldWidget.state;
-  }
-
-  @override
-  bool updateShouldNotifyDependent(
-      covariant _DripSelector<DState> oldWidget, Set<Selector> dependencies) {
-    return dependencies.any(
-      (selector) => selector(oldWidget.state) != selector(state),
-    );
-  }
 }
 
 class ProviderError extends Error {
