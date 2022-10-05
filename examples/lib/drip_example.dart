@@ -58,7 +58,8 @@ class _DripExample extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                DripProvider.of<DripCounter>(context).increment();
+                DripProvider.of<DripCounter>(context)
+                    .dispatch(IncrementCount());
               },
               child: Icon(Icons.plus_one),
             ),
@@ -83,8 +84,8 @@ class _DripExample extends StatelessWidget {
   }
 }
 
-class DripCounter extends Drip<DripCounterState> {
-  DripCounter() : super(DripCounterState());
+class DripCointer2 extends Drip<DripCounterState> {
+  DripCointer2(super.initialState);
 
   void increment() {
     print('Increment');
@@ -93,6 +94,10 @@ class DripCounter extends Drip<DripCounterState> {
     );
     // dispatch(IncrementCount());
   }
+}
+
+class DripCounter extends Drip<DripCounterState> {
+  DripCounter() : super(DripCounterState());
 
   void numeric() {
     print('numeric');
@@ -147,4 +152,9 @@ class DripCounterState {
   int get hashCode => count.hashCode ^ strNum.hashCode;
 }
 
-class IncrementCount extends DripEvent {}
+class IncrementCount extends DripAction<DripCounterState> {
+  @override
+  Stream<DripCounterState> call(DripEvent event) async* {}
+}
+
+// class NumericCount extends DripAction {}
