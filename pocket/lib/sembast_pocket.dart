@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 
-import 'i_db_pocket.dart';
+import 'i_pocket_adapter.dart';
 
-class SembastPocket implements PocketAdapter {
+class SembastPocket implements IPocketAdapter {
   SembastPocket._(this.db);
 
   final Database db;
@@ -44,7 +44,7 @@ class SembastPocket implements PocketAdapter {
   Future<void> update(AdapterDto item) async {}
 
   @override
-  Future<void> delete(AdapterDto item) async {}
+  Future<void> delete(String id) async {}
 
   @override
   Stream<AdapterDto> read() async* {}
