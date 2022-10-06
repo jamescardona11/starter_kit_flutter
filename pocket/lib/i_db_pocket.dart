@@ -1,4 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+abstract class PocketAdapter {
+  Future<void> create(AdapterDto item);
+
+  Stream<AdapterDto> read();
+
+  Future<void> update(AdapterDto item);
+
+  Future<void> delete(AdapterDto item);
+}
+
+class AdapterDto {}
+
 abstract class IPocketModel {
   /// default constructor
   IPocketModel({required this.id});
