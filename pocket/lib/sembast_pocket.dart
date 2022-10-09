@@ -6,9 +6,9 @@ import 'package:sembast/sembast_io.dart';
 import 'i_pocket_adapter.dart';
 
 class SembastPocket implements IPocketAdapter {
-  SembastPocket._(this.db);
+  SembastPocket._(this._db);
 
-  final Database db;
+  final Database _db;
 
   static Completer<SembastPocket>? _completer;
 
@@ -38,14 +38,125 @@ class SembastPocket implements IPocketAdapter {
   }
 
   @override
-  Future<void> create(AdapterDto item) async {}
+  Future<void> create({
+    required String table,
+    required AdapterDto item,
+  }) async {
+    final store = _sembastStore(table);
+    await store.record(item.id).add(_db, item.data);
+  }
 
   @override
-  Future<void> update(AdapterDto item) async {}
+  Future<void> update({
+    required String table,
+    required AdapterDto item,
+  }) async {
+    final store = _sembastStore(table);
+    await store.record(item.id).update(_db, item.data);
+  }
 
   @override
-  Future<void> delete(String id) async {}
+  Future<void> delete({
+    required String table,
+    required String id,
+  }) async {
+    final store = _sembastStore(table);
+    await store.record(id).delete(_db);
+  }
 
   @override
-  Stream<AdapterDto> read() async* {}
+  Stream<AdapterDto?> read({
+    required String table,
+    required String id,
+  }) async* {
+    final store = _sembastStore(table);
+    yield* store.record(id).onSnapshot(_db).map(
+          (snapshot) => snapshot == null
+              ? null
+              : AdapterDto(
+                  id,
+                  snapshot.value,
+                ),
+        );
+  }
+
+  @override
+  Stream<Iterable<AdapterDto>> readWhere({
+    required String table,
+    required Iterable<PocketQuery> pocketQueries,
+    bool andFilters = true,
+  }) {
+    final store = _sembastStore(table);
+    Finder finder = _getFinder(pocketQueries, andFilters);
+
+    return store
+        .query(finder: finder)
+        .onSnapshots(_db)
+        .map((snapshots) => snapshots.map((e) => AdapterDto(
+              e.key,
+              e.value,
+            )));
+  }
+
+  @override
+  Future<void> dropTable(String table) => _sembastStore(table).drop(_db);
+
+  StoreRef<String, Map<String, Object?>> _sembastStore(String table) =>
+      (table.isEmpty)
+          ? StoreRef<String, Map<String, Object>>.main()
+          : stringMapStoreFactory.store(table);
+
+  Finder _getFinder(Iterable<PocketQuery> pocketsQueries, bool andFilters) {
+    final finder = Finder();
+    final whereClauses = <WherePocketQuery>[];
+
+    for (PocketQuery query in pocketsQueries) {
+      if (query is LimitPocketQuery) {
+        finder.limit = query.limit;
+      } else if (query is SortPocketQuery) {
+        finder.sortOrder = SortOrder(
+          query.field,
+          query.ascending,
+        );
+      } else if (query is WherePocketQuery) {
+        whereClauses.add(query);
+      }
+    }
+
+    if (whereClauses.isNotEmpty) {
+      final filters = whereClauses.map(_getFilterFromClause).toList();
+      if (andFilters) {
+        finder.filter = Filter.and(filters);
+      } else {
+        finder.filter = Filter.or(filters);
+      }
+    }
+
+    return finder;
+  }
+
+  Filter _getFilterFromClause(WherePocketQuery wherePocketQuery) {
+    switch (wherePocketQuery.comparator) {
+      case WhereType.equals:
+        return Filter.equals(wherePocketQuery.field, wherePocketQuery.value);
+
+      case WhereType.notEquals:
+        return Filter.notEquals(wherePocketQuery.field, wherePocketQuery.value);
+
+      case WhereType.greaterThan:
+        return Filter.greaterThan(
+            wherePocketQuery.field, wherePocketQuery.value);
+
+      case WhereType.lessThan:
+        return Filter.lessThan(wherePocketQuery.field, wherePocketQuery.value);
+      case WhereType.contains:
+        return Filter.matches(wherePocketQuery.field, wherePocketQuery.value);
+      case WhereType.greaterThanOrEquals:
+        return Filter.greaterThanOrEquals(
+            wherePocketQuery.field, wherePocketQuery.value);
+      case WhereType.lessThanOrEquals:
+        return Filter.lessThanOrEquals(
+            wherePocketQuery.field, wherePocketQuery.value);
+    }
+  }
 }

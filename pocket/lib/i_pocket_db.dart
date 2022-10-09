@@ -4,13 +4,17 @@ import 'package:pocket/sembast_pocket.dart';
 abstract class IPocketDatabase<T extends IPocketModel> {
   String get tableName;
 
-  Future<void> create(T data);
+  Future<void> create(T item);
 
-  Stream<T> read();
+  Stream<T?> read(String id);
 
-  Future<void> update(T data);
+  Future<void> update(T item);
 
   Future<void> delete(String id);
+
+  Future<void> dropTable();
+
+  T fromJson(Map<String, dynamic> json);
 }
 
 abstract class IPocketModel {
@@ -29,16 +33,44 @@ mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
   A get adapterDb;
 
   @override
-  Future<void> create(T data) async {}
+  Future<void> create(T data) => adapterDb.create(
+        table: tableName,
+        item: AdapterDto(
+          data.id,
+          data.toJson(),
+        ),
+      );
 
   @override
-  Future<void> update(T data) async {}
+  Future<void> update(T data) => adapterDb.update(
+        table: tableName,
+        item: AdapterDto(
+          data.id,
+          data.toJson(),
+        ),
+      );
 
   @override
-  Future<void> delete(String id) async {}
+  Future<void> delete(String id) => adapterDb.delete(
+        table: tableName,
+        id: id,
+      );
 
   @override
-  Stream<T> read() async* {}
+  Stream<T?> read(String id) =>
+      adapterDb.read(table: tableName, id: id).map((dto) {
+        if (dto != null) {
+          try {
+            return fromJson(dto.data);
+          } catch (e) {
+            return null;
+          }
+        }
+        return null;
+      });
+
+  @override
+  Future<void> dropTable() => adapterDb.dropTable(tableName);
 }
 
 class TempDto extends IPocketModel {
@@ -46,8 +78,7 @@ class TempDto extends IPocketModel {
 
   @override
   Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError();
+    return {'id': 1};
   }
 }
 
@@ -59,4 +90,10 @@ class ExampleDataSource with PocketDatabase<SembastPocket, TempDto> {
 
   @override
   final SembastPocket adapterDb;
+
+  @override
+  TempDto fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    throw UnimplementedError();
+  }
 }
