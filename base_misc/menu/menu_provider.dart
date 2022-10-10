@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:base_ddd/common/ui_models/menu_item.dart';
-
 class MenuItemsProvider extends ChangeNotifier {
   MenuItemsProvider([this._state = _defaultMenuItemsList]);
 
