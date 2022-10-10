@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// ```
+/// CircularIconButton(
+///   icon: Icons.near_me,
+///   onPressed: () {},
+/// )
+/// ```
+
 class CircularIconButton extends StatelessWidget {
   const CircularIconButton({
     Key? key,

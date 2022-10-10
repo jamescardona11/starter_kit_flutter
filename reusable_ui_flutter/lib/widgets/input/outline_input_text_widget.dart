@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// ```
+/// OutlineTextInput(
+///   label: 'Username',
+///   leadingIcon: Icons.person_outline,
+///   iconColor: Colors.black,
+///   cursorColor: Colors.black38,
+/// )
+/// ```
+
 class OutlineTextInput extends StatelessWidget {
   const OutlineTextInput({
     Key? key,

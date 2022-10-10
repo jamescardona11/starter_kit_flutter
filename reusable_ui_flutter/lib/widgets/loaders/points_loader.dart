@@ -2,6 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// ```
+/// PointsLoader.triangle(),
+///
+/// PointsLoader.square(),
+///
+/// PointsLoader.circle(),
+///
+/// PointsLoader.hexagon(),
+///
+/// PointsLoader.pentagon(),
+/// ```
+
 class PointsLoader extends StatefulWidget {
   final List<LoadingPointConfig> loadingPoints;
 

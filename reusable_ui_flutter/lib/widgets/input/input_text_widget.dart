@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// ```
+/// InputTextWidget(
+///   hint: 'Enter your email',
+///   leadingIcon: Icons.email,
+///   onChanged: (value) {},
+/// )
+/// ```
+
 class InputTextWidget extends StatelessWidget {
   const InputTextWidget({
     super.key,

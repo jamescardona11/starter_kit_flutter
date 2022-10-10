@@ -1,3 +1,9 @@
+# Slider
+
+
+
+### SliderDots
+![](slider_dots.gif)
 ```
 SliderDots(
   totalSlides: 3,

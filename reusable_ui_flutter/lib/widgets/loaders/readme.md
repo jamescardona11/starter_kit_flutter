@@ -1,3 +1,7 @@
+# Loaders
+
+
+![](points_loader.gif)
 ```
 PointsLoader.triangle(),
             

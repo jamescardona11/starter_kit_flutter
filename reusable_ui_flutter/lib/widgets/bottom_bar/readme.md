@@ -1,3 +1,9 @@
+# Bottom bar
+
+
+### ArcBottomBar
+![](arc_bottom_bar.gif)
+
 ```
 bottomNavigationBar: ArcBottomBar(
   items: [
@@ -29,6 +35,9 @@ bottomNavigationBar: ArcBottomBar(
 ```
 
 
+
+### FloatingBottomBar
+![](floating_bottom_bar.png)
 ```
 bottomNavigationBar: FloatingBottomBar(
   items: [
@@ -48,6 +57,10 @@ bottomNavigationBar: FloatingBottomBar(
 )
 ```
 
+
+
+### BeeBottomBar
+![](bee_bottom_bar.gif)
 
 ```
 bottomNavigationBar: BeeBottomBar(

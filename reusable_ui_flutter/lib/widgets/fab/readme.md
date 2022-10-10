@@ -1,3 +1,10 @@
+# Fab
+
+
+### MultiFab
+![](multi_fab.gif)
+
+
 ```
 floatingActionButton: MultiFab(
   items: [
@@ -17,6 +24,10 @@ floatingActionButton: MultiFab(
 )
 ```
 
+
+
+### RowFab
+![](row_fab.png)
 ```
 floatingActionButton: RowFab(
   items: [

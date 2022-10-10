@@ -3,7 +3,30 @@ import 'package:flutter/scheduler.dart';
 
 import 'common/fab_item.dart';
 
-/// colocar el controlador
+// todo colocar el controlador
+
+// Internal dependencies
+// - FabElevenItem
+//
+/// ```
+/// floatingActionButton: MultiFab(
+///   items: [
+///     FabElevenItem.multi(
+///       onPressed: () {},
+///       icon: Icon(Icons.home, color: Colors.white),
+///     ),
+///     FabElevenItem.multi(
+///       onPressed: () {},
+///       icon: Icon(Icons.favorite, color: Colors.white),
+///     ),
+///     FabElevenItem.multi(
+///       onPressed: () {},
+///       icon: Icon(Icons.person, color: Colors.white),
+///     ),
+///   ],
+/// )
+/// ```
+///
 
 class MultiFab extends StatefulWidget {
   const MultiFab({

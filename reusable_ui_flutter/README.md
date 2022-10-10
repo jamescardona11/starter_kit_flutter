@@ -9,6 +9,7 @@ You can start the app, and test every widget of view:
 ![](https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/main.png)
 
 
+## Screens
 
 | TYPE      | NAME                                                 | REF                               | 
 | --------- | ---------------------------------------------------- | --------------------------------- |
@@ -18,7 +19,12 @@ You can start the app, and test every widget of view:
 | Screen    | [Loginpage2][Loginpage2]                             | ![][Loginpage2_REF]               |
 | Screen    | [Onboarding1][Onboarding1]                           | ![][Onboarding1_REF]              |
 | Screen    | [Onboarding2][Onboarding2]                           | ![][Onboarding2_REF]              |
-| Extension | [ResponsiveContext][ResponsiveContext]               | - |
+
+
+
+## Widgets
+| TYPE      | NAME                                                 | REF                               | 
+| --------- | ---------------------------------------------------- | --------------------------------- |
 | Widget    | [BeeBottomBar][BeeBottomBar]                         | ![][BeeBottomBar_REF]             |
 | Widget    | [ArcBottomBar][ArcBottomBar]                         | ![][ArcBottomBar_REF]             |
 | Widget    | [FloatingBottomBar][FloatingBottomBar]               | ![][FloatingBottomBar_REF]        |
@@ -40,29 +46,76 @@ You can start the app, and test every widget of view:
 | Widget    | [FloatingOptions][FloatingOptions]                   | ![][FloatingOptions_REF]          |
 | Widget    | [SkipTopBar][SkipTopBar]                             | ![][SkipTopBar_REF]               |
 
+
+
+## Misc
+| TYPE      | NAME                                                 | REF                               | 
+| --------- | ---------------------------------------------------- | --------------------------------- |
+| Extension | [ResponsiveContext][ResponsiveContext]               | - |
+| Controller| [CustomController][CustomController]               | - |
+
+
+Flutter is a game-changing technology that will revolutionize not just development, but software itself. A big thank you to the Flutter team for building such an amazing platform 💙 
+
+<a href="https://github.com/flutter/flutter">
+  <img alt="Flutter"
+       src="https://github.com/jamescardona11/argo/blob/main/img/flutter_logo.png?raw=true" />
+</a>
+
+## Maintainers
+
+- [James Cardona](https://github.com/jamescardona11)
+
+You are welcome to contribute :3
+
+## License
+
+    MIT License
+    Copyright (c) 2021 James Cardona
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+
 [//]: #Ref
 [flutter_ui_challenges]: https://github.com/jamescardona11/flutter_ui_challenges
 
 [AuthPage]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/auth_page
-[AuthPage_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/auth_page.png
+[AuthPage_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/auth_page/auth_page.png
 
 [HomePage1]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/home_page_1
-[HomePage1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/home_page_1.png
+[HomePage1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/home_page_1/home_page_1.png
 
 [Loginpage1]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/login_page_1
-[Loginpage1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/login_page_1.png
+[Loginpage1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/login_page_1/login_page_1.png
 
 [Loginpage2]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/login_page_2
-[Loginpage2_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/login_page_2.png
+[Loginpage2_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/login_page_2/login_page_2.png
 
 [Onboarding1]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/onboarding_1
-[Onboarding1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/onboarding_1.png
+[Onboarding1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/onboarding_1/onboarding_1.png
 
 [Onboarding2]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/onboarding_2
-[Onboarding2_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/onboarding_2.png
+[Onboarding2_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/onboarding_2/onboarding_2.png
 
 
 [ResponsiveContext]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/config/responsive_extension.dart
+[CustomController]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/widgets/widget_controller/custom_controller.dart
 
 [BeeBottomBar]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/widgets/bottom_bar/bee_bottom_bar/bee_bottom_bar.dart
 [BeeBottomBar_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/widgets/bottom_bar/bee_bottom_bar.gif

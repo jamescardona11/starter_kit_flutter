@@ -1,3 +1,9 @@
+# Input Widgets
+
+
+### InputTextWidget
+![](input_text_widget.png)
+
 ```
 InputTextWidget(
   hint: 'Enter your email',
@@ -6,6 +12,11 @@ InputTextWidget(
 )
 ```
 
+
+
+
+### OutlineTextInput
+![](outline_input_text_widget.png)
 ```
 OutlineTextInput(
   label: 'Username',

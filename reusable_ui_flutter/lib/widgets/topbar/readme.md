@@ -1,3 +1,8 @@
+# TopBar
+
+
+### SkipTopBar
+![](skip_top_bar.gif)
 
 ```
 SkipTopBar(
@@ -5,6 +10,12 @@ SkipTopBar(
   onBackClick: () {},
 )
 ```
+
+
+
+### FloatingOptions
+![](appbar_option.gif)
+
 
 ```
 appBar: AppBar(

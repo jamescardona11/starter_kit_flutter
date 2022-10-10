@@ -1,4 +1,8 @@
+# Misc
 
+
+### BounceWrapper
+![](bounce_wrapper.gif)
 ```
 BounceWrapper(
   child: Container(
@@ -13,6 +17,9 @@ BounceWrapper(
 ```
 
 
+### BlurredContainer
+
+![](blurred_container.png)
 ```
 BlurredContainer(
   width: 200,
@@ -26,3 +33,17 @@ BlurredContainer(
   child: const FlutterLogo(size: 100),
 )
 ```
+
+
+### CTA bar
+```
+CTABar(label: 'Buy Item')
+```
+![](cta_bar.png)
+
+
+### LikeBar
+```
+LikeBar()
+```
+![](like_bar.png)

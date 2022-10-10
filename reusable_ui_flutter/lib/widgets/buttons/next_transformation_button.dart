@@ -2,8 +2,26 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 // todo
-// inner property to control the transform
-// assert inner = true and controller == null ??
+// create inner property to control the transform
+// assert inner controller = true and controller == null ??
+
+// External dependencies: animations
+//
+/// ```
+/// NextTransformationButton(
+///   onNextPressed: () {
+///
+///   },
+///   onTransformPressed: () {},
+///   topWidget: const Padding(
+///     padding: EdgeInsets.only(
+///       top: 10,
+///       bottom: 10,
+///     ),
+///     child: Text('Transform Widget'),
+///   ),
+/// )
+/// ```
 
 class NextTransformationButton extends StatefulWidget {
   const NextTransformationButton({
