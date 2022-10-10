@@ -2,8 +2,12 @@
 
 This project contains different widgets and views created with Flutter, the goal is to have a quick way to start an app.
 
-Many of these views are taken from personal projects and/or tutorials. You can find more cool flutter UI stuff in this project: [flutter_ui_challenges][flutter_ui_challenges].
+Many of these views are taken from personal projects and/or tutorials. You can find more cool flutter UI examples in this project: [flutter_ui_challenges][flutter_ui_challenges].
 
+
+Other projects you can try:
+- TaleDrawer: [tale_drawer]
+- Rolling Switch: [rolling]
 
 You can start the app, and test every widget of view:
 ![](main.png)
@@ -55,19 +59,27 @@ You can start the app, and test every widget of view:
 | Controller| [CustomController][CustomController]               | - |
 
 
+## How to contribute
+
+
+## How to use
+
+
+
+
+## Contributors
+
+- [James Cardona](https://github.com/jamescardona11)
+- [Juan Quintero](https://github.com/juequinterore)
+
+You are welcome to contribute :3
+
 Flutter is a game-changing technology that will revolutionize not just development, but software itself. A big thank you to the Flutter team for building such an amazing platform 💙 
 
 <a href="https://github.com/flutter/flutter">
   <img alt="Flutter"
        src="https://github.com/jamescardona11/argo/blob/main/img/flutter_logo.png?raw=true" />
 </a>
-
-## Maintainers
-
-- [James Cardona](https://github.com/jamescardona11)
-
-You are welcome to contribute :3
-
 ## License
 
     MIT License
@@ -94,6 +106,8 @@ You are welcome to contribute :3
 
 [//]: #Ref
 [flutter_ui_challenges]: https://github.com/jamescardona11/flutter_ui_challenges
+[tale_drawer]: https://github.com/TKMonkey/tale_drawer
+[rolling]: https://github.com/jamescardona11/rolling_switch
 
 [AuthPage]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/auth_page
 [AuthPage_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/auth_page/auth_page.png

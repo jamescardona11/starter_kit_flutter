@@ -1,6 +1,6 @@
 # Starter kit Flutter
 
-This open-source project contains different tools that allow you to quickly start an app in flutter.
+This an **experimental** open-source project contains different tools that allow you to quickly start an app in flutter.
 
 The tools are separated like this:
 
@@ -9,12 +9,16 @@ The tools are separated like this:
 | [base_misc][base_misc]                     | folder & base files | in-progress                    |
 | [drip][drip]                               | state management    | complete - notest - no-example |
 | [nautilus][nautilus]                       | navigator           | in-progress                    |
-| [pocket][pocket]                           | adapter DB          | complete - notest- no-example  |
-| [projectile][projectile]                   | adapter network     | complete - notest              |
+| [pocket][pocket]                           | DataBase adapter    | complete - notest- no-example  |
+| [projectile][projectile]                   | Network adapter     | complete - notest              |
 | [reusable_ui_flutter][reusable_ui_flutter] | widgets and views   | in-progress                    |
+| [argo][argo]                               | responsive tools    | complete                       |
 
 In the future more tools will be added or current tools will be improved.
-All examples for libraries will be created in [examples][examples]
+Multiple examples for packages will be created in [examples][examples]
+
+You can find more cool flutter UI examples in this project: [flutter_ui_challenges][flutter_ui_challenges].
+
 
 STATE:
 
@@ -24,6 +28,40 @@ STATE:
 * no-example: no example(s) have been created for this tool
 * no-docs: readme and documentation do not exist
 
+## Examples
+
+
+## How to contribute
+This is an experimental project, and the main idea is learning. You can propose more package solutions, report errors, add examples, or improve the documentation.
+Everyone is welcome
+
+
+## How to use a package
+
+Remember this an experimental, and I recommend you think very well if one of these packages can be a solution for your project. 
+For the moment none of this are in the pub.dev. You can add in your project via path:
+
+
+**Drip** package, **replace** for the package you want to include in you project.
+```
+drip:
+  git:
+    url: https://github.com/jamescardona11/starter_kit_flutter.git
+    path: drip/
+```
+The oficial documentation:
+https://dart.dev/tools/pub/dependencies#git-packages
+
+
+
+
+## Maintainers
+
+- [James Cardona](https://github.com/jamescardona11)
+
+You are welcome to contribute :3
+
+
 Flutter is a game-changing technology that will revolutionize not just development, but software itself. A big thank you to the Flutter team for building such an amazing platform 💙 
 
 <a href="https://github.com/flutter/flutter">
@@ -31,11 +69,6 @@ Flutter is a game-changing technology that will revolutionize not just developme
        src="https://github.com/jamescardona11/argo/blob/main/img/flutter_logo.png?raw=true" />
 </a>
 
-## Maintainers
-
-- [James Cardona](https://github.com/jamescardona11)
-
-You are welcome to contribute :3
 
 ## License
 
@@ -68,3 +101,6 @@ You are welcome to contribute :3
 [projectile]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/projectile
 [reusable_ui_flutter]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/reusable_ui_flutter
 [examples]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/examples
+
+[flutter_ui_challenges]: https://github.com/jamescardona11/flutter_ui_challenges
+[argo]: https://github.com/jamescardona11/argo
