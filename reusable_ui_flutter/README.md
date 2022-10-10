@@ -1,12 +1,23 @@
 # Reusable ui flutter
 
 This project contains different widgets and views created with Flutter, the goal is to have a quick way to start an app.
+
 Many of these views are taken from personal projects and/or tutorials. You can find more cool flutter UI stuff in this project: [flutter_ui_challenges][flutter_ui_challenges].
+
+
+You can start the app, and test every widget of view:
+![](https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/main.png)
 
 
 
 | TYPE      | NAME                                                 | REF                               | 
 | --------- | ---------------------------------------------------- | --------------------------------- |
+| Screen    | [AuthPage][AuthPage]                                 | ![][AuthPage_REF]                 |
+| Screen    | [HomePage1][HomePage1]                               | ![][HomePage1_REF]                |
+| Screen    | [Loginpage1][Loginpage1]                             | ![][Loginpage1_REF]               |
+| Screen    | [Loginpage2][Loginpage2]                             | ![][Loginpage2_REF]               |
+| Screen    | [Onboarding1][Onboarding1]                           | ![][Onboarding1_REF]              |
+| Screen    | [Onboarding2][Onboarding2]                           | ![][Onboarding2_REF]              |
 | Extension | [ResponsiveContext][ResponsiveContext]               | - |
 | Widget    | [BeeBottomBar][BeeBottomBar]                         | ![][BeeBottomBar_REF]             |
 | Widget    | [ArcBottomBar][ArcBottomBar]                         | ![][ArcBottomBar_REF]             |
@@ -28,17 +39,28 @@ Many of these views are taken from personal projects and/or tutorials. You can f
 | Widget    | [SliderDots][SliderDots]                             | ![][SliderDots_REF]               |
 | Widget    | [FloatingOptions][FloatingOptions]                   | ![][FloatingOptions_REF]          |
 | Widget    | [SkipTopBar][SkipTopBar]                             | ![][SkipTopBar_REF]               |
-| Screen    | [SkipTopBar][SkipTopBar]                             | ![][SkipTopBar_REF]               |
-
-
-
-
-
-
-
 
 [//]: #Ref
 [flutter_ui_challenges]: https://github.com/jamescardona11/flutter_ui_challenges
+
+[AuthPage]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/auth_page
+[AuthPage_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/auth_page.png
+
+[HomePage1]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/home_page_1
+[HomePage1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/home_page_1.png
+
+[Loginpage1]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/login_page_1
+[Loginpage1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/login_page_1.png
+
+[Loginpage2]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/login_page_2
+[Loginpage2_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/login_page_2.png
+
+[Onboarding1]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/onboarding_1
+[Onboarding1_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/onboarding_1.png
+
+[Onboarding2]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/screens/onboarding_2
+[Onboarding2_REF]: https://raw.githubusercontent.com/jamescardona11/starter_kit_flutter/main/reusable_ui_flutter/lib/screens/onboarding_2.png
+
 
 [ResponsiveContext]: https://github.com/jamescardona11/starter_kit_flutter/blob/main/reusable_ui_flutter/lib/config/responsive_extension.dart
 
