@@ -66,9 +66,9 @@ class SortPocketQuery extends PocketQuery {
   });
 }
 
-class WherePocketQuery<T> extends PocketQuery {
+class WherePocketQuery extends PocketQuery {
   final WhereType comparator;
-  final T value;
+  final Object value;
   final String field;
 
   WherePocketQuery({

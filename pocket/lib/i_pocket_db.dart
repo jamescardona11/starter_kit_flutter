@@ -1,5 +1,4 @@
 import 'package:pocket/i_pocket_adapter.dart';
-import 'package:pocket/sembast_pocket.dart';
 
 abstract class IPocketDatabase<T extends IPocketModel> {
   String get tableName;
@@ -71,29 +70,4 @@ mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
 
   @override
   Future<void> dropTable() => adapterDb.dropTable(tableName);
-}
-
-class TempDto extends IPocketModel {
-  TempDto({required super.id});
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {'id': 1};
-  }
-}
-
-class ExampleDataSource with PocketDatabase<SembastPocket, TempDto> {
-  ExampleDataSource(this.adapterDb);
-
-  @override
-  String get tableName => 'TableMan';
-
-  @override
-  final SembastPocket adapterDb;
-
-  @override
-  TempDto fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
-  }
 }

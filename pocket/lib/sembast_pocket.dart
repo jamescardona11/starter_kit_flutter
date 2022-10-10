@@ -108,7 +108,7 @@ class SembastPocket implements IPocketAdapter {
 
   Finder _getFinder(Iterable<PocketQuery> pocketsQueries, bool andFilters) {
     final finder = Finder();
-    final whereClauses = <WherePocketQuery>[];
+    List<Filter> filters = [];
 
     for (PocketQuery query in pocketsQueries) {
       if (query is LimitPocketQuery) {
@@ -119,17 +119,14 @@ class SembastPocket implements IPocketAdapter {
           query.ascending,
         );
       } else if (query is WherePocketQuery) {
-        whereClauses.add(query);
+        filters.add(_getFilterFromClause(query));
       }
     }
 
-    if (whereClauses.isNotEmpty) {
-      final filters = whereClauses.map(_getFilterFromClause).toList();
-      if (andFilters) {
-        finder.filter = Filter.and(filters);
-      } else {
-        finder.filter = Filter.or(filters);
-      }
+    if (andFilters) {
+      finder.filter = Filter.and(filters);
+    } else {
+      finder.filter = Filter.or(filters);
     }
 
     return finder;
@@ -138,25 +135,46 @@ class SembastPocket implements IPocketAdapter {
   Filter _getFilterFromClause(WherePocketQuery wherePocketQuery) {
     switch (wherePocketQuery.comparator) {
       case WhereType.equals:
-        return Filter.equals(wherePocketQuery.field, wherePocketQuery.value);
+        return Filter.equals(
+          wherePocketQuery.field,
+          wherePocketQuery.value,
+        );
 
       case WhereType.notEquals:
-        return Filter.notEquals(wherePocketQuery.field, wherePocketQuery.value);
+        return Filter.notEquals(
+          wherePocketQuery.field,
+          wherePocketQuery.value,
+        );
 
       case WhereType.greaterThan:
         return Filter.greaterThan(
-            wherePocketQuery.field, wherePocketQuery.value);
+          wherePocketQuery.field,
+          wherePocketQuery.value,
+        );
 
       case WhereType.lessThan:
-        return Filter.lessThan(wherePocketQuery.field, wherePocketQuery.value);
+        return Filter.lessThan(
+          wherePocketQuery.field,
+          wherePocketQuery.value,
+        );
+
       case WhereType.contains:
-        return Filter.matches(wherePocketQuery.field, wherePocketQuery.value);
+        return Filter.matches(
+          wherePocketQuery.field,
+          wherePocketQuery.value as String,
+        );
+
       case WhereType.greaterThanOrEquals:
         return Filter.greaterThanOrEquals(
-            wherePocketQuery.field, wherePocketQuery.value);
+          wherePocketQuery.field,
+          wherePocketQuery.value,
+        );
+
       case WhereType.lessThanOrEquals:
         return Filter.lessThanOrEquals(
-            wherePocketQuery.field, wherePocketQuery.value);
+          wherePocketQuery.field,
+          wherePocketQuery.value,
+        );
     }
   }
 }
