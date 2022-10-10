@@ -40,7 +40,7 @@ You are welcome to contribute :3
 ## License
 
     MIT License
-    Copyright (c) 2021 James Cardona
+    Copyright (c) 2022 James Cardona
     
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
