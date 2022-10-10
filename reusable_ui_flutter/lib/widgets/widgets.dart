@@ -20,4 +20,4 @@ export 'misc/cta_bar.dart';
 export 'misc/like_bar.dart';
 export 'slider/slider_dots.dart';
 export 'topbar/appbar_option.dart';
-export 'topbar/skip_tob_bar.dart';
+export 'topbar/skip_top_bar.dart';

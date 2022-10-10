@@ -4,17 +4,17 @@ This open-source project contains different tools that allow you to quickly star
 
 The tools are separated like this:
 
-| TOOL NAME           | TYPE                | STATE                          | README LINK |
-| ------------------- | ------------------- | ------------------------------ | ----------- |
-| base_misc           | folder & base files | in-progress                    |             |
-| drip                | state management    | complete - notest - no-example |             |
-| nautilus            | navigator           | in-progress                    |             |
-| pocket              | adapter DB          | complete - notest- no-example  |             |
-| projectile          | adapter network     | complete - notest              |             |
-| reusable_ui_flutter | widgets and views   | in-progress                    |             |
+| TOOL NAME                                  | TYPE                | STATE                          |
+| ------------------------------------------ | ------------------- | ------------------------------ |
+| [base_misc][base_misc]                     | folder & base files | in-progress                    |
+| [drip][drip]                               | state management    | complete - notest - no-example |
+| [nautilus][nautilus]                       | navigator           | in-progress                    |
+| [pocket][pocket]                           | adapter DB          | complete - notest- no-example  |
+| [projectile][projectile]                   | adapter network     | complete - notest              |
+| [reusable_ui_flutter][reusable_ui_flutter] | widgets and views   | in-progress                    |
 
 In the future more tools will be added or current tools will be improved.
-All examples for libraries will be created in [examples](/examples/)
+All examples for libraries will be created in [examples][examples]
 
 STATE:
 
@@ -59,3 +59,12 @@ You are welcome to contribute :3
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
+
+[//]: #Ref
+[base_misc]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/base_misc
+[drip]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/drip
+[nautilus]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/nautilus
+[pocket]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/pocket
+[projectile]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/projectile
+[reusable_ui_flutter]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/reusable_ui_flutter
+[examples]: https://github.com/jamescardona11/starter_kit_flutter/tree/main/examples
