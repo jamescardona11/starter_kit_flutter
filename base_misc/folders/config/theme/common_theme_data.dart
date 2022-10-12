@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:base_ddd/config/values/values.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 /* Favorite Google Fonts

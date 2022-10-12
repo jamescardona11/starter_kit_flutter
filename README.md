@@ -53,10 +53,10 @@ You can add in your project via path:
 - nautilus
 
 ```
-  package:
+  packageName:
     git:
       url: https://github.com/jamescardona11/starter_kit_flutter.git
-      path: package/
+      path: packageName/
 ```
 The oficial documentation:
 https://dart.dev/tools/pub/dependencies#git-packages

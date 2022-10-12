@@ -1,4 +1,4 @@
-# projectile_chuck_norris_api
+# projectile_reqres_api
 
 A new Flutter project.
 

@@ -1,115 +1,331 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'drip_example.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      title: 'Material App',
+      home: DripExample(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class HomePage extends StatelessWidget {
+  /// default constructor
+  const HomePage({
+    super.key,
+  });
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AppBar Text'),
+      ),
+      body: Container(
+        child: Text('HomePage'),
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class Foo {
+  Foo() {
+    print('$this::init');
+  }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  String foo() => 'Hello';
+
+  void dispose() => print('$this::dispose');
+}
+
+class Bar1 {
+  Bar1() {
+    print('$this::init');
+  }
+
+  String bar1() => 'Hello everyone';
+
+  void dispose() => print('$this::dispose');
+}
+
+class Bar2 extends ChangeNotifier {
+  Bar2() {
+    print('$this::init');
+  }
+
+  String bar2() => 'Fall in love with Flutter';
+
+  // void dispose() => print('$this::dispose');
+
+  int count = 0;
+
+  void increment() {
+    print('Increment');
+    count = count + 1;
+    // dispatch(IncrementCount());
+    notifyListeners();
+  }
+
+  void clear() {
+    print('Clear');
+    count = 0;
+    notifyListeners();
+  }
+}
+
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: TextButton(
+        child: const Text('GO TO HOME'),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) {
+                return Provider<Bar2>(
+                  (context) => Bar2(),
+                  child: Home2Page(),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class Home2Page extends StatelessWidget {
+  const Home2Page({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter provider example'),
+      ),
+      body: Consumer3<Bar2>(
+        builder: (BuildContext context, Bar2 c) {
+          return Container(
+            constraints: const BoxConstraints.expand(),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(c.bar2()),
+                  Text('${Provider.of<Bar2>(context, listen: true).count}'),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 40, right: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Provider.of<Bar2>(context).increment();
+              },
+              child: Icon(Icons.plus_one),
+            ),
+            SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: () {
+                Provider.of<Bar2>(context).clear();
+              },
+              child: Icon(Icons.close),
+            ),
+            SizedBox(width: 10),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Consumer3<A extends Object> extends StatelessWidget {
+  /// Build a widget tree based on the values from a [Provider].
+  final Widget Function(BuildContext context, A a) builder;
+
+  /// Creates a widget that delegates its build to a callback.
+  /// The callback will be called with values retrieved from [Provider].
+  ///
+  /// The [builder] argument must not be null.
+  const Consumer3({
+    Key? key,
+    required this.builder,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) =>
+      builder(context, Provider.of<A>(context));
+}
+
+/// Provides a [value] to all descendants of this Widget. This should
+/// generally be a root widget in your App
+abstract class Provider<T extends Object> extends StatefulWidget {
+  const Provider._({Key? key}) : super(key: key);
+
+  /// Provide a value to all descendants.
+  /// The value created on first access by calling [factory].
+  ///
+  /// The [disposer] will called when [State] of [Provider] is removed from the tree permanently ([State.dispose] called).
+  factory Provider(
+    T Function(BuildContext) create, {
+    Key? key,
+    Widget? child,
+  }) =>
+      _FactoryProvider<T>(
+        key: key,
+        create: create,
+        child: child,
+      );
+
+  static T of<T extends Object>(BuildContext context, {bool listen = false}) {
+    if (T == dynamic) {
+      throw ProviderError();
+    }
+
+    final scope = listen
+        ? context.dependOnInheritedWidgetOfExactType<_ProviderScope<T>>()
+        : (context
+            .getElementForInheritedWidgetOfExactType<_ProviderScope<T>>()
+            ?.widget as _ProviderScope<T>?);
+
+    if (scope == null) {
+      throw ProviderError(T);
+    }
+
+    return scope.requireValue;
+  }
+
+  @factory
+  Provider<T> _copyWithChild(Widget child);
+}
+
+/// Retrieve the value from the [Provider] by this [BuildContext].
+extension ProviderBuildContextExtension on BuildContext {
+  /// Retrieve the value from the [Provider] by this [BuildContext].
+  /// See [Provider.of].
+  T get<T extends Object>({bool listen = false}) =>
+      Provider.of<T>(this, listen: listen);
+}
+
+bool _notEquals<T>(T previous, T current) => previous != current;
+
+class _FactoryProvider<T extends Object> extends Provider<T> {
+  final T Function(BuildContext) create;
+  final Widget? child;
+
+  const _FactoryProvider({
+    Key? key,
+    required this.create,
+    required this.child,
+  }) : super._(key: key);
+
+  @override
+  _FactoryProviderState<T> createState() => _FactoryProviderState<T>();
+
+  @override
+  Provider<T> _copyWithChild(Widget child) {
+    return Provider<T>(
+      create,
+      child: child,
+      key: key,
+    );
+  }
+}
+
+class _FactoryProviderState<T extends Object>
+    extends State<_FactoryProvider<T>> {
+  T? value;
+
+  void initValue() {
+    if (value == null) {
+      value = widget.create(context);
+      assert(value != null);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    assert(widget.child != null);
+
+    return _ProviderScope<T>(
+      getValue: () {
+        initValue();
+        return value!;
+      },
+      getNullableValue: () => value,
+      child: widget.child!,
     );
+  }
+}
+
+class _ProviderScope<T extends Object> extends InheritedWidget {
+  final T Function()? getValue;
+  final T? value;
+
+  /// Get value but not require initialization, returns `null` when value is not created.
+  /// Only for debug purpose.
+  final T? Function() getNullableValue;
+
+  T get requireValue => value ?? getValue!();
+
+  _ProviderScope({
+    Key? key,
+    this.getValue,
+    this.value,
+    required Widget child,
+    required this.getNullableValue,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(_ProviderScope<T> oldWidget) {
+    return false;
+  }
+}
+
+/// If the [Provider.of] method fails, this error will be thrown.
+///
+/// Often, when the `of` method fails, it is difficult to understand why since
+/// there can be multiple causes. This error explains those causes so the user
+/// can understand and fix the issue.
+class ProviderError extends Error {
+  /// The type of the class the user tried to retrieve
+  final Type? type;
+
+  /// Creates a [ProviderError]
+  ProviderError([this.type]);
+
+  @override
+  String toString() {
+    if (type == null) {
+      return '''Error: please specify type instead of using dynamic when calling Provider.of<T>() or context.get<T>() method.''';
+    }
+
+    return '''Error: No Provider<$type> found. To fix, please try:
+  * Wrapping your MaterialApp with the Provider<$type>.
+  * Providing full type information to Provider<$type>, Provider.of<$type> and context.get<$type>() method.
+If none of these solutions work, please file a bug at:
+https://github.com/hoc081098/flutter_provider/issues/new
+      ''';
   }
 }

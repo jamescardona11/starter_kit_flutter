@@ -22,7 +22,7 @@ class ProjectileRequest {
 
   ProjectileRequest({
     required this.target,
-    required this.method,
+    this.method = Method.GET,
     this.isMultipart = false,
     this.ignoreBaseUrl = false,
     this.multipart,

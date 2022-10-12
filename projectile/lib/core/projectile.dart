@@ -1,14 +1,12 @@
 import 'dart:async';
 
-import 'client/i_projectile_client.dart';
-import '../core/interceptors/interceptor_contract.dart';
-import '../core/request_models/request_models.dart';
-import '../core/response_models/response_models.dart';
-import '../core/result_models/result.dart';
+import 'package:projectile/client/http_client.dart';
+
+import 'core.dart';
 
 //Result<IProjectileError, IProjectileResponse>
 class Projectile {
-  final IProjectileClient? _client;
+  IProjectileClient? _client;
   final List<ProjectileInterceptor> _interceptors = [];
   ProjectileRequest? _request;
 
@@ -34,6 +32,8 @@ class Projectile {
     _validRequestBeforeSending();
 
     final completer = Completer<Result<ResponseError, ResponseSuccess>>();
+
+    _client ??= HttpClient();
 
     _client!.sendRequest(
       _request!,
