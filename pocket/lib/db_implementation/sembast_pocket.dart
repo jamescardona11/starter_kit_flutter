@@ -1,9 +1,8 @@
 import 'dart:async';
 
+import 'package:pocket/adapter/adapter.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
-
-import 'i_pocket_adapter.dart';
 
 class SembastPocket implements IPocketAdapter {
   SembastPocket._(this._db);

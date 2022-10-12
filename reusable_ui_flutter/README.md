@@ -27,7 +27,7 @@ You can start the app, and test every widget of view:
 
 
 ## Widgets
-| TYPE      | NAME                                                 | REF                               | 
+| TYPE      | NAME                                                 | REF                               |
 | --------- | ---------------------------------------------------- | --------------------------------- |
 | Widget    | [BeeBottomBar][BeeBottomBar]                         | ![][BeeBottomBar_REF]             |
 | Widget    | [ArcBottomBar][ArcBottomBar]                         | ![][ArcBottomBar_REF]             |
@@ -53,19 +53,30 @@ You can start the app, and test every widget of view:
 
 
 ## Misc
-| TYPE      | NAME                                                 | REF                               | 
-| --------- | ---------------------------------------------------- | --------------------------------- |
+| TYPE      | NAME                                                 | REF  | 
+| --------- | ---------------------------------------------------- | -----|
 | Extension | [ResponsiveContext][ResponsiveContext]               | - |
-| Controller| [CustomController][CustomController]               | - |
+| Controller| [CustomController][CustomController]                 | - |
 
 
 ## How to contribute
+This is an experimental project.
 
+- Propose more widgets solutions
+- Create more widgets, screens solutions
+- Report errors
+- Improve the documentation.
+- Share with other persons
 
 ## How to use
+You can start the app and test every screen and widget.
 
 
+If you want to include a widget into your project, you can **Copy & Paste** the solution and modify the specific things for your project.
 
+
+## TODO
+- Support [MASON](https://verygood.ventures/blog/code-generation-with-mason) to copy&paste widgets
 
 ## Contributors
 

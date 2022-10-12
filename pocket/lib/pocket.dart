@@ -1,7 +1,5 @@
 library pocket;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'adapter/adapter.dart';
+export 'db/db.dart';
+export 'db_implementation/sembast_pocket.dart';

@@ -2,7 +2,7 @@
 
 This an **experimental** open-source project contains different tools that allow you to quickly start an app in flutter.
 
-The tools are separated like this:
+The tools are separated in different packages or project:
 
 | TOOL NAME                                  | TYPE                | STATE                          |
 | ------------------------------------------ | ------------------- | ------------------------------ |
@@ -32,22 +32,31 @@ STATE:
 
 
 ## How to contribute
-This is an experimental project, and the main idea is learning. You can propose more package solutions, report errors, add examples, or improve the documentation.
-Everyone is welcome
-
+This is an experimental project, and the main idea is learning. 
+- Propose more package solutions
+- Report errors
+- Create more examples
+- Improve the documentation.
+- Share with other persons
 
 ## How to use a package
 
-Remember this an experimental, and I recommend you think very well if one of these packages can be a solution for your project. 
-For the moment none of this are in the pub.dev. You can add in your project via path:
+Remember this an experimental, and I recommend you think very well if one of these packages can be a solution for your project. For the moment none of this are in the pub.dev. 
 
 
-**Drip** package, **replace** for the package you want to include in you project.
+
+You can add in your project via path:
+**Replace** for the *package* you want to include in you project with one from the following list:
+- drip
+- projectile
+- pocket
+- nautilus
+
 ```
-drip:
-  git:
-    url: https://github.com/jamescardona11/starter_kit_flutter.git
-    path: drip/
+  package:
+    git:
+      url: https://github.com/jamescardona11/starter_kit_flutter.git
+      path: package/
 ```
 The oficial documentation:
 https://dart.dev/tools/pub/dependencies#git-packages

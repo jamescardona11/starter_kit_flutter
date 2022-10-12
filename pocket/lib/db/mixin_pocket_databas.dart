@@ -1,31 +1,5 @@
-import 'package:pocket/i_pocket_adapter.dart';
-
-abstract class IPocketDatabase<T extends IPocketModel> {
-  String get tableName;
-
-  Future<void> create(T item);
-
-  Stream<T?> read(String id);
-
-  Future<void> update(T item);
-
-  Future<void> delete(String id);
-
-  Future<void> dropTable();
-
-  T fromJson(Map<String, dynamic> json);
-}
-
-abstract class IPocketModel {
-  /// default constructor
-  IPocketModel({required this.id});
-
-  /// id to used in database
-  String id;
-
-  /// this method is used to convert data to json, then save json in db
-  Map<String, dynamic> toJson();
-}
+import 'package:pocket/adapter/adapter.dart';
+import 'package:pocket/db/db.dart';
 
 mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
     implements IPocketDatabase<T> {
