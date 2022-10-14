@@ -45,7 +45,7 @@ class SuccessResult extends ProjectileResult {
 
   bool get isBytes => originalRequest.responseType.isBytes;
 
-  bool get isSuccess =>
+  bool get isSuccessRequest =>
       statusCode != null &&
       ![
         400, // Bad Request

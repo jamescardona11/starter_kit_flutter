@@ -2,9 +2,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:projectile/core/request_models/request.dart';
 import 'package:projectile/core/result_models/result.dart';
-
-import '../request_models/request_models.dart';
 
 /// inspired on DIOError class
 

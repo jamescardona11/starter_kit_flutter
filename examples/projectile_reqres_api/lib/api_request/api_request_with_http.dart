@@ -1,5 +1,4 @@
-import 'package:projectile/core/projectile.dart';
-import 'package:projectile/core/request_models/request_models.dart';
+import 'package:projectile/projectile.dart';
 import 'package:projectile_reqres_api/api_request/reqres_urls.dart';
 
 class ApiRequestWithHttp {
@@ -9,13 +8,16 @@ class ApiRequestWithHttp {
           .request(
             ProjectileRequest(
               target: ReqresUrls.loginUrl,
+              method: Method.POST,
+              data: {"email": email, "password": password},
             ),
           )
+          .addCustomInterceptor(ProjectileLogs())
           .fire();
 
       response.fold(
         (error) {
-          print('Error');
+          print(error);
         },
         (success) {
           print('success');
@@ -24,5 +26,26 @@ class ApiRequestWithHttp {
     } catch (e, s) {
       print(e);
     }
+  }
+}
+
+class ProjectileLogs extends ProjectileInterceptor {
+  @override
+  Future<FailureResult> onError(FailureResult data) async {
+    print('ERROR: $data');
+
+    return data;
+  }
+
+  @override
+  Future<ProjectileRequest> onRequest(ProjectileRequest data) async {
+    print('REQUEST: $data');
+    return data;
+  }
+
+  @override
+  Future<SuccessResult> onResponse(SuccessResult data) async {
+    print('RESPONSE: $data');
+    return data;
   }
 }

@@ -1,7 +1,6 @@
+import 'package:projectile/core/interceptors/queue.dart';
+import 'package:projectile/core/request_models/request_models.dart';
 import 'package:projectile/core/result_models/result_models.dart';
-
-import '../request_models/request_models.dart' show ProjectileRequest;
-import 'interceptors.dart';
 
 abstract class ProjectileInterceptor {
   Future<ProjectileRequest> onRequest(ProjectileRequest data);
