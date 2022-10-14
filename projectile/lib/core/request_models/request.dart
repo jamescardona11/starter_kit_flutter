@@ -7,6 +7,7 @@ import 'multipart_file.dart';
 class ProjectileRequest {
   final String target;
   final bool ignoreBaseUrl;
+
   final Method method;
   final ContentType contentType;
   final PResponseType responseType;

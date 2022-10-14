@@ -6,11 +6,15 @@ import 'core.dart';
 
 //Result<IProjectileError, IProjectileResponse>
 class Projectile {
-  IProjectileClient? _client;
+  IProjectileClient? client;
   final List<ProjectileInterceptor> _interceptors = [];
   ProjectileRequest? _request;
+  BaseConfig? config;
 
-  Projectile([this._client]);
+  Projectile({
+    this.client,
+    this.config,
+  });
 
   Projectile request(ProjectileRequest request) {
     _request = request;
@@ -33,9 +37,12 @@ class Projectile {
 
     final completer = Completer<ProjectileResult>();
 
-    _client ??= HttpClient();
+    client ??= HttpClient();
+    if (config != null) {
+      client!.config = config!;
+    }
 
-    _client!.sendRequest(
+    client!.sendRequest(
       _request!,
       completer,
       _interceptors,

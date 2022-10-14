@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'headers.dart';
 
 class BaseConfig {
@@ -5,17 +6,18 @@ class BaseConfig {
   final Headers? baseHeaders;
   final Duration timeout;
   final String logsTag;
-  final bool showGlobalLogs;
+  final bool enableLog;
 
   const BaseConfig({
     this.baseUrl = '',
     this.baseHeaders,
     this.timeout = const Duration(seconds: 5),
-    this.logsTag = 'ProjectileRequest',
-    this.showGlobalLogs = false,
+    this.logsTag = 'BasicProjectileLogs',
+    this.enableLog = false,
   });
 
   @override
-  String toString() =>
-      'BaseConfig(\nbaseUrl: $baseUrl, baseHeaders: ${baseHeaders.toString()}, timeout: ${timeout.toString()}, logsTag: $logsTag, showGlobalLogs: $showGlobalLogs\n)';
+  String toString() {
+    return 'BaseConfig(baseUrl: $baseUrl, baseHeaders: $baseHeaders, timeout: $timeout, logsTag: $logsTag, enableLog: $enableLog)';
+  }
 }

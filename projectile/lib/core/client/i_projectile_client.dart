@@ -24,7 +24,7 @@ abstract class IProjectileClient extends IClient<ProjectileResult>
     with RunInterceptor {
   IProjectileClient([this.config = const BaseConfig()]);
 
-  final BaseConfig config;
+  BaseConfig config;
 
   /// override this to implement request
   /// don't catch exception if you want if catch by default by `runRequest`
@@ -36,8 +36,12 @@ abstract class IProjectileClient extends IClient<ProjectileResult>
     Completer<ProjectileResult> completer, [
     List<ProjectileInterceptor> interceptors = const [],
   ]) {
-    listInterceptors = interceptors;
     this.completer = completer;
+    listInterceptors = interceptors;
+
+    if (config.enableLog) {
+      listInterceptors.add(BasicProjectileLogs(config.logsTag));
+    }
 
     request.addDefaultHeaders(config);
 
