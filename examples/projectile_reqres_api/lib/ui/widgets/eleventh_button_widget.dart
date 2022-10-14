@@ -45,7 +45,7 @@ class EleventhButton extends StatelessWidget {
   final TextStyle? textStyle;
   final IconData? icon;
   final bool iconRight;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

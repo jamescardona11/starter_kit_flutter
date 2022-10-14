@@ -1,8 +1,8 @@
 import 'failure.dart';
 import 'success.dart';
 
-typedef Err<T> = void Function(T e);
-typedef Completion<T> = void Function(T s);
+typedef Err<T> = void Function(T error);
+typedef Completion<T> = void Function(T success);
 
 /// A value that represents either a success or a failure, including an
 /// associated value in each case.

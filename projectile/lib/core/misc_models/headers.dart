@@ -1,24 +1,20 @@
-import 'config.dart';
-
 class Headers {
-  const Headers.empty();
+  Headers.empty();
 
   Headers.fromMap(Map<String, dynamic> headers) {
     _headers.addAll(headers);
   }
 
-  final Map<String, dynamic> _headers = const {};
+  Headers.fromMaps(Iterable<Map<String, dynamic>> headers) {
+    headers.forEach((header) {
+      _headers.addAll(header);
+    });
+  }
+
+  final Map<String, dynamic> _headers = {};
 
   void addAll(Map<String, dynamic> headers) {
     _headers.addAll(headers);
-  }
-
-  void addContentType(String contentType) {
-    _headers.addAll({'content-type': contentType});
-  }
-
-  void addBaseConfig(BaseConfig config) {
-    _headers.addAll(config.baseHeaders.asMap);
   }
 
   Map<String, String> get asMap {

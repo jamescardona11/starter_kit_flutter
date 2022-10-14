@@ -17,7 +17,7 @@ class CircularIconButton extends StatelessWidget {
     this.iconSize = 32,
   }) : super(key: key);
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final IconData icon;
   final double iconSize;
   final Color iconColor;

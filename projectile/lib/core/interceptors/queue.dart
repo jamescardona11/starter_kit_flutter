@@ -52,7 +52,11 @@ class FutureQueue<T> implements IQueue<T> {
     return processCompleter.future;
   }
 
-  Future<T> _process(T data) {
+  Future<T> _process(T data) async {
+    if (_nextCycle.isEmpty) {
+      return data;
+    }
+
     final item = _nextCycle.removeFirst();
     final completer = item.completer;
     item.execute(data);

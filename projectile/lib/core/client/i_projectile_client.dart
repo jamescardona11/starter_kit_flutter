@@ -39,8 +39,9 @@ abstract class IProjectileClient extends IClient<ProjectileResult>
     listInterceptors = interceptors;
     this.completer = completer;
 
-    request.setConfig = config;
-    request.addDefaultHeaders();
+    // request.setConfig = config;
+
+    request.addDefaultHeaders(config);
 
     return _sendRequest(request);
   }

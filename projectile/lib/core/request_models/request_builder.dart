@@ -11,7 +11,7 @@ class RequestBuilder {
   late final ContentType _contentType;
   late final PResponseType _responseType;
 
-  final Headers _mHeaders = const Headers.empty();
+  final Headers _mHeaders = Headers.empty();
   final Map<String, String> _mParams = const {};
   final Map<String, String> _mQuery = const {};
   final Map<String, String> _mData = const {};

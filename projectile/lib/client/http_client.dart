@@ -93,7 +93,7 @@ class HttpClient extends IProjectileClient {
     final uri = request.getUri(config.baseUrl);
 
     final httpRequest = http.Request(request.methodStr, uri)
-      ..headers.addAll(request.headers.asMap)
+      ..headers.addAll(request.headers!.asMap)
       ..bodyFields = request.data;
 
     return httpRequest;
@@ -105,7 +105,7 @@ class HttpClient extends IProjectileClient {
     final uri = request.getUri(config.baseUrl);
 
     final httpRequest = http.MultipartRequest(request.methodStr, uri)
-      ..headers.addAll(request.headers.asMap)
+      ..headers.addAll(request.headers!.asMap)
       ..fields.addAll(request.data)
       ..files.add(await createNativeMultipartObject(request.multipart!));
 
