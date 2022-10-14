@@ -12,9 +12,9 @@ class ProjectileRequest {
   final ContentType contentType;
   final PResponseType responseType;
   final bool isMultipart;
-  final Map<String, String> urlParams;
-  final Map<String, String> query;
-  final Map<String, String> data;
+  final Map<String, dynamic> urlParams;
+  final Map<String, dynamic> query;
+  final Map<String, dynamic> data;
   final MultipartFileWrapper? multipart;
 
   Headers? headers;
@@ -23,7 +23,7 @@ class ProjectileRequest {
 
   ProjectileRequest({
     required this.target,
-    this.method = Method.GET,
+    required this.method,
     this.isMultipart = false,
     this.ignoreBaseUrl = false,
     this.multipart,
@@ -64,10 +64,10 @@ class ProjectileRequest {
   String _addDynamicAddressParams(String tempUrl) =>
       urlParams.entries.fold(tempUrl, (
         String previousUrl,
-        MapEntry<String, String> currentParam,
+        MapEntry<String, dynamic> currentParam,
       ) {
         final String key = currentParam.key;
-        final String value = currentParam.value;
+        final String value = currentParam.value.toString();
         return previousUrl.replaceAll('{$key}', value);
       });
 
@@ -83,9 +83,9 @@ class ProjectileRequest {
     PResponseType? responseType,
     Headers? headers,
     bool? isMultipart,
-    Map<String, String>? urlParams,
-    Map<String, String>? query,
-    Map<String, String>? data,
+    Map<String, dynamic>? urlParams,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? data,
     MultipartFileWrapper? multipart,
   }) {
     return ProjectileRequest(

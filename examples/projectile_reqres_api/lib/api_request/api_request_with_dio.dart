@@ -1,4 +1,4 @@
-import '../model/joke_model.dart';
+import '../model/user_model.dart';
 
 class ApiRequestWithDio {
   Future<UserModel?> getRandomJokeFromApi() async {

@@ -43,14 +43,14 @@ class HttpClient extends IProjectileClient {
       return SuccessResult.def(
         statusCode: response.statusCode,
         headers: response.headers,
-        data: data,
+        data: _getDataWithData(data),
         originalRequest: request,
         // originalData: response.body,
       );
     } else {
       return FailureResult.def(
         originalRequest: request,
-        error: data,
+        error: _getDataWithData(data),
         statusCode: response.statusCode,
         headers: response.headers,
       );
@@ -70,6 +70,9 @@ class HttpClient extends IProjectileClient {
         414, // Request URI Too Long,
         415, // Unsupported Media Type
       ].contains(statusCode);
+
+  dynamic _getDataWithData(dynamic data) =>
+      (data as Map).containsKey('data') ? data['data'] : data;
 
   @override
   Future<http.MultipartFile> createNativeMultipartObject(
@@ -111,7 +114,8 @@ class HttpClient extends IProjectileClient {
 
     final httpRequest = http.Request(request.methodStr, uri)
       ..headers.addAll(request.headers!.asMap)
-      ..bodyFields = request.data;
+      ..bodyFields =
+          request.data.map((key, value) => MapEntry(key, value.toString()));
 
     return httpRequest;
   }
@@ -123,7 +127,8 @@ class HttpClient extends IProjectileClient {
 
     final httpRequest = http.MultipartRequest(request.methodStr, uri)
       ..headers.addAll(request.headers!.asMap)
-      ..fields.addAll(request.data)
+      ..fields.addAll(
+          request.data.map((key, value) => MapEntry(key, value.toString())))
       ..files.add(await createNativeMultipartObject(request.multipart!));
 
     return httpRequest;

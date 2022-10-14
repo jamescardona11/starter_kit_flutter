@@ -19,6 +19,7 @@ class SuccessResult extends ProjectileResult {
         headers: Headers.fromMap(headers),
         data: data,
         originalRequest: originalRequest,
+        statusCode: statusCode,
       );
 
   final dynamic data;

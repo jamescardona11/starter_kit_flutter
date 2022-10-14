@@ -1,4 +1,5 @@
-import '../misc_models/headers.dart';
+import 'package:projectile/core/misc_models/headers.dart';
+
 import 'helper_types.dart';
 import 'method.dart';
 import 'multipart_file.dart';
@@ -6,15 +7,15 @@ import 'request.dart';
 
 class RequestBuilder {
   late final String _target;
-  late final Method _method;
   late final bool _ignoreBaseUrl;
-  late final ContentType _contentType;
-  late final PResponseType _responseType;
+  Method? _method;
+  ContentType? _contentType;
+  PResponseType? _responseType;
 
   final Headers _mHeaders = Headers.empty();
-  final Map<String, String> _mParams = const {};
-  final Map<String, String> _mQuery = const {};
-  final Map<String, String> _mData = const {};
+  final Map<String, dynamic> _mParams = {};
+  final Map<String, dynamic> _mQuery = {};
+  final Map<String, dynamic> _mData = {};
 
   MultipartFileWrapper? _multipart;
 
@@ -57,27 +58,31 @@ class RequestBuilder {
     return this;
   }
 
-  RequestBuilder urlParams(Map<String, String> params) {
+  RequestBuilder urlParams(Map<String, dynamic> params) {
     _mParams.addAll(params);
     return this;
   }
 
-  RequestBuilder query(Map<String, String> query) {
+  RequestBuilder query(Map<String, dynamic> query) {
     _mQuery.addAll(query);
     return this;
   }
 
-  RequestBuilder data(Map<String, String> data) {
+  RequestBuilder data(Map<String, dynamic> data) {
     _mData.addAll(data);
     return this;
   }
 
   ProjectileRequest build() {
+    if (_method == null) {
+      throw Exception('Make sure that method is not null, call MODE method');
+    }
+
     return ProjectileRequest(
       target: _target,
-      method: _method,
-      contentType: _contentType,
-      responseType: _responseType,
+      method: _method!,
+      contentType: _contentType ?? ContentType.json,
+      responseType: _responseType ?? PResponseType.json,
       ignoreBaseUrl: _ignoreBaseUrl,
       isMultipart: _multipart != null,
       multipart: _multipart,
