@@ -27,6 +27,7 @@ class InputTextWidget extends StatelessWidget {
     this.isValid,
     this.onChanged,
     this.boxShadow,
+    this.keyboardType,
   });
 
   InputTextWidget.password({
@@ -47,6 +48,7 @@ class InputTextWidget extends StatelessWidget {
     this.isValid,
     this.onChanged,
     this.boxShadow,
+    this.keyboardType,
   })  : maxLines = 1,
         trailing = _TrailingVisibilityWidget(
           color: suffixIconColor,
@@ -69,6 +71,7 @@ class InputTextWidget extends StatelessWidget {
   final bool obscureText;
   final BoxShadow? boxShadow;
   final ValueChanged<String>? onChanged;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +96,7 @@ class InputTextWidget extends StatelessWidget {
         onChanged: onChanged,
         cursorColor: cursorColor,
         maxLines: maxLines,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           hintText: hint,
           suffix: trailing,

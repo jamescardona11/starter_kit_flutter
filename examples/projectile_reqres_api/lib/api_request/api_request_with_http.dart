@@ -1,19 +1,19 @@
 import 'package:projectile/core/projectile.dart';
 import 'package:projectile/core/request_models/request_models.dart';
+import 'package:projectile_reqres_api/api_request/reqres_urls.dart';
 
 class ApiRequestWithDio {
-  final String _url = 'https://api.chucknorris.io/jokes/random';
-
   Future<String?> login() async {
     try {
-      await Projectile()
+      final response = await Projectile()
           .request(
             ProjectileRequest(
-              target: _url,
-              method: Method.GET,
+              target: ReqresUrls.loginUrl,
             ),
           )
           .fire();
+
+      response.fold((e) {}, (s) {});
     } catch (e, s) {}
   }
 }
