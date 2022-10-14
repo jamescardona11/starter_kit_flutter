@@ -27,8 +27,8 @@ abstract class IProjectileClient extends IClient<ProjectileResult>
   BaseConfig config;
 
   /// override this to implement request
-  /// don't catch exception if you want if catch by default by `runRequest`
-  Future<SuccessResult> createRequest(ProjectileRequest request);
+  /// don't catch exception if you want. is catch by default by `runRequest`
+  Future<ProjectileResult> createRequest(ProjectileRequest request);
 
   @override
   Future<ProjectileResult> sendRequest(
@@ -56,8 +56,8 @@ abstract class IProjectileClient extends IClient<ProjectileResult>
       final requestData = await _beforeRequest(request);
       _runFromCreate(requestData);
     } catch (error, stackTrace) {
-      _responseError(FailureResult(
-        request: request,
+      _responseError(FailureResult.def(
+        originalRequest: request,
         error: error,
         stackTrace: stackTrace,
       ));
@@ -75,10 +75,9 @@ abstract class IProjectileClient extends IClient<ProjectileResult>
     final responseRequest = await createRequest(requestData);
 
     if (responseRequest.isSuccess) {
-      _responseSuccess(responseRequest);
+      _responseSuccess(responseRequest as SuccessResult);
     } else {
-      _responseError(
-          FailureResult(request: requestData, error: responseRequest));
+      _responseError(responseRequest as FailureResult);
     }
   }
 

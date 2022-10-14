@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   String email = '';
   String password = '';
   String messageError = '';
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +83,24 @@ class _LoginPageState extends State<LoginPage> {
                 splashColor: kBlueColor,
                 accentColor: kWhiteColor,
                 onPressed: () async {
-                  if (!isValid) {
-                    messageError = 'Put something in email and password';
-                    setState(() {});
-                    return;
-                  }
+                  loading = true;
+                  setState(() {});
 
-                  await apiRequest.login(email, password);
+                  final result = await apiRequest.login(email, password);
+
+                  if (!result) messageError = 'Error with credentials';
+
+                  loading = false;
+                  setState(() {});
                 },
-              )
+              ),
+              if (loading)
+                Column(
+                  children: [
+                    SizedBox(height: 20),
+                    Center(child: CircularProgressIndicator()),
+                  ],
+                ),
             ],
           ),
         ),
@@ -98,5 +108,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  bool get isValid => email.isNotEmpty && password.isNotEmpty;
+  // bool get isValid => email.isNotEmpty && password.isNotEmpty;
 }

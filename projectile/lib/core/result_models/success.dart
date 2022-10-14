@@ -1,22 +1,11 @@
 import 'package:projectile/core/core.dart';
 
 class SuccessResult extends ProjectileResult {
-  final int? statusCode;
-  final dynamic data;
-  final Headers headers;
-
-  final ProjectileRequest originalRequest;
-
-  // final PResponseType type;
-  // final Object? originalData;
-
-  SuccessResult({
+  SuccessResult._({
     required this.headers,
     required this.data,
     required this.originalRequest,
     this.statusCode,
-    // this.type = PResponseType.unknown,
-    // this.originalData,
   });
 
   factory SuccessResult.def({
@@ -26,11 +15,16 @@ class SuccessResult extends ProjectileResult {
     int? statusCode,
     // this.originalData,
   }) =>
-      SuccessResult(
+      SuccessResult._(
         headers: Headers.fromMap(headers),
         data: data,
         originalRequest: originalRequest,
       );
+
+  final dynamic data;
+  final int? statusCode;
+  final Headers headers;
+  final ProjectileRequest originalRequest;
 
   Map<String, dynamic>? get dataJson =>
       isJson ? data as Map<String, dynamic> : null;

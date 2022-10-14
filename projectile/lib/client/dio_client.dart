@@ -62,7 +62,7 @@ class DioClient extends IProjectileClient {
 
   @override
   void finallyBlock() {
-    // _dioClient.close();
+    _dioClient.close();
   }
 
   Options getOptions(ProjectileRequest request) => Options(

@@ -1,8 +1,8 @@
 import 'failure.dart';
 import 'success.dart';
 
-typedef Err<T> = void Function(T error);
-typedef Completion<T> = void Function(T success);
+typedef Err<T, R> = R Function(T error);
+typedef Completion<T, R> = R Function(T success);
 
 /// A value that represents either a success or a failure, including an
 /// associated value in each case.
@@ -39,15 +39,14 @@ abstract class ProjectileResult {
   }
 
   /// Returns a new value of [Result] from closure
-  void fold(Err<FailureResult> failure, Completion<SuccessResult> success) {
+  R fold<R>(
+      Err<FailureResult, R> failure, Completion<SuccessResult, R> success) {
     if (isSuccess) {
       final right = this as SuccessResult;
-      success(right);
-    }
-
-    if (isFailure) {
+      return success(right);
+    } else {
       final left = this as FailureResult;
-      failure(left);
+      return failure(left);
     }
   }
 }

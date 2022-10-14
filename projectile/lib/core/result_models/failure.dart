@@ -2,20 +2,41 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:projectile/core/misc_models/misc_models.dart';
 import 'package:projectile/core/request_models/request.dart';
 import 'package:projectile/core/result_models/result.dart';
 
 /// inspired on DIOError class
 
 class FailureResult extends ProjectileResult {
-  FailureResult({
-    required this.request,
+  FailureResult._({
+    required this.originalRequest,
     this.error,
     this.stackTrace,
+    this.headers,
+    this.statusCode,
   }) : type = ProjectileErrorType.fromError(error);
 
+  factory FailureResult.def({
+    required dynamic error,
+    required ProjectileRequest originalRequest,
+    Map<String, dynamic> headers = const {},
+    int? statusCode,
+    StackTrace? stackTrace,
+    // this.originalData,
+  }) =>
+      FailureResult._(
+        headers: Headers.fromMap(headers),
+        error: error,
+        originalRequest: originalRequest,
+        stackTrace: stackTrace,
+        statusCode: statusCode,
+      );
+
   /// Request info.
-  final ProjectileRequest request;
+  final ProjectileRequest originalRequest;
+  final int? statusCode;
+  final Headers? headers;
 
   /// The original error/exception object; It's usually not null when `type`
   final dynamic error;
@@ -41,7 +62,9 @@ class FailureResult extends ProjectileResult {
   bool operator ==(covariant FailureResult other) {
     if (identical(this, other)) return true;
 
-    return other.request == request &&
+    return other.originalRequest == originalRequest &&
+        other.statusCode == statusCode &&
+        other.headers == headers &&
         other.error == error &&
         other.stackTrace == stackTrace &&
         other.type == type;
@@ -49,7 +72,9 @@ class FailureResult extends ProjectileResult {
 
   @override
   int get hashCode {
-    return request.hashCode ^
+    return originalRequest.hashCode ^
+        statusCode.hashCode ^
+        headers.hashCode ^
         error.hashCode ^
         stackTrace.hashCode ^
         type.hashCode;

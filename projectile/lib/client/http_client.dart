@@ -10,7 +10,7 @@ class HttpClient extends IProjectileClient {
   final http.Client _httpClient = http.Client();
 
   @override
-  Future<SuccessResult> createRequest(
+  Future<ProjectileResult> createRequest(
     ProjectileRequest request,
   ) async {
     final http.BaseRequest httpRequest;
@@ -39,20 +39,37 @@ class HttpClient extends IProjectileClient {
       data = response.body;
     }
 
-    return SuccessResult.def(
-      statusCode: response.statusCode,
-      headers: response.headers,
-      data: data,
-      originalRequest: request,
-      // originalData: response.body,
-    );
+    if (_isSuccessRequest(response.statusCode)) {
+      return SuccessResult.def(
+        statusCode: response.statusCode,
+        headers: response.headers,
+        data: data,
+        originalRequest: request,
+        // originalData: response.body,
+      );
+    } else {
+      return FailureResult.def(
+        originalRequest: request,
+        error: data,
+        statusCode: response.statusCode,
+        headers: response.headers,
+      );
+    }
   }
 
-  // if (!jsonResponse) {
-  //   body = await response.stream.toBytes();
-  // } else {
-  //   body = await response.stream.transform(utf8.decoder).join();
-  // }
+  bool _isSuccessRequest(int? statusCode) =>
+      statusCode != null &&
+      ![
+        400, // Bad Request
+        401, // Unauthorized
+        402, // Payment Required
+        403, // Forbidden
+        404, // Not Found
+        405, // Method Not Allowed,
+        413, // Request Entity Too Large
+        414, // Request URI Too Long,
+        415, // Unsupported Media Type
+      ].contains(statusCode);
 
   @override
   Future<http.MultipartFile> createNativeMultipartObject(
