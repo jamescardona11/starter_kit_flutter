@@ -28,10 +28,10 @@ class Projectile {
     return addCustomInterceptors([interceptor]);
   }
 
-  Future<Result<ResponseError, ResponseSuccess>> fire() {
+  Future<ProjectileResult> fire() {
     _validRequestBeforeSending();
 
-    final completer = Completer<Result<ResponseError, ResponseSuccess>>();
+    final completer = Completer<ProjectileResult>();
 
     _client ??= HttpClient();
 

@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'package:dio/dio.dart' hide Headers;
 
-import '../core/request_models/request_models.dart';
-import '../core/response_models/response_models.dart';
-import '../core/client/i_projectile_client.dart';
+import 'package:dio/dio.dart' hide Headers;
+import 'package:projectile/core/core.dart';
 
 class DioClient extends IProjectileClient {
   final Dio _dioClient;
@@ -14,7 +12,7 @@ class DioClient extends IProjectileClient {
   ]);
 
   @override
-  Future<ResponseSuccess> createRequest(ProjectileRequest request) async {
+  Future<SuccessResult> createRequest(ProjectileRequest request) async {
     final url = request.getUrl();
 
     final data =
@@ -26,7 +24,7 @@ class DioClient extends IProjectileClient {
       data: data,
     );
 
-    return ResponseSuccess.def(
+    return SuccessResult.def(
       statusCode: response.statusCode,
       headers: response.headers.map,
       data: response.data,

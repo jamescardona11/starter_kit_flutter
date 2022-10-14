@@ -2,10 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
-import '../core/request_models/request_models.dart';
-import '../core/response_models/response_models.dart';
-import '../core/client/i_projectile_client.dart';
+import 'package:projectile/core/core.dart';
 
 class HttpClient extends IProjectileClient {
   HttpClient([super.config]);
@@ -13,7 +10,7 @@ class HttpClient extends IProjectileClient {
   final http.Client _httpClient = http.Client();
 
   @override
-  Future<ResponseSuccess> createRequest(
+  Future<SuccessResult> createRequest(
     ProjectileRequest request,
   ) async {
     final http.BaseRequest httpRequest;
@@ -42,7 +39,7 @@ class HttpClient extends IProjectileClient {
       data = response.body;
     }
 
-    return ResponseSuccess.def(
+    return SuccessResult.def(
       statusCode: response.statusCode,
       headers: response.headers,
       data: data,

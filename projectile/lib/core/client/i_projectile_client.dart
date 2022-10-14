@@ -3,7 +3,6 @@ import 'dart:async';
 import '../interceptors/interceptors.dart';
 import '../misc_models/config.dart';
 import '../request_models/request_models.dart';
-import '../response_models/response_models.dart';
 import '../result_models/result_models.dart';
 
 abstract class IClient<T> {
@@ -21,8 +20,7 @@ abstract class IClient<T> {
   void finallyBlock();
 }
 
-abstract class IProjectileClient
-    extends IClient<Result<ResponseError, ResponseSuccess>>
+abstract class IProjectileClient extends IClient<ProjectileResult>
     with RunInterceptor {
   IProjectileClient([this.config = const BaseConfig()]);
 
@@ -30,12 +28,12 @@ abstract class IProjectileClient
 
   /// override this to implement request
   /// don't catch exception if you want if catch by default by `runRequest`
-  Future<ResponseSuccess> createRequest(ProjectileRequest request);
+  Future<SuccessResult> createRequest(ProjectileRequest request);
 
   @override
-  Future<Result<ResponseError, ResponseSuccess>> sendRequest(
+  Future<ProjectileResult> sendRequest(
     ProjectileRequest request,
-    Completer<Result<ResponseError, ResponseSuccess>> completer, [
+    Completer<ProjectileResult> completer, [
     List<ProjectileInterceptor> interceptors = const [],
   ]) {
     listInterceptors = interceptors;
@@ -48,14 +46,14 @@ abstract class IProjectileClient
   }
 
   /// Run request and everything relate to response and catch errors
-  Future<Result<ResponseError, ResponseSuccess>> _sendRequest(
+  Future<ProjectileResult> _sendRequest(
     ProjectileRequest request,
   ) async {
     try {
       final requestData = await _beforeRequest(request);
       _runFromCreate(requestData);
     } catch (error, stackTrace) {
-      _responseError(ResponseError(
+      _responseError(FailureResult(
         request: request,
         error: error,
         stackTrace: stackTrace,
@@ -77,7 +75,7 @@ abstract class IProjectileClient
       _responseSuccess(responseRequest);
     } else {
       _responseError(
-          ResponseError(request: requestData, error: responseRequest));
+          FailureResult(request: requestData, error: responseRequest));
     }
   }
 
@@ -86,15 +84,15 @@ abstract class IProjectileClient
       runRequestInterceptors(listInterceptors, request);
 
   /// Request success
-  Future<void> _responseSuccess(ResponseSuccess responseData) async {
+  Future<void> _responseSuccess(SuccessResult responseData) async {
     final response =
         await runResponseInterceptors(listInterceptors, responseData);
-    completer.complete(Success(response));
+    completer.complete(response);
   }
 
   /// Request error
-  Future<void> _responseError(ResponseError error) async {
+  Future<void> _responseError(FailureResult error) async {
     final errorData = await runErrorInterceptors(listInterceptors, error);
-    completer.complete(Failure(errorData));
+    completer.complete(errorData);
   }
 }

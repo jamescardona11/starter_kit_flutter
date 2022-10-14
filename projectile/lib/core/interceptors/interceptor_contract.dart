@@ -1,14 +1,14 @@
+import 'package:projectile/core/result_models/result_models.dart';
+
 import '../request_models/request_models.dart' show ProjectileRequest;
-import '../response_models/errors_response.dart';
-import '../response_models/response.dart';
 import 'interceptors.dart';
 
 abstract class ProjectileInterceptor {
   Future<ProjectileRequest> onRequest(ProjectileRequest data);
 
-  Future<ResponseSuccess> onResponse(ResponseSuccess data);
+  Future<SuccessResult> onResponse(SuccessResult data);
 
-  Future<ResponseError> onError(ResponseError data);
+  Future<FailureResult> onError(FailureResult data);
 }
 
 mixin RunInterceptor {
@@ -23,23 +23,23 @@ mixin RunInterceptor {
     return queue.run(initialRequestData);
   }
 
-  Future<ResponseSuccess> runResponseInterceptors(
+  Future<SuccessResult> runResponseInterceptors(
     Iterable<ProjectileInterceptor> interceptors,
-    ResponseSuccess initialRequestData,
+    SuccessResult initialRequestData,
   ) {
     /// run on `response` interceptors
-    final queue = FutureQueue<ResponseSuccess>()
+    final queue = FutureQueue<SuccessResult>()
       ..addAll(interceptors.map((e) => e.onResponse));
 
     return queue.run(initialRequestData);
   }
 
-  Future<ResponseError> runErrorInterceptors(
+  Future<FailureResult> runErrorInterceptors(
     Iterable<ProjectileInterceptor> interceptors,
-    ResponseError initialRequestData,
+    FailureResult initialRequestData,
   ) {
     /// run on `error` interceptors
-    final queue = FutureQueue<ResponseError>()
+    final queue = FutureQueue<FailureResult>()
       ..addAll(interceptors.map((e) => e.onError));
 
     return queue.run(initialRequestData);
