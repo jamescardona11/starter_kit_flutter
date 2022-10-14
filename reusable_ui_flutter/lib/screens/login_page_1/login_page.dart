@@ -48,7 +48,7 @@ class LoginPageV1 extends StatelessWidget {
               TextButton(
                 onPressed: () {},
                 style: TextButton.styleFrom(
-                  primary: kGrayLightColor2,
+                  primary: kPrimaryColor,
                 ),
                 child: const Text('¿Forgot password?'),
               ),
