@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:projectile_reqres_api/api_request/api_request_with_dio.dart';
 import 'package:projectile_reqres_api/api_request/api_request_with_http.dart';
 import 'package:projectile_reqres_api/model/user_model.dart';
+import 'package:projectile_reqres_api/ui/login_page.dart';
+import 'package:projectile_reqres_api/ui/other_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,6 +32,21 @@ class _HomePageState extends State<HomePage> {
         return Scaffold(
           appBar: AppBar(
             title: Text(title),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OtherPage(),
+                        ));
+                  },
+                  icon: Icon(Icons.label_important_outline),
+                ),
+              ),
+            ],
             leading: user != null
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -45,25 +62,37 @@ class _HomePageState extends State<HomePage> {
                 : null,
           ),
           body: FutureBuilder<Iterable<UserModel>>(
-              future: apiRequestWithDio.getAllUsers(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  users.addAll(snapshot.requireData);
-                }
+            future: apiRequestWithDio.getAllUsers(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                users.clear();
+                users.addAll(snapshot.requireData);
+              }
 
-                return (users.isEmpty)
-                    ? const Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                        itemCount: users.length,
-                        itemBuilder: (context, index) => _BodyUserList(
-                          users: users,
-                          rowElements: [
-                            _AvatarUser(user: users[index]),
-                            _InfoUser(user: users[index]),
-                          ],
-                        ),
-                      );
-              }),
+              return (users.isEmpty)
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      itemCount: users.length,
+                      itemBuilder: (context, index) => _BodyUserList(
+                        users: users,
+                        rowElements: [
+                          _AvatarUser(user: users[index]),
+                          _InfoUser(user: users[index]),
+                        ],
+                      ),
+                    );
+            },
+          ),
+          floatingActionButton: ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ));
+            },
+            child: Text('Logout'),
+          ),
         );
       },
     );

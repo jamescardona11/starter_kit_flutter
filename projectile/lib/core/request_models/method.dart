@@ -5,7 +5,7 @@ enum Method {
   POST('post'),
   PUT('put'),
   DELETE('delete'),
-  PATH('path');
+  PATCH('patch');
 
   const Method(this._value);
 

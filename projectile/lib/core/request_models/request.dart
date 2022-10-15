@@ -51,7 +51,9 @@ class ProjectileRequest {
 
     final uri = Uri.parse(_addDynamicAddressParams(tempUrl));
     if (query.isNotEmpty) {
-      uri.replace(queryParameters: query);
+      uri.replace(
+          queryParameters:
+              query.map((key, value) => MapEntry(key, value.toString())));
     }
 
     return uri;

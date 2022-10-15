@@ -28,7 +28,7 @@ class HttpClient extends IProjectileClient {
 
     dynamic data;
 
-    if (request.responseType.isJson) {
+    if (request.responseType.isJson && response.body.isNotEmpty) {
       /// json
       data = jsonDecode(response.body);
     } else if (request.responseType.isBytes) {
@@ -43,7 +43,7 @@ class HttpClient extends IProjectileClient {
       return SuccessResult.def(
         statusCode: response.statusCode,
         headers: response.headers,
-        data: _getDataWithData(data),
+        data: data,
         originalRequest: request,
         // originalData: response.body,
       );
@@ -70,9 +70,6 @@ class HttpClient extends IProjectileClient {
         414, // Request URI Too Long,
         415, // Unsupported Media Type
       ].contains(statusCode);
-
-  dynamic _getDataWithData(dynamic data) =>
-      (data as Map).containsKey('data') ? data['data'] : data;
 
   @override
   Future<http.MultipartFile> createNativeMultipartObject(
