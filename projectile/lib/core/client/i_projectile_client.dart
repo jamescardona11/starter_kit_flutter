@@ -22,7 +22,7 @@ abstract class IClient<T> {
 
 abstract class IProjectileClient extends IClient<ProjectileResult>
     with RunInterceptor {
-  IProjectileClient([this.config = const BaseConfig()]);
+  IProjectileClient({this.config = const BaseConfig()});
 
   BaseConfig config;
 

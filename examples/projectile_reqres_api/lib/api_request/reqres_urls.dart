@@ -4,7 +4,7 @@ class ReqresUrls {
   static const String loginUrl = '$_base/login';
   static const String createUserUrl = '$_base/users';
   static const String updateUserUrl = '$_base/users/{id}';
-  static const String listUsersUrl = '$_base/users?page={n}';
+  static const String listUsersUrl = '$_base/users?page={page}';
   static const String singleUserUrl = '$_base/users/{id}';
 
   static const String listResourceUrl = '$_base/unknown';

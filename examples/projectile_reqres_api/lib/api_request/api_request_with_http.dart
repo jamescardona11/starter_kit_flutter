@@ -24,7 +24,7 @@ class ApiRequestWithHttp {
   }
 
   Future<UserModel?> getUserInfo(int id) async {
-    final response = await Projectile(config: BaseConfig(enableLog: true))
+    final response = await Projectile()
         .request(RequestBuilder.target(ReqresUrls.singleUserUrl)
             .mode(Method.GET)
             .urlParams({'id': id}).build())

@@ -27,8 +27,8 @@ class SuccessResult extends ProjectileResult {
   final Headers headers;
   final ProjectileRequest originalRequest;
 
-  Map<String, dynamic>? get dataJson =>
-      isJson ? data as Map<String, dynamic> : null;
+  Map<String, dynamic> get dataJson =>
+      isJson ? data as Map<String, dynamic> : {};
 
   List<int>? get dataBytes => isBytes ? data as List<int> : null;
 

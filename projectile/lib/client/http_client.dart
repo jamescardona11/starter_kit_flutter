@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:projectile/core/core.dart';
 
 class HttpClient extends IProjectileClient {
-  HttpClient([super.config]);
+  HttpClient({super.config});
 
   final http.Client _httpClient = http.Client();
 
@@ -50,7 +50,7 @@ class HttpClient extends IProjectileClient {
     } else {
       return FailureResult.def(
         originalRequest: request,
-        error: _getDataWithData(data),
+        error: (data),
         statusCode: response.statusCode,
         headers: response.headers,
       );

@@ -4,12 +4,14 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:projectile/core/core.dart';
 
 class DioClient extends IProjectileClient {
-  final Dio _dioClient;
+  late Dio dioClient;
 
-  DioClient(
-    this._dioClient, [
+  DioClient({
+    Dio? dio,
     super.config,
-  ]);
+  }) {
+    dioClient = dio ?? Dio();
+  }
 
   @override
   Future<SuccessResult> createRequest(ProjectileRequest request) async {
@@ -18,7 +20,7 @@ class DioClient extends IProjectileClient {
     final data =
         request.isMultipart ? await _createFromMap(request) : request.data;
 
-    final response = await _dioClient.request(
+    final response = await dioClient.request(
       url,
       options: getOptions(request),
       data: data,
@@ -62,7 +64,7 @@ class DioClient extends IProjectileClient {
 
   @override
   void finallyBlock() {
-    _dioClient.close();
+    dioClient.close();
   }
 
   Options getOptions(ProjectileRequest request) => Options(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectile_reqres_api/api_request/api_request_with_dio.dart';
 import 'package:projectile_reqres_api/api_request/api_request_with_http.dart';
 import 'package:projectile_reqres_api/model/user_model.dart';
 
@@ -9,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ApiRequestWithHttp apiRequestHttp = ApiRequestWithHttp();
+  ApiRequestWithDio apiRequestWithDio = ApiRequestWithDio();
 
   final users = <UserModel>[];
 
@@ -22,44 +24,48 @@ class _HomePageState extends State<HomePage> {
 
         if (snapshot.hasData) {
           user = snapshot.requireData;
+          title = user!.firstName + ' ' + user.lastName;
         }
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Users Page'),
+            title: Text(title),
             leading: user != null
-                ? _AvatarUser(
-                    user: user,
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: FadeInImage(
+                        placeholder:
+                            const AssetImage('assets/circular_loading.gif'),
+                        image: NetworkImage(user.avatar),
+                      ),
+                    ),
                   )
                 : null,
           ),
-          body: (users == null)
-              ? const Center(child: CircularProgressIndicator())
-              : _ListOfUsers(users: users),
+          body: FutureBuilder<Iterable<UserModel>>(
+              future: apiRequestWithDio.getAllUsers(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  users.addAll(snapshot.requireData);
+                }
+
+                return (users.isEmpty)
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView.builder(
+                        itemCount: users.length,
+                        itemBuilder: (context, index) => _BodyUserList(
+                          users: users,
+                          rowElements: [
+                            _AvatarUser(user: users[index]),
+                            _InfoUser(user: users[index]),
+                          ],
+                        ),
+                      );
+              }),
         );
       },
-    );
-  }
-}
-
-class _ListOfUsers extends StatelessWidget {
-  final List<UserModel> users;
-  const _ListOfUsers({
-    Key? key,
-    required this.users,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: users.length,
-      itemBuilder: (context, index) => _BodyUserList(
-        users: users,
-        rowElements: [
-          _AvatarUser(user: users[index]),
-          _InfoUser(user: users[index]),
-        ],
-      ),
     );
   }
 }
