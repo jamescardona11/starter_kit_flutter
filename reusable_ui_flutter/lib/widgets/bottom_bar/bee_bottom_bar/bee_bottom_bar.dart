@@ -108,8 +108,8 @@ class _BeeBottomBarState extends State<BeeBottomBar> {
               highlightColor: Colors.transparent,
               hoverColor: Colors.transparent,
               onTap: () {
-                item.onTap?.call(index);
-                widget.onItemSelected?.call(index);
+                item.onTap?.generic(index);
+                widget.onItemSelected?.generic(index);
 
                 if (index == controller.index) return;
 

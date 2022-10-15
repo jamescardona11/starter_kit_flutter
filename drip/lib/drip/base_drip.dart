@@ -38,7 +38,7 @@ abstract class Drip<DState> extends ChangeNotifier {
     }
   }
 
-  Stream<DState> mutateState(DripEvent event) async* {}
+  Stream<DState> mutateStateWithEvents(DripEvent event) async* {}
 
   Stream<DState> transform(
     Stream<DripEvent> events,
@@ -66,14 +66,18 @@ abstract class Drip<DState> extends ChangeNotifier {
     transform(
       _eventController.stream,
       (event) {
-        if (event is DripAction<DState>) {
-          return event.call(event).handleError(onError);
+        if (event is GenericStateChangeAction<DState>) {
+          return event.generic().handleError(onError);
+        } else if (event is DripAction<DState>) {
+          return event.call(state).handleError(onError);
         } else {
-          return mutateState(event).handleError(onError);
+          return mutateStateWithEvents(event).handleError(onError);
         }
       },
     ).forEach((DState nextState) {
       if (_stateController.isClosed) return;
+
+      state = nextState;
 
       _stateController.add(nextState);
     });

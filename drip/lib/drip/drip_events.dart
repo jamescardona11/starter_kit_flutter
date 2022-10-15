@@ -5,20 +5,15 @@ abstract class DripEvent {
 abstract class DripAction<DState> extends DripEvent {
   const DripAction();
 
-  Stream<DState> call(DripEvent event);
+  Stream<DState> call(DState state);
 }
 
-class GenericStateChangeAction<DState> extends DripAction<DState> {
+class GenericStateChangeAction<DState> extends DripEvent {
   const GenericStateChangeAction(this.newState);
 
   final DState newState;
 
-  @override
-  Stream<DState> call(event) async* {
+  Stream<DState> generic() async* {
     yield newState;
   }
-}
-
-abstract class GenericActionCall<DState> {
-  Stream<DState> mapEventToState(DripEvent event);
 }

@@ -155,7 +155,7 @@ class _StepsViewState extends State<StepsView> {
             onBackClick: () {
               final page = (pageController.page ?? 0) - 1;
               if (page < 0) {
-                widget.onReturnToInitial.call();
+                widget.onReturnToInitial.generic();
               } else {
                 pageController.animateToPage(
                   page.toInt(),
