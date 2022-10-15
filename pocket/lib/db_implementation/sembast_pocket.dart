@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:path_provider/path_provider.dart';
 import 'package:pocket/adapter/adapter.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
@@ -16,8 +17,10 @@ class SembastPocket implements IPocketAdapter {
     if (_completer == null) {
       final Completer<SembastPocket> completer = Completer<SembastPocket>();
       try {
+        final pathName = await _getDBPath(path);
+
         DatabaseFactory dbFactory = databaseFactoryIo;
-        Database db = await dbFactory.openDatabase(path, version: 1);
+        Database db = await dbFactory.openDatabase(pathName, version: 1);
         completer.complete(SembastPocket._(db));
       } on Exception catch (e) {
         // If there's an error, explicitly return the future with an error.
@@ -35,6 +38,14 @@ class SembastPocket implements IPocketAdapter {
 
     return _completer!.future;
   }
+
+  static Future<String> _getDBPath(String path) async {
+    var dir = await getApplicationDocumentsDirectory();
+    await dir.create(recursive: true);
+    return dir.path + path;
+  }
+
+  Future<void> closeDatabase() => _db.close();
 
   @override
   Future<void> create({
@@ -82,7 +93,7 @@ class SembastPocket implements IPocketAdapter {
   @override
   Stream<Iterable<AdapterDto>> readWhere({
     required String table,
-    required Iterable<PocketQuery> pocketQueries,
+    Iterable<PocketQuery> pocketQueries = const [],
     bool andFilters = true,
   }) {
     final store = _sembastStore(table);

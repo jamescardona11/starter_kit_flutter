@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projectile_reqres_api/ui/home_page.dart';
+
+import 'ui/splash_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: HomePage(),
+      home: SplashPage(),
     );
   }
 }
