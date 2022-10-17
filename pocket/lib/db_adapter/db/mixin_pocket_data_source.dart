@@ -1,7 +1,7 @@
 import 'package:pocket/db_adapter/adapter/adapter.dart';
 import 'package:pocket/db_adapter/db/db.dart';
 
-mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
+mixin PocketDataSource<A extends IPocketAdapter, T extends IPocketModel>
     implements IPocketDatabase<T> {
   A get adapterDb;
 
