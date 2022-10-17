@@ -15,7 +15,7 @@ class DripCounter extends Drip<DripCounterState> {
   }
 
   @override
-  Stream<DripCounterState> mutateStateWithEvents(event) async* {
+  Stream<DripCounterState> mutableStateOf(event) async* {
     if (event is ClearEvent) {
       print('Clear');
       // emit(state.copyWith(count: 0));

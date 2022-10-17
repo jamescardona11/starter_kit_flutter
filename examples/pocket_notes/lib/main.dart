@@ -28,7 +28,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  SembastPocket? sembastPocket;
+  // SembastPocket? sembastPocket;
   TextEditingController controller = TextEditingController();
   final tableName = 'notes';
   final List<Notes> notes = [];
@@ -58,10 +58,10 @@ class _HomePageState extends State<HomePage> {
             onPressed: saveNoteInDB,
             child: Text('Save Note'),
           ),
-          if (sembastPocket != null)
+          if (SembastPocket.wasInitCalled)
             Expanded(
               child: StreamBuilder<Iterable<AdapterDto>>(
-                stream: sembastPocket!.readWhere(table: tableName),
+                stream: SembastPocket.instance().readWhere(table: tableName),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     notes.clear();
@@ -136,14 +136,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> initAdapter() async {
-    sembastPocket = await SembastPocket.initAdapter('notes_database');
+    await SembastPocket.initAdapter('notes_database');
     setState(() {});
   }
 
   Future<void> saveNoteInDB() async {
     if (controller.text.isEmpty) return;
 
-    await sembastPocket!.create(
+    await SembastPocket.instance().create(
       table: tableName,
       item: AdapterDto(
         DateTime.now().millisecondsSinceEpoch.toString(),
@@ -155,11 +155,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void dropTable() {
-    sembastPocket!.dropTable(tableName);
+    SembastPocket.instance().dropTable(tableName);
   }
 
   void deleteNote(String id) {
-    sembastPocket!.delete(table: tableName, id: id);
+    SembastPocket.instance().delete(table: tableName, id: id);
   }
 }
 

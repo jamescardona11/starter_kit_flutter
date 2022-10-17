@@ -23,22 +23,7 @@ abstract class Drip<DState> extends ChangeNotifier {
     _stateController.add(_initialState);
   }
 
-  void emit(DState newState) {
-    if (state == newState) return;
-    state = newState;
-    dispatch(GenericStateChangeAction(newState));
-  }
-
-  void dispatch(DripEvent event) {
-    try {
-      onEvent(event);
-      _eventController.add(event);
-    } catch (err, stackTrace) {
-      onError(err, stackTrace);
-    }
-  }
-
-  Stream<DState> mutateStateWithEvents(DripEvent event) async* {}
+  Stream<DState> mutableStateOf(DripEvent event) async* {}
 
   Stream<DState> transform(
     Stream<DripEvent> events,
@@ -52,6 +37,23 @@ abstract class Drip<DState> extends ChangeNotifier {
     if (_state != state) {
       _state = state;
       notifyListeners();
+    }
+  }
+
+  @protected
+  void emit(DState newState) {
+    if (state == newState) return;
+    state = newState;
+    dispatch(GenericStateChangeAction(newState));
+  }
+
+  @protected
+  void dispatch(DripEvent event) {
+    try {
+      onEvent(event);
+      _eventController.add(event);
+    } catch (err, stackTrace) {
+      onError(err, stackTrace);
     }
   }
 
@@ -71,7 +73,7 @@ abstract class Drip<DState> extends ChangeNotifier {
         } else if (event is DripAction<DState>) {
           return event.call(state).handleError(onError);
         } else {
-          return mutateStateWithEvents(event).handleError(onError);
+          return mutableStateOf(event).handleError(onError);
         }
       },
     ).forEach((DState nextState) {

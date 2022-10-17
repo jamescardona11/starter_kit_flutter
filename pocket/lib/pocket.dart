@@ -1,5 +1,3 @@
 library pocket;
 
-export 'adapter/adapter.dart';
-export 'db/db.dart';
-export 'db_implementation/sembast_pocket.dart';
+export 'db_adapter/db_adapter.dart';

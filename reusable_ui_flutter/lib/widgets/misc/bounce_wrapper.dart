@@ -68,7 +68,7 @@ class BounceWrapperState extends State<BounceWrapper>
     //Now reversing the animation after the user defined duration
     Future.delayed(widget.duration, () {
       _animate.reverse();
-      widget.onPressed?.generic();
+      widget.onPressed?.call();
     });
   }
 

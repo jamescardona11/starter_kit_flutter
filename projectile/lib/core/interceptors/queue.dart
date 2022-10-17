@@ -76,7 +76,7 @@ class _QueueItem<T> {
   Future<void> execute(T data) async {
     T result;
     try {
-      result = await closure.generic(data);
+      result = await closure.call(data);
       completer.complete(result);
       await Future.microtask(() {});
     } catch (e) {

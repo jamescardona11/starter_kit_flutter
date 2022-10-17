@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:pocket/adapter/adapter.dart';
+import 'package:pocket/db_adapter/adapter/adapter.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 
@@ -11,9 +11,23 @@ class SembastPocket implements IPocketAdapter {
   final Database _db;
 
   static Completer<SembastPocket>? _completer;
+  static SembastPocket? _sembastPocket;
 
-  static Future<SembastPocket> initAdapter(String path,
-      [int version = 1]) async {
+  /// only call this if you called `initAdapter` first
+  static SembastPocket instance() {
+    if (_completer == null) {
+      throw Exception('Call initAdapter before instance');
+    }
+
+    return _sembastPocket!;
+  }
+
+  static bool get wasInitCalled => _sembastPocket != null;
+
+  static Future<SembastPocket> initAdapter(
+    String path, [
+    int version = 1,
+  ]) async {
     if (_completer == null) {
       final Completer<SembastPocket> completer = Completer<SembastPocket>();
       try {
@@ -21,7 +35,8 @@ class SembastPocket implements IPocketAdapter {
 
         DatabaseFactory dbFactory = databaseFactoryIo;
         Database db = await dbFactory.openDatabase(pathName, version: 1);
-        completer.complete(SembastPocket._(db));
+        _sembastPocket = SembastPocket._(db);
+        completer.complete(_sembastPocket!);
       } on Exception catch (e) {
         // If there's an error, explicitly return the future with an error.
         // then set the completer to null so we can retry.

@@ -53,7 +53,7 @@ You can add in your project via path:
 - nautilus
 
 ```
-  packageName:
+packageName:
     git:
       url: https://github.com/jamescardona11/starter_kit_flutter.git
       path: packageName/

@@ -94,8 +94,8 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () {
-                      item.onTap?.generic(index);
-                      widget.onItemSelected?.generic(index);
+                      item.onTap?.call(index);
+                      widget.onItemSelected?.call(index);
 
                       if (index == controller.index) return;
                       controller.changeIndex(index);

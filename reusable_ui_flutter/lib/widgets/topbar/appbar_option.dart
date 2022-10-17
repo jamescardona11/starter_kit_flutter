@@ -204,7 +204,7 @@ class _FloatingDrawerState extends State<FloatingDrawer>
       leading: tile.leading,
       trailing: tile.trailing,
       onTap: () {
-        tile.onTap?.generic();
+        tile.onTap?.call();
         tiles = newChildren;
         setState(() {});
       },
