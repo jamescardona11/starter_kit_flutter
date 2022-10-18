@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:pocket/db_adapter/adapter/adapter.dart';
+import 'package:pocket/adapter/i_pocket_adapter.dart';
+import 'package:pocket/adapter/query_filter.dart';
+import 'package:pocket/dto/adapter_dto.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 
@@ -25,13 +27,13 @@ class SembastPocket implements IPocketAdapter {
   static bool get wasInitCalled => _sembastPocket != null;
 
   static Future<SembastPocket> initAdapter(
-    String path, [
+    String name, [
     int version = 1,
   ]) async {
     if (_completer == null) {
       final Completer<SembastPocket> completer = Completer<SembastPocket>();
       try {
-        final pathName = await _getDBPath(path);
+        final pathName = await _getDBPathWithName(name);
 
         DatabaseFactory dbFactory = databaseFactoryIo;
         Database db = await dbFactory.openDatabase(pathName, version: 1);
@@ -54,7 +56,7 @@ class SembastPocket implements IPocketAdapter {
     return _completer!.future;
   }
 
-  static Future<String> _getDBPath(String path) async {
+  static Future<String> _getDBPathWithName(String path) async {
     var dir = await getApplicationDocumentsDirectory();
     await dir.create(recursive: true);
     return dir.path + path;

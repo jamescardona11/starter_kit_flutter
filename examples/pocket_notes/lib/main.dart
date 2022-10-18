@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void dropTable() {
-    SembastPocket.instance().dropTable(tableName);
+    SembastPocket.instance().clean(tableName);
   }
 
   void deleteNote(String id) {

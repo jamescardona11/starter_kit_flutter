@@ -1,6 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'adapter_dto.dart';
+import 'package:pocket/dto/adapter_dto.dart';
+
 import 'query_filter.dart';
+
+/// adapter to convert methods from outside package to inside package
+/// Represents the `Adapter` in Adapter Pattern diagram
+/// https://refactoring.guru/es/design-patterns/adapter
 
 abstract class IPocketAdapter {
   Future<void> create({
