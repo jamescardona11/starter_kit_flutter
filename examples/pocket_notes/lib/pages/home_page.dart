@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_notes/cache_page.dart';
-import 'package:pocket_notes/database_page.dart';
+
+import 'cache_page.dart';
+import 'database_page.dart';
+import 'shared_preferences_page.dart';
 
 class HomePage extends StatefulWidget {
   /// default constructor
@@ -26,6 +28,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           DatabasePage(),
           CachePage(),
+          SharedPreferencesPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -39,13 +42,19 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(
               Icons.note,
             ),
-            label: 'DB',
+            label: 'Sembast DB',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.cached,
             ),
-            label: 'Cache',
+            label: 'Sembast Cache',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.share,
+            ),
+            label: 'Shared Preferences',
           ),
         ],
       ),

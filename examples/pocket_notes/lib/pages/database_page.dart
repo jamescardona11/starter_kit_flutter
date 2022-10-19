@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pocket/pocket.dart';
 
-import 'notes_model.dart';
+import '../models/notes_model.dart';
 
 class DatabasePage extends StatefulWidget {
   /// default constructor
