@@ -4,10 +4,14 @@ import 'success.dart';
 typedef Err<T, R> = R Function(T error);
 typedef Completion<T, R> = R Function(T success);
 
+/// {@template result}
+///
 /// A value that represents either a success or a failure, including an
 /// associated value in each case.
 ///
 /// Result<ResponseError, ResponseSuccess>
+///
+/// {@endtemplate}
 abstract class ProjectileResult {
   /// Returns true if [Result] is [Failure].
   bool get isFailure => this is FailureResult;

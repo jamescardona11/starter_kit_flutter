@@ -7,12 +7,12 @@ The tools are separated in different packages or project:
 | TOOL NAME                                  | TYPE                | STATE                          |
 | ------------------------------------------ | ------------------- | ------------------------------ |
 | [base_misc][base_misc]                     | folder & base files | in-progress                    |
-| [drip][drip]                               | state management    | complete - notest - no-example |
+| [drip][drip]                               | state management    | completed - notest             |
 | [nautilus][nautilus]                       | navigator           | in-progress                    |
-| [pocket][pocket]                           | DataBase adapter    | complete - notest- no-example  |
-| [projectile][projectile]                   | Network adapter     | complete - notest              |
+| [pocket][pocket]                           | DataBase adapter    | completed - notest             |
+| [projectile][projectile]                   | Network adapter     | completed - notest             |
 | [reusable_ui_flutter][reusable_ui_flutter] | widgets and views   | in-progress                    |
-| [argo][argo]                               | responsive tools    | complete                       |
+| [argo][argo]                               | responsive tools    | completed                      |
 
 In the future more tools will be added or current tools will be improved.
 Multiple examples for packages will be created in [examples][examples]
@@ -22,13 +22,21 @@ You can find more cool flutter UI examples in this project: [flutter_ui_challeng
 
 STATE:
 
-* complete: the roadmap or goal for this tool it's completed
+* completed: the roadmap or goal for this tool it's completed
 * in-progress: the roadmap or goal is in progress
 * no-test: no unit tests yet
 * no-example: no example(s) have been created for this tool
 * no-docs: readme and documentation do not exist
 
-## Examples
+## Basic Examples
+
+* [Drip Counter](https://github.com/jamescardona11/starter_kit_flutter/tree/main/examples/drip_counter)
+* [Drip ToDo](https://github.com/jamescardona11/starter_kit_flutter/tree/main/examples/drip_todo) - In progress
+* [Projectile reqres API](https://github.com/jamescardona11/starter_kit_flutter/tree/main/examples/projectile_reqres_api)
+* [Pocket Notes](https://github.com/jamescardona11/starter_kit_flutter/tree/main/examples/pocket_notes)
+
+## Other Projects
+
 
 
 ## How to contribute
@@ -37,12 +45,11 @@ This is an experimental project, and the main idea is learning.
 - Report errors
 - Create more examples
 - Improve the documentation.
-- Share with other persons
+- Share with others
 
 ## How to use a package
 
 Remember this an experimental, and I recommend you think very well if one of these packages can be a solution for your project. For the moment none of this are in the pub.dev. 
-
 
 
 You can add in your project via path:

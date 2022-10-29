@@ -4,7 +4,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusable_ui_flutter/config/responsive_extension.dart';
 import 'package:reusable_ui_flutter/widgets/widgets.dart'
-    show EleventhButton, InputTextWidget;
+    show EleventhButton, InputTextWidget, LeadingIconConfig;
 
 import 'const.dart';
 
@@ -163,12 +163,12 @@ class _AuthLoginCardView extends StatelessWidget {
             kSpaceLittleVertical,
             const InputTextWidget(
               hint: 'Input your email',
-              leadingIcon: Icons.email,
+              leading: LeadingIconConfig(Icons.email),
             ),
             kSpaceMediumVertical,
             const InputTextWidget(
               hint: 'Input your password',
-              leadingIcon: Icons.lock,
+              leading: LeadingIconConfig(Icons.lock),
               obscureText: true,
             ),
             const Spacer(),
@@ -235,12 +235,12 @@ class _AuthRegisterCardView extends StatelessWidget {
             kSpaceLittleVertical,
             const InputTextWidget(
               hint: 'Input your email',
-              leadingIcon: Icons.email,
+              leading: LeadingIconConfig(Icons.email),
             ),
             kSpaceMediumVertical,
             const InputTextWidget(
               hint: 'Input your password',
-              leadingIcon: Icons.lock,
+              leading: LeadingIconConfig(Icons.lock),
               obscureText: true,
             ),
             const Spacer(),

@@ -1,3 +1,5 @@
+/// {@template headers}
+/// {@endtemplate}
 class Headers {
   Headers.empty();
 
@@ -6,9 +8,9 @@ class Headers {
   }
 
   Headers.fromMaps(Iterable<Map<String, dynamic>> headers) {
-    headers.forEach((header) {
+    for (var header in headers) {
       _headers.addAll(header);
-    });
+    }
   }
 
   final Map<String, dynamic> _headers = {};

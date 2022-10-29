@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:projectile/core/core.dart';
 
+/// {@template dio_client}
+/// {@endtemplate}
 class DioClient extends IProjectileClient {
   late Dio dioClient;
 

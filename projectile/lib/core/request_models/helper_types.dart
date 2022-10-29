@@ -1,3 +1,5 @@
+/// {@template helper_types}
+/// {@endtemplate}
 enum ContentType {
   binary('application/octet-stream'),
   json('application/json; charset=utf-8'),

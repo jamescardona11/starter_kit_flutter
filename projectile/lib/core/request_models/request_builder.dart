@@ -5,6 +5,8 @@ import 'method.dart';
 import 'multipart_file.dart';
 import 'request.dart';
 
+/// {@template request_builder}
+/// {@endtemplate}
 class RequestBuilder {
   late final String _target;
   late final bool _ignoreBaseUrl;

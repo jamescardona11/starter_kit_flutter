@@ -1,5 +1,8 @@
 import 'package:projectile/core/core.dart';
 
+/// {@template success}
+///
+/// {@endtemplate}
 class SuccessResult extends ProjectileResult {
   SuccessResult._({
     required this.headers,

@@ -4,6 +4,9 @@ import 'dart:collection';
 typedef Closure<T> = Future<T> Function(T value);
 
 //REF https://stackoverflow.com/questions/62878704/how-to-implement-an-async-task-queue-with-multiple-concurrent-workers-async-in
+
+/// {@template queue}
+/// {@endtemplate}
 abstract class IQueue<T> {
   Future<T> run(T initialData);
 

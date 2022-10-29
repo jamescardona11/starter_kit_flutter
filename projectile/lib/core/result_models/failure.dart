@@ -6,8 +6,10 @@ import 'package:projectile/core/misc_models/misc_models.dart';
 import 'package:projectile/core/request_models/request.dart';
 import 'package:projectile/core/result_models/result.dart';
 
+/// {@template failure}
 /// inspired on DIOError class
-
+///
+/// {@endtemplate}
 class FailureResult extends ProjectileResult {
   FailureResult._({
     required this.originalRequest,

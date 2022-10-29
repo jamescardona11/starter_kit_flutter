@@ -4,6 +4,8 @@ import 'package:projectile/core/result_models/result_models.dart';
 
 import 'interceptors.dart';
 
+/// {@template basic_logger_interceptor}
+/// {@endtemplate}
 class BasicProjectileLogs extends ProjectileInterceptor {
   BasicProjectileLogs(this.log);
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable_ui_flutter/widgets/widgets.dart'
-    show OutlineTextInput, EleventhButton;
+    show EleventhButton, InputTextWidget, LeadingIconConfig, OutlineTextInput;
 
 import 'const.dart';
 
@@ -36,17 +36,21 @@ class LoginPageV2 extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  OutlineTextInput(
+                  InputTextWidget(
                     label: 'Username',
-                    leadingIcon: Icons.person_outline,
-                    iconColor: kGrayColor,
+                    leading: const LeadingIconConfig(
+                      Icons.person_outline,
+                      defaultIconColor: kGrayColor,
+                    ),
                     cursorColor: kGrayLightColor,
                   ),
                   const SizedBox(height: 20),
-                  OutlineTextInput(
+                  InputTextWidget(
                     label: 'Password',
-                    leadingIcon: Icons.lock_outline,
-                    iconColor: kGrayColor,
+                    leading: const LeadingIconConfig(
+                      Icons.lock_outline,
+                      defaultIconColor: kGrayColor,
+                    ),
                     cursorColor: kGrayLightColor,
                   ),
                   SizedBox(

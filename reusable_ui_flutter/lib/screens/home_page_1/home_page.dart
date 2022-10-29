@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:reusable_ui_flutter/widgets/widgets.dart'
-    show InputTextWidget, ArcBottomBar, ArcBottomBarType, BottomElevenItem;
+    show
+        ArcBottomBar,
+        ArcBottomBarType,
+        BottomElevenItem,
+        InputTextWidget,
+        LeadingIconConfig;
 
 class HomeBasicPage extends StatelessWidget {
   /// default constructor
@@ -139,8 +144,7 @@ class _SearchBox extends StatelessWidget {
       ),
       child: InputTextWidget(
         hint: 'Search for anything',
-        leadingIcon: Icons.search,
-        borderColor: Colors.white,
+        leading: const LeadingIconConfig(Icons.search),
         background: const Color(0xFFF5F5F7),
         borderRadius: 40,
         boxShadow: BoxShadow(

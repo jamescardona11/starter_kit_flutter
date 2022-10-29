@@ -5,6 +5,8 @@ import '../misc_models/config.dart';
 import '../request_models/request_models.dart';
 import '../result_models/result_models.dart';
 
+/// {@template i_projectile_client}
+/// {@endtemplate}
 abstract class IClient<T> {
   late final Completer<T> completer;
   late final List<ProjectileInterceptor> listInterceptors;

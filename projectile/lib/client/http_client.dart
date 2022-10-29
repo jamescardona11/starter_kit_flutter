@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:projectile/core/core.dart';
 
+/// {@template http_client}
+/// {@endtemplate}
 class HttpClient extends IProjectileClient {
   HttpClient({super.config});
 

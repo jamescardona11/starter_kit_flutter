@@ -12,7 +12,6 @@ export 'fab/common/fab_item.dart';
 export 'fab/multi_fab.dart';
 export 'fab/row_fab.dart';
 export 'input/input_text_widget.dart';
-export 'input/outline_input_text_widget.dart';
 export 'loaders/points_loader.dart';
 export 'misc/blurred_container.dart';
 export 'misc/bounce_wrapper.dart';

@@ -376,7 +376,7 @@ class _WidgetsPageState extends State<WidgetsPage>
           padding: const EdgeInsets.all(8.0),
           child: InputTextWidget(
             hint: 'Enter your email',
-            leadingIcon: Icons.email,
+            leading: const LeadingIconConfig(Icons.email),
             onChanged: (value) {},
           ),
         ),
@@ -384,10 +384,12 @@ class _WidgetsPageState extends State<WidgetsPage>
   Widget outLineInputText() => const Scaffold(
         body: Padding(
           padding: EdgeInsets.all(8.0),
-          child: OutlineTextInput(
+          child: InputTextWidget(
             label: 'Username',
-            leadingIcon: Icons.person_outline,
-            iconColor: Colors.black,
+            leading: LeadingIconConfig(
+              Icons.person_outline,
+              defaultIconColor: Colors.black,
+            ),
             cursorColor: Colors.black38,
           ),
         ),

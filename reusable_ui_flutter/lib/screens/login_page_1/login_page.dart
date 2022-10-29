@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable_ui_flutter/widgets/widgets.dart'
-    show InputTextWidget, EleventhButton;
+    show EleventhButton, InputTextWidget, LeadingIconConfig;
 
 import 'const.dart';
 
@@ -35,13 +35,14 @@ class LoginPageV1 extends StatelessWidget {
               ),
               InputTextWidget(
                 hint: 'Enter your email',
-                leadingIcon: Icons.email,
+                leading: const LeadingIconConfig(Icons.email),
                 onChanged: (value) {},
               ),
               const SizedBox(height: 15),
-              InputTextWidget.password(
+              InputTextWidget(
                 hint: 'Enter your password',
-                leadingIcon: Icons.lock,
+                leading: const LeadingIconConfig(Icons.lock),
+                trailing: InputTextWidget.passwordIcon(color: kGrayLightColor2),
                 obscureText: true,
                 onChanged: (value) {},
               ),

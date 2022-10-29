@@ -6,6 +6,10 @@ import 'package:http_parser/http_parser.dart' show MediaType;
 ///
 /// This wrapper don't override any original behavior
 ///
+///
+/// {@template multipart_file}
+///
+/// {@endtemplate}
 class MultipartFileWrapper {
   MultipartFileWrapper._({
     required this.field,

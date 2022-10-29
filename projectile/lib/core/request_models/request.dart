@@ -4,6 +4,8 @@ import 'helper_types.dart';
 import 'method.dart';
 import 'multipart_file.dart';
 
+/// {@template helper_types}
+/// {@endtemplate}
 class ProjectileRequest {
   final String target;
   final bool ignoreBaseUrl;
