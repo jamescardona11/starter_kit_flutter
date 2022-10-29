@@ -18,12 +18,30 @@ mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
       );
 
   @override
+  Future<void> createMany(Iterable<T> data) => adapterDb.createMany(
+        table: tableName,
+        items: data.map((item) => AdapterDto(
+              item.id,
+              item.toJson(),
+            )),
+      );
+
+  @override
   Future<void> update(T data) => adapterDb.update(
         table: tableName,
         item: AdapterDto(
           data.id,
           data.toJson(),
         ),
+      );
+
+  @override
+  Future<void> updateMany(Iterable<T> data) => adapterDb.updateMany(
+        table: tableName,
+        items: data.map((item) => AdapterDto(
+              item.id,
+              item.toJson(),
+            )),
       );
 
   @override

@@ -12,6 +12,11 @@ abstract class IPocketAdapter {
     required AdapterDto item,
   });
 
+  Future<void> createMany({
+    required String table,
+    required Iterable<AdapterDto> items,
+  });
+
   Stream<AdapterDto?> read({
     required String table,
     required String id,
@@ -26,6 +31,11 @@ abstract class IPocketAdapter {
   Future<void> update({
     required String table,
     required AdapterDto item,
+  });
+
+  Future<void> updateMany({
+    required String table,
+    required Iterable<AdapterDto> items,
   });
 
   Future<void> delete({

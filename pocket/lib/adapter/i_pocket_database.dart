@@ -11,9 +11,13 @@ abstract class IPocketDatabase<T extends IPocketModel> {
 
   Future<void> create(T data);
 
+  Future<void> createMany(Iterable<T> data);
+
   Stream<T?> read(String id);
 
   Future<void> update(T data);
+
+  Future<void> updateMany(Iterable<T> data);
 
   Future<void> delete(String id);
 

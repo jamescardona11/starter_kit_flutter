@@ -74,12 +74,41 @@ class SembastPocket implements IPocketAdapter {
   }
 
   @override
+  Future<void> createMany({
+    required String table,
+    required Iterable<AdapterDto> items,
+  }) async {
+    final store = _sembastStore(table);
+
+    await _db.transaction((transaction) async {
+      await store.records(items.map((item) => item.id)).put(
+            _db,
+            items.map((item) => item.data).toList(),
+          );
+    });
+  }
+
+  @override
   Future<void> update({
     required String table,
     required AdapterDto item,
   }) async {
     final store = _sembastStore(table);
     await store.record(item.id).update(_db, item.data);
+  }
+
+  @override
+  Future<void> updateMany({
+    required String table,
+    required Iterable<AdapterDto> items,
+  }) async {
+    final store = _sembastStore(table);
+    await _db.transaction((transaction) async {
+      await store.records(items.map((item) => item.id)).update(
+            _db,
+            items.map((item) => item.data).toList(),
+          );
+    });
   }
 
   @override
