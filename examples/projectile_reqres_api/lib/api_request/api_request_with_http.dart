@@ -4,10 +4,11 @@ import 'package:projectile_reqres_api/model/user_model.dart';
 
 class ApiRequestWithHttp {
   Future<bool> login(String email, password) async {
-    final response = await Projectile(config: BaseConfig(enableLog: true))
+    final response = await Projectile(
+            config: BaseConfig(enableLog: true, baseUrl: ReqresUrls.base))
         .request(
           ProjectileRequest(
-            target: ReqresUrls.loginUrl,
+            target: ReqresUrls.loginUrl2,
             method: Method.POST,
             data: {
               "email": email,

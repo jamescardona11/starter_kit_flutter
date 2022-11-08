@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:projectile/core/core.dart';
@@ -23,38 +24,48 @@ class HttpClient extends IProjectileClient {
       httpRequest = await _transformProjectileMultipartRequest(request);
     }
 
-    final httpSendRequest =
-        await _httpClient.send(httpRequest).timeout(config.timeout);
+    try {
+      final httpSendRequest =
+          await _httpClient.send(httpRequest).timeout(config.timeout);
 
-    final response = await http.Response.fromStream(httpSendRequest);
+      final response = await http.Response.fromStream(httpSendRequest);
 
-    dynamic data;
+      dynamic data;
+      if (request.responseType.isJson && response.body.isNotEmpty) {
+        /// json
 
-    if (request.responseType.isJson && response.body.isNotEmpty) {
-      /// json
-      data = jsonDecode(response.body);
-    } else if (request.responseType.isBytes) {
-      /// bytes
-      data = response.bodyBytes;
-    } else {
-      /// plain
-      data = response.body;
-    }
+        data = jsonDecode(response.body);
+      } else if (request.responseType.isBytes) {
+        /// bytes
+        data = response.bodyBytes;
+      } else {
+        /// plain
+        data = response.body;
+      }
 
-    if (_isSuccessRequest(response.statusCode)) {
-      return SuccessResult.def(
-        statusCode: response.statusCode,
-        headers: response.headers,
-        data: data,
-        originalRequest: request,
-        // originalData: response.body,
-      );
-    } else {
+      if (_isSuccessRequest(response.statusCode)) {
+        return SuccessResult.def(
+          statusCode: response.statusCode,
+          headers: response.headers,
+          data: data,
+          originalRequest: request,
+          // originalData: response.body,
+        );
+      } else {
+        return FailureResult.def(
+          originalRequest: request,
+          error: data,
+          statusCode: response.statusCode,
+          headers: response.headers,
+        );
+      }
+    } catch (err, stackTrace) {
       return FailureResult.def(
         originalRequest: request,
-        error: (data),
-        statusCode: response.statusCode,
-        headers: response.headers,
+        error: err,
+        stackTrace: stackTrace,
+        statusCode: 100,
+        // headers: response.headers,
       );
     }
   }
@@ -109,7 +120,8 @@ class HttpClient extends IProjectileClient {
   }
 
   http.Request _transformProjectileRequest(ProjectileRequest request) {
-    final uri = request.getUri(config.baseUrl);
+    // final uri = request.getUri(config.baseUrl);
+    final uri = Uri.parse(request.target);
 
     final httpRequest = http.Request(request.methodStr, uri)
       ..headers.addAll(request.headers!.asMap)
@@ -122,7 +134,8 @@ class HttpClient extends IProjectileClient {
   Future<http.MultipartRequest> _transformProjectileMultipartRequest(
     ProjectileRequest request,
   ) async {
-    final uri = request.getUri(config.baseUrl);
+    // final uri = request.getUri(config.baseUrl);
+    final uri = Uri.parse(request.target);
 
     final httpRequest = http.MultipartRequest(request.methodStr, uri)
       ..headers.addAll(request.headers!.asMap)

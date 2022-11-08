@@ -47,7 +47,14 @@ abstract class IProjectileClient extends IClient<ProjectileResult>
 
     request.addDefaultHeaders(config);
 
-    return _sendRequest(request);
+    String finalTarget = '';
+    if (config.isHttp) {
+      finalTarget = request.getUri(config.baseUrl).toString();
+    } else {
+      finalTarget = request.getUrl(config.baseUrl);
+    }
+
+    return _sendRequest(request.copyWith(target: finalTarget));
   }
 
   /// Run request and everything relate to response and catch errors

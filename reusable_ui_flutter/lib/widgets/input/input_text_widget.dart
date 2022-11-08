@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// todo errors with height
 /// ```
 /// InputTextWidget(
 ///   hint: 'Enter your email',

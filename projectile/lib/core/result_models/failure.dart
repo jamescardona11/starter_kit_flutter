@@ -25,6 +25,7 @@ class FailureResult extends ProjectileResult {
     Map<String, dynamic> headers = const {},
     int? statusCode,
     StackTrace? stackTrace,
+
     // this.originalData,
   }) =>
       FailureResult._(
@@ -41,6 +42,7 @@ class FailureResult extends ProjectileResult {
   final Headers? headers;
 
   /// The original error/exception object; It's usually not null when `type`
+
   final dynamic error;
   final StackTrace? stackTrace;
 
@@ -50,7 +52,7 @@ class FailureResult extends ProjectileResult {
 
   @override
   String toString() {
-    var msg = 'FailureResult [$type]: $message';
+    var msg = 'FailureResult [$type]: $message ';
     if (error is Error) {
       msg += '\n${(error as Error).stackTrace}';
     }
@@ -107,3 +109,10 @@ enum ProjectileErrorType {
     return response;
   }
 }
+
+// class InnerException {
+//   final String data;
+//   final Object? err;
+
+//   InnerException([this.data = '', this.err]);
+// }

@@ -51,14 +51,14 @@ class RequestBuilder {
     return this;
   }
 
-  RequestBuilder defaultHeaders() {
-    Map<String, String> headers = {
-      'accept': 'application/json',
-    };
+  // RequestBuilder defaultHeaders() {
+  //   Map<String, String> headers = {
+  //     'accept': 'application/json',
+  //   };
 
-    _mHeaders.addAll(headers);
-    return this;
-  }
+  //   _mHeaders.addAll(headers);
+  //   return this;
+  // }
 
   RequestBuilder urlParams(Map<String, dynamic> params) {
     _mParams.addAll(params);

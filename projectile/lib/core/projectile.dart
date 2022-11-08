@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:projectile/client/http_client.dart';
+import 'package:projectile/projectile.dart';
 
 import 'core.dart';
 
@@ -37,9 +38,11 @@ class Projectile {
 
     final completer = Completer<ProjectileResult>();
 
-    client ??= HttpClient();
+    client ??= DioClient();
     if (config != null) {
-      client!.config = config!;
+      client!.config = config!.copyWith(
+        isHttp: client is HttpClient,
+      );
     }
 
     client!.sendRequest(

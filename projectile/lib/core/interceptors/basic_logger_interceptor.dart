@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:projectile/core/request_models/request.dart';
 import 'package:projectile/core/result_models/result_models.dart';
+import 'dart:developer' as developer;
 
 import 'interceptors.dart';
 
@@ -13,20 +13,32 @@ class BasicProjectileLogs extends ProjectileInterceptor {
 
   @override
   Future<FailureResult> onError(FailureResult data) async {
-    debugPrint('$log Error =>\n $data');
+    developer.log('$log Error =>\n $data');
 
     return data;
   }
 
   @override
   Future<ProjectileRequest> onRequest(ProjectileRequest data) async {
-    debugPrint('$log Request=>\n $data');
+    // String finalTarget = '';
+    // if (data.baseConfig!.isHttp) {
+    //   finalTarget = data.getUri(data.baseConfig!.baseUrl).toString();
+    // } else {
+    //   finalTarget = data.getUrl(data.baseConfig!.baseUrl);
+    // }
+    developer.log('$log Request=>\n ${data}');
     return data;
   }
 
   @override
   Future<SuccessResult> onResponse(SuccessResult data) async {
-    debugPrint('$log Response=>\n $data');
+    developer.log('$log Response=>\n $data');
     return data;
   }
+
+  // @override
+  // Future<InnerException> onException(InnerException data) async {
+  //   developer.log('$log Exception=>\n $data');
+  //   return data;
+  // }
 }

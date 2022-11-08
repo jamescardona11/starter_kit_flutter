@@ -10,6 +10,8 @@ abstract class ProjectileInterceptor {
   Future<SuccessResult> onResponse(SuccessResult data);
 
   Future<FailureResult> onError(FailureResult data);
+
+  // Future<InnerException> onException(InnerException data);
 }
 
 mixin RunInterceptor {

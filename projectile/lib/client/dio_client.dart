@@ -17,13 +17,14 @@ class DioClient extends IProjectileClient {
 
   @override
   Future<SuccessResult> createRequest(ProjectileRequest request) async {
-    final url = request.getUrl();
+    // final url = request.getUrl(config.baseUrl);
+    // print('URL: $url');
 
     final data =
         request.isMultipart ? await _createFromMap(request) : request.data;
 
     final response = await dioClient.request(
-      url,
+      request.target,
       options: getOptions(request),
       data: data,
     );
