@@ -11,6 +11,8 @@ typedef Completion<T, R> = R Function(T success);
 ///
 /// Result<ResponseError, ResponseSuccess>
 ///
+/// inspired by https://github.com/epam-cross-platform-lab/dart_result_type
+///
 /// {@endtemplate}
 abstract class ProjectileResult {
   /// Returns true if [Result] is [Failure].

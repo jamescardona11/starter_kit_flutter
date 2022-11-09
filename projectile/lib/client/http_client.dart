@@ -124,7 +124,7 @@ class HttpClient extends IProjectileClient {
     final uri = Uri.parse(request.target);
 
     final httpRequest = http.Request(request.methodStr, uri)
-      ..headers.addAll(request.headers!.asMap)
+      ..headers.addAll(_asMap(request.headers ?? {}))
       ..bodyFields =
           request.data.map((key, value) => MapEntry(key, value.toString()));
 
@@ -138,11 +138,26 @@ class HttpClient extends IProjectileClient {
     final uri = Uri.parse(request.target);
 
     final httpRequest = http.MultipartRequest(request.methodStr, uri)
-      ..headers.addAll(request.headers!.asMap)
+      ..headers.addAll(_asMap(request.headers ?? {}))
       ..fields.addAll(
           request.data.map((key, value) => MapEntry(key, value.toString())))
       ..files.add(await createNativeMultipartObject(request.multipart!));
 
     return httpRequest;
+  }
+
+  Map<String, String> _asMap(Map<String, dynamic> headers) {
+    final Map<String, String> newMap = {};
+    if (headers.isEmpty) return newMap;
+
+    headers.forEach((key, value) {
+      if (value is String) {
+        newMap[key] = value;
+      } else if (value is List<String>) {
+        newMap[key] = value.join(',');
+      }
+    });
+
+    return newMap;
   }
 }

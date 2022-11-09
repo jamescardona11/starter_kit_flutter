@@ -19,7 +19,7 @@ class SuccessResult extends ProjectileResult {
     // this.originalData,
   }) =>
       SuccessResult._(
-        headers: Headers.fromMap(headers),
+        headers: headers,
         data: data,
         originalRequest: originalRequest,
         statusCode: statusCode,
@@ -27,7 +27,7 @@ class SuccessResult extends ProjectileResult {
 
   final dynamic data;
   final int? statusCode;
-  final Headers headers;
+  final Map<String, dynamic> headers;
   final ProjectileRequest originalRequest;
 
   Map<String, dynamic> get dataJson =>

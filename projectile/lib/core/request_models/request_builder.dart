@@ -14,9 +14,10 @@ class RequestBuilder {
   ContentType? _contentType;
   PResponseType? _responseType;
 
-  final Headers _mHeaders = Headers.empty();
+  // final Headers _mHeaders = Headers.empty();
+  final Map<String, dynamic> _mHeaders = {};
   final Map<String, dynamic> _mParams = {};
-  final Map<String, dynamic> _mQuery = {};
+  final Map<String, dynamic> _mQueries = {};
   final Map<String, dynamic> _mData = {};
 
   MultipartFileWrapper? _multipart;
@@ -65,8 +66,8 @@ class RequestBuilder {
     return this;
   }
 
-  RequestBuilder query(Map<String, dynamic> query) {
-    _mQuery.addAll(query);
+  RequestBuilder queries(Map<String, dynamic> queries) {
+    _mQueries.addAll(queries);
     return this;
   }
 
@@ -88,7 +89,7 @@ class RequestBuilder {
       ignoreBaseUrl: _ignoreBaseUrl,
       isMultipart: _multipart != null,
       multipart: _multipart,
-      query: _mQuery,
+      queries: _mQueries,
       headers: _mHeaders,
       urlParams: _mParams,
       data: _mData,

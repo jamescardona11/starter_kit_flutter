@@ -5,7 +5,7 @@ import 'headers.dart';
 
 class BaseConfig {
   final String baseUrl;
-  final Headers? baseHeaders;
+  final Map<String, dynamic>? baseHeaders;
   final Duration timeout;
   final String logsTag;
   final bool enableLog;
@@ -27,7 +27,7 @@ class BaseConfig {
 
   BaseConfig copyWith({
     String? baseUrl,
-    Headers? baseHeaders,
+    Map<String, dynamic>? baseHeaders,
     Duration? timeout,
     String? logsTag,
     bool? enableLog,

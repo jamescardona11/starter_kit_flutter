@@ -29,7 +29,7 @@ class FailureResult extends ProjectileResult {
     // this.originalData,
   }) =>
       FailureResult._(
-        headers: Headers.fromMap(headers),
+        headers: headers,
         error: error,
         originalRequest: originalRequest,
         stackTrace: stackTrace,
@@ -39,7 +39,7 @@ class FailureResult extends ProjectileResult {
   /// Request info.
   final ProjectileRequest originalRequest;
   final int? statusCode;
-  final Headers? headers;
+  final Map<String, dynamic>? headers;
 
   /// The original error/exception object; It's usually not null when `type`
 
@@ -109,10 +109,3 @@ enum ProjectileErrorType {
     return response;
   }
 }
-
-// class InnerException {
-//   final String data;
-//   final Object? err;
-
-//   InnerException([this.data = '', this.err]);
-// }

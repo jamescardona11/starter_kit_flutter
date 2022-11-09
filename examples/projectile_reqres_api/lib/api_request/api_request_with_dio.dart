@@ -10,7 +10,7 @@ class ApiRequestWithDio {
         .request(
           RequestBuilder.target(ReqresUrls.listUsersUrl)
               .mode(Method.GET)
-              .query({'n': page}).build(),
+              .queries({'n': page}).build(),
         )
         .fire();
 
