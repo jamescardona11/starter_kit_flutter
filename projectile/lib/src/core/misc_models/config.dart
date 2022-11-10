@@ -9,7 +9,7 @@ class BaseConfig {
   final Duration timeout;
   final String logsTag;
   final bool enableLog;
-  final bool isHttp;
+  final bool isHttpClient;
 
   const BaseConfig({
     this.baseUrl = '',
@@ -17,7 +17,7 @@ class BaseConfig {
     this.timeout = const Duration(seconds: 10),
     this.logsTag = 'BasicProjectileLogs',
     this.enableLog = false,
-    this.isHttp = false,
+    this.isHttpClient = false,
   });
 
   @override
@@ -39,7 +39,7 @@ class BaseConfig {
       timeout: timeout ?? this.timeout,
       logsTag: logsTag ?? this.logsTag,
       enableLog: enableLog ?? this.enableLog,
-      isHttp: isHttp ?? this.isHttp,
+      isHttpClient: isHttp ?? this.isHttpClient,
     );
   }
 }

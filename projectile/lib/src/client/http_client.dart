@@ -12,7 +12,7 @@ import 'package:projectile/src/core/result_models/success.dart';
 /// {@template http_client}
 /// {@endtemplate}
 class HttpClient extends IProjectileClient {
-  HttpClient({super.config});
+  HttpClient();
 
   final http.Client _httpClient = http.Client();
 
@@ -30,7 +30,7 @@ class HttpClient extends IProjectileClient {
 
     try {
       final httpSendRequest =
-          await _httpClient.send(httpRequest).timeout(config.timeout);
+          await _httpClient.send(httpRequest).timeout(timeout);
 
       final response = await http.Response.fromStream(httpSendRequest);
 
@@ -47,7 +47,8 @@ class HttpClient extends IProjectileClient {
         data = response.body;
       }
 
-      if (_isSuccessRequest(response.statusCode)) {
+      if (isSuccessRequest(response.statusCode) &&
+          request.customSuccess(data)) {
         return SuccessResult.def(
           statusCode: response.statusCode,
           headers: response.headers,
@@ -69,24 +70,9 @@ class HttpClient extends IProjectileClient {
         error: err,
         stackTrace: stackTrace,
         statusCode: 100,
-        // headers: response.headers,
       );
     }
   }
-
-  bool _isSuccessRequest(int? statusCode) =>
-      statusCode != null &&
-      ![
-        400, // Bad Request
-        401, // Unauthorized
-        402, // Payment Required
-        403, // Forbidden
-        404, // Not Found
-        405, // Method Not Allowed,
-        413, // Request Entity Too Large
-        414, // Request URI Too Long,
-        415, // Unsupported Media Type
-      ].contains(statusCode);
 
   @override
   Future<http.MultipartFile> createNativeMultipartObject(

@@ -4,6 +4,8 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:projectile/src/core/client/i_projectile_client.dart';
 import 'package:projectile/src/core/request_models/multipart_file.dart';
 import 'package:projectile/src/core/request_models/request.dart';
+import 'package:projectile/src/core/result_models/failure.dart';
+import 'package:projectile/src/core/result_models/result.dart';
 import 'package:projectile/src/core/result_models/success.dart';
 
 /// {@template dio_client}
@@ -13,32 +15,48 @@ class DioClient extends IProjectileClient {
 
   DioClient({
     Dio? dio,
-    super.config,
   }) {
     dioClient = dio ?? Dio();
   }
 
   @override
-  Future<SuccessResult> createRequest(ProjectileRequest request) async {
-    // final url = request.getUrl(config.baseUrl);
-    // print('URL: $url');
-
-    final data =
+  Future<ProjectileResult> createRequest(ProjectileRequest request) async {
+    final dataToRequest =
         request.isMultipart ? await _createFromMap(request) : request.data;
 
-    final response = await dioClient.request(
-      request.target,
-      options: getOptions(request),
-      data: data,
-    );
+    try {
+      final response = await dioClient.request(
+        request.target,
+        options: getOptions(request),
+        data: dataToRequest,
+      );
 
-    return SuccessResult.def(
-      statusCode: response.statusCode,
-      headers: response.headers.map,
-      data: response.data,
-      // originalData: response.data,
-      originalRequest: request,
-    );
+      if (isSuccessRequest(response.statusCode) &&
+          request.customSuccess(response.data)) {
+        return SuccessResult.def(
+          statusCode: response.statusCode,
+          headers: response.headers.map,
+          data: response.data,
+          // originalData: response.data,
+          originalRequest: request,
+        );
+      } else {
+        return FailureResult.def(
+          originalRequest: request,
+          error: response.data,
+          statusCode: response.statusCode,
+          headers: response.headers.map,
+        );
+      }
+    } catch (err, stackTrace) {
+      return FailureResult.def(
+        originalRequest: request,
+        error: err,
+        stackTrace: stackTrace,
+        statusCode: 100,
+        // headers: response.headers,
+      );
+    }
   }
 
   @override

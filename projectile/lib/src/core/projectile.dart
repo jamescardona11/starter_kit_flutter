@@ -11,30 +11,28 @@ import 'result_models/result.dart';
 
 //Result<IProjectileError, IProjectileResponse>
 class Projectile {
-  IProjectileClient? client;
-  final List<ProjectileInterceptor> _interceptors = [];
+  late final IProjectileClient _client;
+  final BaseConfig? config;
+  List<ProjectileInterceptor> interceptors;
   ProjectileRequest? _request;
-  BaseConfig? config;
 
   Projectile({
-    this.client,
+    IProjectileClient? client,
     this.config,
-  });
+    this.interceptors = const [],
+  }) {
+    _client = client ?? DioClient();
+    if (config != null) {
+      _client.addNewConfig(config!.copyWith(
+        isHttp: _client is HttpClient,
+      ));
+      _client.addAllInterceptors(interceptors);
+    }
+  }
 
   Projectile request(ProjectileRequest request) {
     _request = request;
     return this;
-  }
-
-  Projectile addCustomInterceptors(
-    Iterable<ProjectileInterceptor> interceptors,
-  ) {
-    _interceptors.addAll(interceptors);
-    return this;
-  }
-
-  Projectile addCustomInterceptor(ProjectileInterceptor interceptor) {
-    return addCustomInterceptors([interceptor]);
   }
 
   Future<ProjectileResult> fire() {
@@ -42,17 +40,9 @@ class Projectile {
 
     final completer = Completer<ProjectileResult>();
 
-    client ??= DioClient();
-    if (config != null) {
-      client!.config = config!.copyWith(
-        isHttp: client is HttpClient,
-      );
-    }
-
-    client!.sendRequest(
+    _client.sendRequest(
       _request!,
       completer,
-      _interceptors,
     );
 
     _request = null;

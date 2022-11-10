@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../misc_models/misc_models.dart';
 import 'helper_types.dart';
 import 'method.dart';
@@ -6,6 +5,10 @@ import 'multipart_file.dart';
 
 /// {@template helper_types}
 /// {@endtemplate}
+
+typedef ValueGetterRequest<T> = bool Function(dynamic json);
+bool _defaultCustomSuccess(dynamic json) => true;
+
 class ProjectileRequest {
   final String target;
   final bool ignoreBaseUrl;
@@ -18,10 +21,9 @@ class ProjectileRequest {
   final Map<String, dynamic> queries;
   final Map<String, dynamic> data;
   final MultipartFileWrapper? multipart;
-
   Map<String, dynamic>? headers;
 
-  // final _moreThanTwoSlashesRegex = RegExp('/{2,}');
+  final ValueGetterRequest customSuccess;
 
   ProjectileRequest({
     required this.target,
@@ -35,6 +37,7 @@ class ProjectileRequest {
     this.urlParams = const {},
     this.queries = const {},
     this.data = const {},
+    this.customSuccess = _defaultCustomSuccess,
   });
 
   void addDefaultHeaders(BaseConfig config) {
@@ -49,13 +52,10 @@ class ProjectileRequest {
     final tempUrl = (bUrl + target).trim();
 
     final uri = Uri.parse(_addDynamicAddressParams(tempUrl));
-    if (queries.isNotEmpty) {
-      uri.replace(
-          queryParameters:
-              queries.map((key, value) => MapEntry(key, value.toString())));
-    }
 
-    return uri;
+    if (queries.isNotEmpty) {}
+
+    return uri.replace(queryParameters: queries);
   }
 
   String getUrl([String baseUrl = '']) {
@@ -88,6 +88,7 @@ class ProjectileRequest {
     Map<String, dynamic>? queries,
     Map<String, dynamic>? data,
     MultipartFileWrapper? multipart,
+    ValueGetterRequest? customSuccess,
   }) {
     return ProjectileRequest(
       target: target ?? this.target,
@@ -101,6 +102,7 @@ class ProjectileRequest {
       queries: queries ?? this.queries,
       data: data ?? this.data,
       multipart: multipart ?? this.multipart,
+      customSuccess: customSuccess ?? this.customSuccess,
     );
   }
 }
