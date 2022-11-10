@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart' hide Headers;
-import 'package:projectile/core/core.dart';
+import 'package:projectile/src/core/client/i_projectile_client.dart';
+import 'package:projectile/src/core/request_models/multipart_file.dart';
+import 'package:projectile/src/core/request_models/request.dart';
+import 'package:projectile/src/core/result_models/success.dart';
 
 /// {@template dio_client}
 /// {@endtemplate}

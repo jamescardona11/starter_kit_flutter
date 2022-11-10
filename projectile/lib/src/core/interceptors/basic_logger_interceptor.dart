@@ -1,5 +1,5 @@
-import 'package:projectile/core/request_models/request.dart';
-import 'package:projectile/core/result_models/result_models.dart';
+import 'package:projectile/src/core/request_models/request.dart';
+import 'package:projectile/src/core/result_models/result_models.dart';
 import 'dart:developer' as developer;
 
 import 'interceptors.dart';

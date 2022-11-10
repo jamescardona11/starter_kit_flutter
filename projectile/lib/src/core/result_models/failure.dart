@@ -1,10 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 import 'dart:io';
 
-import 'package:projectile/core/misc_models/misc_models.dart';
-import 'package:projectile/core/request_models/request.dart';
-import 'package:projectile/core/result_models/result.dart';
+import 'package:projectile/src/core/request_models/request.dart';
+import 'package:projectile/src/core/result_models/result.dart';
 
 /// {@template failure}
 /// inspired on DIOError class

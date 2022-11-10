@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:projectile/core/core.dart';
+import 'package:projectile/src/core/client/i_projectile_client.dart';
+import 'package:projectile/src/core/request_models/multipart_file.dart';
+import 'package:projectile/src/core/request_models/request.dart';
+import 'package:projectile/src/core/result_models/failure.dart';
+import 'package:projectile/src/core/result_models/result.dart';
+import 'package:projectile/src/core/result_models/success.dart';
 
 /// {@template http_client}
 /// {@endtemplate}

@@ -1,4 +1,3 @@
-import 'package:projectile/core/core.dart';
 import 'package:projectile/projectile.dart';
 import 'package:projectile_reqres_api/api_request/reqres_urls.dart';
 

@@ -1,4 +1,5 @@
-import 'package:projectile/core/core.dart';
+import 'package:projectile/src/core/request_models/request.dart';
+import 'package:projectile/src/core/result_models/result.dart';
 
 /// {@template success}
 ///

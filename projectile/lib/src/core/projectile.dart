@@ -1,9 +1,13 @@
 import 'dart:async';
 
-import 'package:projectile/client/http_client.dart';
-import 'package:projectile/projectile.dart';
+import 'package:projectile/src/client/dio_client.dart';
+import 'package:projectile/src/client/http_client.dart';
 
-import 'core.dart';
+import 'client/i_projectile_client.dart';
+import 'interceptors/interceptor_contract.dart';
+import 'misc_models/config.dart';
+import 'request_models/request.dart';
+import 'result_models/result.dart';
 
 //Result<IProjectileError, IProjectileResponse>
 class Projectile {

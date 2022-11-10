@@ -1,4 +1,4 @@
-import 'package:projectile/core/misc_models/headers.dart';
+import 'package:projectile/src/core/misc_models/headers.dart';
 
 import 'helper_types.dart';
 import 'method.dart';
