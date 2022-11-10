@@ -1,15 +1,15 @@
-import 'package:pocket/dto/adapter_dto.dart';
+import 'package:pocket/src/dto/adapter_dto.dart';
 
 import '../dto/i_pocket_model.dart';
 import 'i_pocket_adapter.dart';
 import 'i_pocket_database.dart';
 
-mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
-    implements IPocketDatabase<T> {
+mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
+    T extends IPocketModel> implements IPocketSingleDataSource<T> {
   A get adapterDb;
 
   @override
-  Future<void> create(T data) => adapterDb.create(
+  Future<void> create(T data, String tableName) => adapterDb.create(
         table: tableName,
         item: AdapterDto(
           data.id,
@@ -18,7 +18,8 @@ mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
       );
 
   @override
-  Future<void> createMany(Iterable<T> data) => adapterDb.createMany(
+  Future<void> createMany(Iterable<T> data, String tableName) =>
+      adapterDb.createMany(
         table: tableName,
         items: data.map((item) => AdapterDto(
               item.id,
@@ -27,7 +28,7 @@ mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
       );
 
   @override
-  Future<void> update(T data) => adapterDb.update(
+  Future<void> update(T data, String tableName) => adapterDb.update(
         table: tableName,
         item: AdapterDto(
           data.id,
@@ -36,7 +37,8 @@ mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
       );
 
   @override
-  Future<void> updateMany(Iterable<T> data) => adapterDb.updateMany(
+  Future<void> updateMany(Iterable<T> data, String tableName) =>
+      adapterDb.updateMany(
         table: tableName,
         items: data.map((item) => AdapterDto(
               item.id,
@@ -45,13 +47,13 @@ mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
       );
 
   @override
-  Future<void> delete(String id) => adapterDb.delete(
+  Future<void> delete(String id, String tableName) => adapterDb.delete(
         table: tableName,
         id: id,
       );
 
   @override
-  Stream<T?> read(String id) =>
+  Stream<T?> read(String id, String tableName) =>
       adapterDb.read(table: tableName, id: id).map((dto) {
         if (dto != null) {
           try {
@@ -64,5 +66,5 @@ mixin PocketDatabase<A extends IPocketAdapter, T extends IPocketModel>
       });
 
   @override
-  Future<void> dropTable() => adapterDb.dropTable(tableName);
+  Future<void> dropTable(String tableName) => adapterDb.dropTable(tableName);
 }

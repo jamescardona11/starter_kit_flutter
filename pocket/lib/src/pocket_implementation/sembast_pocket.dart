@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:pocket/adapter/i_pocket_adapter.dart';
-import 'package:pocket/adapter/query_filter.dart';
-import 'package:pocket/dto/adapter_dto.dart';
+import 'package:pocket/src/adapter/i_pocket_adapter.dart';
+import 'package:pocket/src/adapter/query_filter.dart';
+import 'package:pocket/src/dto/adapter_dto.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 

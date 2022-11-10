@@ -1,5 +1,5 @@
-import 'package:pocket/dto/adapter_dto.dart';
-import 'package:pocket/dto/primitive_model.dart';
+import 'package:pocket/src/dto/adapter_dto.dart';
+import 'package:pocket/src/dto/primitive_model.dart';
 
 import 'i_pocket_adapter.dart';
 import 'i_pocket_database.dart';

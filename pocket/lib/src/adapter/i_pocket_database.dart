@@ -1,4 +1,4 @@
-import 'package:pocket/dto/primitive_model.dart';
+import 'package:pocket/src/dto/primitive_model.dart';
 
 import '../dto/i_pocket_model.dart';
 
@@ -6,7 +6,7 @@ import '../dto/i_pocket_model.dart';
 /// Represents the `client interface` in Adapter Pattern diagram
 /// https://refactoring.guru/es/design-patterns/adapter
 
-abstract class IPocketDatabase<T extends IPocketModel> {
+abstract class IPocketMultiDataSource<T extends IPocketModel> {
   String get tableName;
 
   Future<void> create(T data);
@@ -22,6 +22,24 @@ abstract class IPocketDatabase<T extends IPocketModel> {
   Future<void> delete(String id);
 
   Future<void> dropTable();
+
+  T fromJson(Map<String, dynamic> json);
+}
+
+abstract class IPocketSingleDataSource<T extends IPocketModel> {
+  Future<void> create(T data, String tableName);
+
+  Future<void> createMany(Iterable<T> data, String tableName);
+
+  Stream<T?> read(String id, String tableName);
+
+  Future<void> update(T data, String tableName);
+
+  Future<void> updateMany(Iterable<T> data, String tableName);
+
+  Future<void> delete(String id, String tableName);
+
+  Future<void> dropTable(String tableName);
 
   T fromJson(Map<String, dynamic> json);
 }

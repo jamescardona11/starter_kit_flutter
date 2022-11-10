@@ -1,4 +1,4 @@
-import 'package:pocket/dto/adapter_dto.dart';
+import 'package:pocket/src/dto/adapter_dto.dart';
 
 import 'query_filter.dart';
 
