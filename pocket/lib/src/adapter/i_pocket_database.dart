@@ -6,7 +6,9 @@ import '../dto/i_pocket_model.dart';
 /// Represents the `client interface` in Adapter Pattern diagram
 /// https://refactoring.guru/es/design-patterns/adapter
 
-abstract class IPocketMultiDataSource<T extends IPocketModel> {
+typedef FromJson<T> = T Function(Map<String, dynamic> json);
+
+abstract class IPocketSingleDataSource<T extends IPocketModel> {
   String get tableName;
 
   Future<void> create(T data);
@@ -26,22 +28,28 @@ abstract class IPocketMultiDataSource<T extends IPocketModel> {
   T fromJson(Map<String, dynamic> json);
 }
 
-abstract class IPocketSingleDataSource<T extends IPocketModel> {
-  Future<void> create(T data, String tableName);
+abstract class IPocketMultiDataSource {
+  Future<void> create<T extends IPocketModel>(T data, String tableName);
 
-  Future<void> createMany(Iterable<T> data, String tableName);
+  Future<void> createMany<T extends IPocketModel>(
+      Iterable<T> data, String tableName);
 
-  Stream<T?> read(String id, String tableName);
+  Stream<T?> read<T extends IPocketModel>(
+    String id,
+    String tableName,
+    FromJson fromJson,
+  );
 
-  Future<void> update(T data, String tableName);
+  Future<void> update<T extends IPocketModel>(T data, String tableName);
 
-  Future<void> updateMany(Iterable<T> data, String tableName);
+  Future<void> updateMany<T extends IPocketModel>(
+      Iterable<T> data, String tableName);
 
   Future<void> delete(String id, String tableName);
 
   Future<void> dropTable(String tableName);
 
-  T fromJson(Map<String, dynamic> json);
+  // T fromJson(Map<String, dynamic> json);
 }
 
 abstract class IPocketCache {

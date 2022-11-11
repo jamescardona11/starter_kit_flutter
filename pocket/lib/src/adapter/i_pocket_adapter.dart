@@ -24,7 +24,7 @@ abstract class IPocketAdapter {
 
   Stream<Iterable<AdapterDto>> readWhere({
     required String table,
-    required Iterable<PocketQuery> pocketQueries,
+    Iterable<PocketQuery> pocketQueries = const [],
     bool andFilters = true,
   });
 

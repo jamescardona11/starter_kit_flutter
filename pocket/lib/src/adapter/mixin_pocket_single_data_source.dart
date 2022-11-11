@@ -9,7 +9,7 @@ mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
   A get adapterDb;
 
   @override
-  Future<void> create(T data, String tableName) => adapterDb.create(
+  Future<void> create(T data) => adapterDb.create(
         table: tableName,
         item: AdapterDto(
           data.id,
@@ -18,8 +18,7 @@ mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
       );
 
   @override
-  Future<void> createMany(Iterable<T> data, String tableName) =>
-      adapterDb.createMany(
+  Future<void> createMany(Iterable<T> data) => adapterDb.createMany(
         table: tableName,
         items: data.map((item) => AdapterDto(
               item.id,
@@ -28,7 +27,7 @@ mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
       );
 
   @override
-  Future<void> update(T data, String tableName) => adapterDb.update(
+  Future<void> update(T data) => adapterDb.update(
         table: tableName,
         item: AdapterDto(
           data.id,
@@ -37,8 +36,7 @@ mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
       );
 
   @override
-  Future<void> updateMany(Iterable<T> data, String tableName) =>
-      adapterDb.updateMany(
+  Future<void> updateMany(Iterable<T> data) => adapterDb.updateMany(
         table: tableName,
         items: data.map((item) => AdapterDto(
               item.id,
@@ -47,13 +45,13 @@ mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
       );
 
   @override
-  Future<void> delete(String id, String tableName) => adapterDb.delete(
+  Future<void> delete(String id) => adapterDb.delete(
         table: tableName,
         id: id,
       );
 
   @override
-  Stream<T?> read(String id, String tableName) =>
+  Stream<T?> read(String id) =>
       adapterDb.read(table: tableName, id: id).map((dto) {
         if (dto != null) {
           try {
@@ -66,5 +64,5 @@ mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
       });
 
   @override
-  Future<void> dropTable(String tableName) => adapterDb.dropTable(tableName);
+  Future<void> dropTable() => adapterDb.dropTable(tableName);
 }
