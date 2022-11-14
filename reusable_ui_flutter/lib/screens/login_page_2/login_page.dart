@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable_ui_flutter/widgets/widgets.dart'
-    show EleventhButton, InputTextWidget, LeadingIconConfig, OutlineTextInput;
+    show EleventhButton, InputTextWidget, LeadingIconConfig;
 
 import 'const.dart';
 

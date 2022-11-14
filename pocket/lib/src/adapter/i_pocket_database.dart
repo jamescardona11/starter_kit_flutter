@@ -1,6 +1,4 @@
-import 'package:pocket/src/dto/primitive_model.dart';
-
-import '../dto/i_pocket_model.dart';
+import 'package:pocket/pocket.dart';
 
 /// adapter to convert inner class request to external request
 /// Represents the `client interface` in Adapter Pattern diagram
@@ -16,6 +14,10 @@ abstract class IPocketSingleDataSource<T extends IPocketModel> {
   Future<void> createMany(Iterable<T> data);
 
   Stream<T?> read(String id);
+
+  Stream<Iterable<T>> readWhere({
+    Iterable<PocketQuery> pocketQueries = const [],
+  });
 
   Future<void> update(T data);
 
@@ -34,11 +36,17 @@ abstract class IPocketMultiDataSource {
   Future<void> createMany<T extends IPocketModel>(
       Iterable<T> data, String tableName);
 
-  Stream<T?> read<T extends IPocketModel>(
+  Stream<T?> read<T>(
     String id,
     String tableName,
     FromJson fromJson,
   );
+
+  Stream<Iterable<T>> readWhere<T>(
+    tableName,
+    FromJson fromJson, {
+    Iterable<PocketQuery> pocketQueries = const [],
+  });
 
   Future<void> update<T extends IPocketModel>(T data, String tableName);
 

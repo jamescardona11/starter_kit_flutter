@@ -3,6 +3,7 @@ import 'package:pocket/src/dto/adapter_dto.dart';
 import '../dto/i_pocket_model.dart';
 import 'i_pocket_adapter.dart';
 import 'i_pocket_database.dart';
+import 'query_filter.dart';
 
 mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
     T extends IPocketModel> implements IPocketSingleDataSource<T> {
@@ -62,6 +63,15 @@ mixin PocketSingleDataSourceMixin<A extends IPocketAdapter,
         }
         return null;
       });
+
+  @override
+  Stream<Iterable<T>> readWhere({
+    Iterable<PocketQuery> pocketQueries = const [],
+  }) {
+    return adapterDb
+        .readWhere(table: tableName, pocketQueries: pocketQueries)
+        .map((event) => event.map((dto) => fromJson(dto.data)));
+  }
 
   @override
   Future<void> dropTable() => adapterDb.dropTable(tableName);

@@ -26,7 +26,7 @@ class BasicProjectileLogs extends ProjectileInterceptor {
     // } else {
     //   finalTarget = data.getUrl(data.baseConfig!.baseUrl);
     // }
-    developer.log('$log Request=>\n ${data}');
+    developer.log('$log Request=>\n $data');
     return data;
   }
 

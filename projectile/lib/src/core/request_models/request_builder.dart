@@ -1,5 +1,3 @@
-import 'package:projectile/src/core/misc_models/headers.dart';
-
 import 'helper_types.dart';
 import 'method.dart';
 import 'multipart_file.dart';
