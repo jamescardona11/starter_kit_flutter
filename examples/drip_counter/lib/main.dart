@@ -30,7 +30,7 @@ class DripCounterPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DripBuilder<DripCounter, DripCounterState>(
-              streamListener: true,
+              streamListener: false,
               builder: (context, state) => Text('Counter: ${state.count}'),
             ),
             SizedBox(height: 20),

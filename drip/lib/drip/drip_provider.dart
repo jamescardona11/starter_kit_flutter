@@ -33,11 +33,18 @@ class DripProvider<D extends Drip> extends StatefulWidget {
   }
 
   static D read<D extends Drip>(BuildContext context) {
-    return DripProvider.of<D>(context);
+    return of<D>(context);
   }
 
   static D watch<D extends Drip>(BuildContext context) {
-    return DripProvider.of<D>(context, listen: true);
+    return of<D>(context, listen: true);
+  }
+
+  static void dispatch<D extends Drip>(
+    BuildContext context,
+    DripEvent event,
+  ) {
+    return of<D>(context).dispatch(event);
   }
 
   // Stream<DState> listen<DState>(
@@ -47,13 +54,6 @@ class DripProvider<D extends Drip> extends StatefulWidget {
   //       .map((state) => selector(state))
   //       .distinct();
   // }
-
-  static void dispatch<D extends Drip>(
-    BuildContext context,
-    DripEvent event,
-  ) {
-    return of<D>(context).dispatch(event);
-  }
 
   DripProvider<D> copyWith(Widget child) {
     return DripProvider<D>(

@@ -20,7 +20,8 @@ abstract class Drip<DState> extends ChangeNotifier {
 
     // I have the initialState in the DripBuilder
     // Add initialState in controller
-    _stateController.add(_initialState);
+    // _stateController.add(_initialState);
+    // print('initialState: ');
   }
 
   Stream<DState> mutableStateOf(DripEvent event) async* {}
@@ -43,11 +44,12 @@ abstract class Drip<DState> extends ChangeNotifier {
   @protected
   void emit(DState newState) {
     if (state == newState) return;
-    state = newState;
+
+    // state = newState;
     dispatch(GenericStateChangeAction(newState));
   }
 
-  @protected
+  // @protected
   void dispatch(DripEvent event) {
     try {
       onEvent(event);
