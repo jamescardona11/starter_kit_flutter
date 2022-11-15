@@ -18,13 +18,13 @@ class SortPocketQuery extends PocketQuery {
 
 class WherePocketQuery extends PocketQuery {
   final WhereType comparator;
-  final Object value;
   final String field;
+  final dynamic value;
 
   WherePocketQuery({
     required this.comparator,
-    required this.value,
     required this.field,
+    this.value,
   });
 }
 
@@ -43,4 +43,6 @@ enum WhereType {
   lessThan,
   lessThanOrEquals,
   contains,
+  into,
+  notNull,
 }

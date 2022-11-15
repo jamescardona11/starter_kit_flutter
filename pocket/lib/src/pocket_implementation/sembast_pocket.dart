@@ -231,6 +231,13 @@ class SembastPocket implements IPocketAdapter {
           wherePocketQuery.field,
           wherePocketQuery.value,
         );
+      case WhereType.into:
+        return Filter.inList(
+          wherePocketQuery.field,
+          wherePocketQuery.value as List<Object>,
+        );
+      case WhereType.notNull:
+        return Filter.notNull(wherePocketQuery.field);
     }
   }
 }
