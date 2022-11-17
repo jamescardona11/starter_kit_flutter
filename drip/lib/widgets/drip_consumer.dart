@@ -1,6 +1,10 @@
 import 'package:drip/drip.dart';
 import 'package:flutter/material.dart';
 
+//consider usign RX for sent last state subscription
+// test JUANQ solution
+// see what happens if use change notifier in one side and stream in other
+
 class DripConsumer<D extends Drip<DState>, DState> extends StatefulWidget {
   /// default constructor
   const DripConsumer({

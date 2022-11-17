@@ -44,7 +44,7 @@ class _DripBuilderState<D extends Drip<DState>, DState>
   Widget build(BuildContext context) {
     return widget.streamListener
         ? StreamBuilder<DState>(
-            initialData: _drip.initialState,
+            initialData: _drip.state,
             stream: _drip.stateStream,
             builder: (_, snapshot) {
               return widget.builder(context, snapshot.requireData);

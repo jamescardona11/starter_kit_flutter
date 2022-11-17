@@ -52,6 +52,7 @@ class DripCounterPage extends StatelessWidget {
               onPressed: () {
                 DripProvider.of<DripCounter>(context)
                     .dispatch(IncrementCountAction());
+                DripProvider.of<DripCounter>(context).freeze();
               },
               child: Icon(Icons.plus_one),
             ),

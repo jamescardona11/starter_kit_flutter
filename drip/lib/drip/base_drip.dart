@@ -5,12 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'drip_events.dart';
 
 abstract class Drip<DState> extends ChangeNotifier {
-  final StreamController<DripEvent> _eventController =
-      StreamController<DripEvent>();
-  late final StreamController<DState> _stateController;
-
-  late final DState _initialState;
-  late DState _state;
+  // =
 
   Drip(this._initialState) {
     _state = _initialState;
@@ -20,21 +15,19 @@ abstract class Drip<DState> extends ChangeNotifier {
 
     // I have the initialState in the DripBuilder
     // Add initialState in controller
-    // _stateController.add(_initialState);
+    _stateController.add(_initialState);
     // print('initialState: ');
   }
+  late final StreamController<DState> _stateController;
+  final StreamController<DripEvent> _eventController =
+      StreamController<DripEvent>();
+  late final DState _initialState;
+  late DState _state;
 
   Stream<DState> mutableStateOf(DripEvent event) async* {}
 
-  Stream<DState> transform(
-    Stream<DripEvent> events,
-    Stream<DState> Function(DripEvent event) next,
-  ) {
-    return events.asyncExpand(next);
-  }
-
   @protected
-  set state(DState state) {
+  void _setState(DState state) {
     if (_state != state) {
       _state = state;
       notifyListeners();
@@ -43,10 +36,9 @@ abstract class Drip<DState> extends ChangeNotifier {
 
   @protected
   void emit(DState newState) {
-    if (state == newState) return;
-
-    // state = newState;
-    dispatch(GenericStateChangeAction(newState));
+    if (state == newState || _stateController.isClosed) return;
+    _setState(newState);
+    _stateController.add(newState);
   }
 
   // @protected
@@ -60,29 +52,25 @@ abstract class Drip<DState> extends ChangeNotifier {
   }
 
   @mustCallSuper
-  void close() {}
+  void close() {
+    _stateController.close();
+    _eventController.close();
+  }
 
   void onError(Object err, StackTrace? stackTrace) {}
 
   void onEvent(DripEvent event) {}
 
   void _bindStateController() {
-    transform(
-      _eventController.stream,
-      (event) {
-        if (event is GenericStateChangeAction<DState>) {
-          return event.generic().handleError(onError);
-        } else if (event is DripAction<DState>) {
-          return event.call(state).handleError(onError);
-        } else {
-          return mutableStateOf(event).handleError(onError);
-        }
-      },
-    ).forEach((DState nextState) {
+    _eventController.stream.asyncExpand((event) {
+      if (event is DripAction<DState>) {
+        return event.call(state).handleError(onError);
+      } else {
+        return mutableStateOf(event).handleError(onError);
+      }
+    }).forEach((DState nextState) {
       if (_stateController.isClosed) return;
-
-      state = nextState;
-
+      _setState(nextState);
       _stateController.add(nextState);
     });
   }
