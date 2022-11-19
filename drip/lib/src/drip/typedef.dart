@@ -1,4 +1,4 @@
-import 'package:drip/drip/base_drip.dart';
+import 'package:drip/src/drip/base_drip.dart';
 import 'package:flutter/widgets.dart';
 
 typedef DCreate<D extends Drip> = D Function(BuildContext context);

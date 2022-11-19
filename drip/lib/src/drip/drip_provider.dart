@@ -1,4 +1,6 @@
-import 'package:drip/drip.dart';
+import 'package:drip/src/drip/base_drip.dart';
+import 'package:drip/src/drip/drip_events.dart';
+import 'package:drip/src/drip/typedef.dart';
 import 'package:flutter/widgets.dart';
 
 class DripProvider<D extends Drip> extends StatefulWidget {

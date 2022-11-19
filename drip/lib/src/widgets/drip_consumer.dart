@@ -1,4 +1,8 @@
-import 'package:drip/drip.dart';
+import 'package:drip/src/drip/base_drip.dart';
+import 'package:drip/src/drip/drip_provider.dart';
+import 'package:drip/src/drip/typedef.dart';
+import 'package:drip/src/widgets/drip_builder.dart';
+import 'package:drip/src/widgets/drip_listener.dart';
 import 'package:flutter/material.dart';
 
 //consider usign RX for sent last state subscription

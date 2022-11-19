@@ -1,6 +1,6 @@
-import 'package:drip/drip/base_drip.dart';
-import 'package:drip/drip/drip_provider.dart';
-import 'package:drip/drip/typedef.dart';
+import 'package:drip/src/drip/base_drip.dart';
+import 'package:drip/src/drip/drip_provider.dart';
+import 'package:drip/src/drip/typedef.dart';
 import 'package:flutter/material.dart';
 
 class DripBuilder<D extends Drip<DState>, DState> extends StatefulWidget {
