@@ -2,19 +2,19 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-/// ```
-/// BlurredContainer(
-///   width: 200,
-///   height: 200,
-///   opacity: 0.1,
-///   blur: 8,
-///   accentColor: Colors.pinkAccent,
-///   boxDecoration: BoxDecoration(
-///     borderRadius: BorderRadius.circular(20),
-///   ),
-///   child: const FlutterLogo(size: 100),
-/// )
-/// ```
+// ```
+// BlurredContainer(
+//   width: 200,
+//   height: 200,
+//   opacity: 0.1,
+//   blur: 8,
+//   accentColor: Colors.pinkAccent,
+//   boxDecoration: BoxDecoration(
+//     borderRadius: BorderRadius.circular(20),
+//   ),
+//   child: const FlutterLogo(size: 100),
+// )
+// ```
 
 class BlurredContainer extends StatelessWidget {
   const BlurredContainer({

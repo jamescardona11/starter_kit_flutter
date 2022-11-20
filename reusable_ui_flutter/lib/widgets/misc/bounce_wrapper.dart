@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-/// ```
-/// BounceWrapper(
-///   child: Container(
-///     width: 100,
-///     height: 40,
-///     color: Colors.amber,
-///     child: const Center(
-///       child: Text('Widget'),
-///     ),
-///   ),
-/// )
-/// ```
+// ```
+// BounceWrapper(
+//   child: Container(
+//     width: 100,
+//     height: 40,
+//     color: Colors.amber,
+//     child: const Center(
+//       child: Text('Widget'),
+//     ),
+//   ),
+// )
+// ```
 
 class BounceWrapper extends StatefulWidget {
   const BounceWrapper({

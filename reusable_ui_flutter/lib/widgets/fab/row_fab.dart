@@ -4,36 +4,36 @@ import 'package:reusable_ui_flutter/widgets/fab/common/fab_item.dart';
 // Internal dependencies
 // - FabElevenItem
 //
-/// ```
-/// floatingActionButton: RowFab(
-///   items: [
-///     FabElevenItem.row(
-///       onPressed: () {},
-///       icon: const Icon(
-///         Icons.home,
-///         color: Colors.white,
-///       ),
-///     ),
-///     FabElevenItem.row(
-///       onPressed: () {},
-///       icon: const Icon(
-///         Icons.favorite,
-///         color: Colors.white,
-///       ),
-///     ),
-///     FabElevenItem.row(
-///       onPressed: () {},
-///       icon: const Icon(
-///         Icons.person,
-///         color: Colors.white,
-///       ),
-///     ),
-///   ],
-///   color: Colors.pinkAccentAccent,
-///   elevation: 4,
-///   // heroTag: 'aswdw',
-/// ),
-/// ```
+// ```
+// floatingActionButton: RowFab(
+//   items: [
+//     FabElevenItem.row(
+//       onPressed: () {},
+//       icon: const Icon(
+//         Icons.home,
+//         color: Colors.white,
+//       ),
+//     ),
+//     FabElevenItem.row(
+//       onPressed: () {},
+//       icon: const Icon(
+//         Icons.favorite,
+//         color: Colors.white,
+//       ),
+//     ),
+//     FabElevenItem.row(
+//       onPressed: () {},
+//       icon: const Icon(
+//         Icons.person,
+//         color: Colors.white,
+//       ),
+//     ),
+//   ],
+//   color: Colors.pinkAccentAccent,
+//   elevation: 4,
+//   // heroTag: 'aswdw',
+// ),
+// ```
 
 class RowFab extends StatelessWidget {
   final List<FabElevenItem> items;

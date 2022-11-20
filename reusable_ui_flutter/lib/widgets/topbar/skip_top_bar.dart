@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-/// ```
-/// SkipTopBar(
-///   center: Text('Center widget'),
-///   onBackClick: () {},
-/// )
-/// ```
+// ```
+// SkipTopBar(
+//   center: Text('Center widget'),
+//   onBackClick: () {},
+// )
+// ```
 
 class SkipTopBar extends StatefulWidget {
   const SkipTopBar({

@@ -10,24 +10,24 @@ import 'bubble_selection_painter.dart';
 // - BottomBarController
 // - BubblePainter
 //
-///```
-/// bottomNavigationBar: BeeBottomBar(
-///   items: [
-///     BottomElevenItem(
-///       label: 'Home',
-///       icon: Icons.home,
-///     ),
-///     BottomElevenItem(
-///       label: 'Trending',
-///       icon: Icons.trending_up,
-///     ),
-///     BottomElevenItem(
-///       label: 'Search',
-///       icon: Icons.search,
-///     ),
-///   ],
-/// ),
-/// ```
+//```
+// bottomNavigationBar: BeeBottomBar(
+//   items: [
+//     BottomElevenItem(
+//       label: 'Home',
+//       icon: Icons.home,
+//     ),
+//     BottomElevenItem(
+//       label: 'Trending',
+//       icon: Icons.trending_up,
+//     ),
+//     BottomElevenItem(
+//       label: 'Search',
+//       icon: Icons.search,
+//     ),
+//   ],
+// ),
+// ```
 
 class BeeBottomBar extends StatefulWidget {
   const BeeBottomBar({

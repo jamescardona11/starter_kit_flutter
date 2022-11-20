@@ -1,4 +1,4 @@
-/// [flutter]
+// [flutter]
 import 'package:flutter/material.dart';
 
 import 'views/initial_step_view.dart';

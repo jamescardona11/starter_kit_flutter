@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-/// ```
-/// RightTriangleClipper()
-/// ```
+// ```
+// RightTriangleClipper()
+// ```
 class RightTriangleClipper extends StatelessWidget {
-  /// default constructor
+  // default constructor
   const RightTriangleClipper({
     Key? key,
   }) : super(key: key);

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // todo errors with height
-/// ```
-/// InputTextWidget(
-///   hint: 'Enter your email',
-///   leadingIconConfig: LeadingIconConfig(
-///     leadingIcon: Icons.mail,
-///   ),
-///   onChanged: (value) {},
-/// )
-/// ```
+// ```
+// InputTextWidget(
+//   hint: 'Enter your email',
+//   leadingIconConfig: LeadingIconConfig(
+//     leadingIcon: Icons.mail,
+//   ),
+//   onChanged: (value) {},
+// )
+// ```
 
 typedef InputTextWidgetValidator<T> = String? Function(T? value);
 

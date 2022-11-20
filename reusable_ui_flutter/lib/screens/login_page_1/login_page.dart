@@ -5,7 +5,7 @@ import 'package:reusable_ui_flutter/widgets/widgets.dart'
 import 'const.dart';
 
 class LoginPageV1 extends StatelessWidget {
-  /// default constructor
+  // default constructor
   const LoginPageV1({
     super.key,
   });

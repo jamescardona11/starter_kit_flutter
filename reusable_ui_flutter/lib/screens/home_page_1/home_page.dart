@@ -8,7 +8,7 @@ import 'package:reusable_ui_flutter/widgets/widgets.dart'
         LeadingIconConfig;
 
 class HomeBasicPage extends StatelessWidget {
-  /// default constructor
+  // default constructor
   const HomeBasicPage({
     super.key,
   });

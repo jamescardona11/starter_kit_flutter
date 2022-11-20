@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-/// ```
-/// SliderDots(
-///   totalSlides: 3,
-///   controller: controller,
-///   accentColor: Colors.grey,
-///   dotsSize: 12,
-///   dotsSpace: 5,
-///   primaryColor: Colors.pinkAccent,
-///   secondaryDotsSize: 15,
-/// )
-/// ```
+// ```
+// SliderDots(
+//   totalSlides: 3,
+//   controller: controller,
+//   accentColor: Colors.grey,
+//   dotsSize: 12,
+//   dotsSpace: 5,
+//   primaryColor: Colors.pinkAccent,
+//   secondaryDotsSize: 15,
+// )
+// ```
 
 // todo add click to slide
 class SliderDots extends StatefulWidget {

@@ -7,24 +7,24 @@ import 'common/bottom_item.dart';
 // - BottomElevenItem
 // - BottomBarController
 //
-///```
-/// bottomNavigationBar: FloatingBottomBar(
-///   items: [
-///     BottomElevenItem(
-///       label: 'Home',
-///       icon: Icons.home,
-///     ),
-///     BottomElevenItem(
-///       label: 'Trending',
-///       icon: Icons.trending_up,
-///     ),
-///     BottomElevenItem(
-///       label: 'Search',
-///       icon: Icons.search,
-///     ),
-///   ],
-/// ),
-/// ```
+//```
+// bottomNavigationBar: FloatingBottomBar(
+//   items: [
+//     BottomElevenItem(
+//       label: 'Home',
+//       icon: Icons.home,
+//     ),
+//     BottomElevenItem(
+//       label: 'Trending',
+//       icon: Icons.trending_up,
+//     ),
+//     BottomElevenItem(
+//       label: 'Search',
+//       icon: Icons.search,
+//     ),
+//   ],
+// ),
+// ```
 
 class FloatingBottomBar extends StatefulWidget {
   const FloatingBottomBar({

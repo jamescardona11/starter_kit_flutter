@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class IndexPage extends StatelessWidget {
-  /// default constructor
+  // default constructor
   const IndexPage({
     super.key,
   });
@@ -87,7 +87,7 @@ class IndexPage extends StatelessWidget {
 }
 
 class ScreenPage extends StatelessWidget {
-  /// default constructor
+  // default constructor
   ScreenPage({
     super.key,
   });
@@ -134,7 +134,7 @@ class ScreenPage extends StatelessWidget {
 }
 
 class WidgetsPage extends StatefulWidget {
-  /// default constructor
+  // default constructor
   const WidgetsPage({
     super.key,
   });

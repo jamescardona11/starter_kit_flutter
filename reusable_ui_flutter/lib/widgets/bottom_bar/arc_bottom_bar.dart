@@ -8,27 +8,27 @@ import 'common/bottom_item.dart';
 // - BottomBarController
 // - ArcBottomBarType
 //
-///```
-/// bottomNavigationBar: ArcBottomBar(
-///   items: [
-///     BottomElevenItem(
-///       label: 'Home',
-///       icon: Icons.home,
-///     ),
-///     BottomElevenItem(
-///       label: 'Trending',
-///       icon: Icons.trending_up,
-///     ),
-///     BottomElevenItem(
-///       label: 'Search',
-///       icon: Icons.search,
-///     ),
-///   ],
-///   onItemSelected: (index) {
-///     print(index);
-///   },
-/// ),
-/// ```
+//```
+// bottomNavigationBar: ArcBottomBar(
+//   items: [
+//     BottomElevenItem(
+//       label: 'Home',
+//       icon: Icons.home,
+//     ),
+//     BottomElevenItem(
+//       label: 'Trending',
+//       icon: Icons.trending_up,
+//     ),
+//     BottomElevenItem(
+//       label: 'Search',
+//       icon: Icons.search,
+//     ),
+//   ],
+//   onItemSelected: (index) {
+//     print(index);
+//   },
+// ),
+// ```
 
 enum ArcBottomBarType {
   lightIcon,
