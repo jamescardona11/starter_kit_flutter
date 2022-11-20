@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pocket/src/adapter/i_pocket_adapter.dart';
 import 'package:pocket/src/adapter/query_filter.dart';
 import 'package:pocket/src/dto/adapter_dto.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
+import 'package:sembast_web/sembast_web.dart';
 
 class SembastPocket implements IPocketAdapter {
   SembastPocket._(this._db);
@@ -33,10 +35,17 @@ class SembastPocket implements IPocketAdapter {
     if (_completer == null) {
       final Completer<SembastPocket> completer = Completer<SembastPocket>();
       try {
-        final pathName = await _getDBPathWithName(name);
+        late Database db;
+        if (kIsWeb) {
+          final factory = databaseFactoryWeb;
+          db = await factory.openDatabase(name);
+        } else {
+          final pathName = await _getDBPathWithName(name);
 
-        DatabaseFactory dbFactory = databaseFactoryIo;
-        Database db = await dbFactory.openDatabase(pathName, version: 1);
+          DatabaseFactory dbFactory = databaseFactoryIo;
+          db = await dbFactory.openDatabase(pathName, version: 1);
+        }
+
         _sembastPocket = SembastPocket._(db);
         completer.complete(_sembastPocket!);
       } on Exception catch (e) {
