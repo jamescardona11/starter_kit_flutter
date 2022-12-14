@@ -8,12 +8,17 @@ abstract class DripAction<DState> extends DripEvent {
   Stream<DState> call(DState state);
 }
 
-// class GenericStateChangeAction<DState> extends DripEvent {
-//   const GenericStateChangeAction(this.newState);
+class GenericStateChangeAction<DState> extends DripAction<DState> {
+  const GenericStateChangeAction(this.newState);
 
-//   final DState newState;
+  final DState newState;
 
-//   Stream<DState> generic() async* {
-//     yield newState;
-//   }
-// }
+  // Stream<DState> generic() async* {
+  //   yield newState;
+  // }
+
+  @override
+  Stream<DState> call(DState state) async* {
+    yield newState;
+  }
+}

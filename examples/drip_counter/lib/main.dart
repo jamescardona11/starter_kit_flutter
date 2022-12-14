@@ -30,7 +30,15 @@ class DripCounterPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DripBuilder<DripCounter, DripCounterState>(
-              streamListener: false,
+              streamListener: true,
+              builder: (context, state) => Text('Counter: ${state.count}'),
+            ),
+            DripListener<DripCounter, DripCounterState>(
+              listener: (context, state) {},
+              child: Text('Listener'),
+            ),
+            DripConsumer<DripCounter, DripCounterState>(
+              listener: (context, state) {},
               builder: (context, state) => Text('Counter: ${state.count}'),
             ),
             SizedBox(height: 20),
@@ -52,7 +60,6 @@ class DripCounterPage extends StatelessWidget {
               onPressed: () {
                 DripProvider.of<DripCounter>(context)
                     .dispatch(IncrementCountAction());
-                DripProvider.of<DripCounter>(context).freeze();
               },
               child: Icon(Icons.plus_one),
             ),

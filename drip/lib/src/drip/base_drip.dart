@@ -26,7 +26,6 @@ abstract class Drip<DState> extends ChangeNotifier {
 
   Stream<DState> mutableStateOf(DripEvent event) async* {}
 
-  @protected
   void _setState(DState state) {
     if (_state != state) {
       _state = state;
@@ -38,7 +37,8 @@ abstract class Drip<DState> extends ChangeNotifier {
   void emit(DState newState) {
     if (state == newState || _stateController.isClosed) return;
     _setState(newState);
-    _stateController.add(newState);
+    // _stateController.add(newState);
+    dispatch(GenericStateChangeAction(newState));
   }
 
   // @protected
