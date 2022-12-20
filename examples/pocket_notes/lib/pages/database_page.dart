@@ -118,7 +118,7 @@ class _DatabasePageState extends State<DatabasePage> {
     await SembastPocket.instance().create(
       table: tableName,
       item: AdapterDto(
-        DateTime.now().millisecondsSinceEpoch.toString(),
+        'DateTime.now().millisecondsSinceEpoch.toString()',
         {'note': controller.text},
       ),
     );
